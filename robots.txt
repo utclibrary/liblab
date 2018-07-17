@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /c4l-cha/
+Disallow: /databases/
+Disallow: /images/
+Disallow: /includes/
+Disallow: /scripts/
+Disallow: /templates/
