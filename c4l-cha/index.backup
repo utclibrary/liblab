@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Code4Lib - Chattanooga</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/clean-blog.css" rel="stylesheet">
+    <link href="css/chatype.css" type="text/css" rel="stylesheet" charset="utf-8" />
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<!--
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+-->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <!-- Navigation -->
+<!--
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+-->
+            <!-- Brand and toggle get grouped for better mobile display -->
+<!--
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/c4l-cha/">Chattanooga 2017 | Code4lib National Conference Proposal</a>
+            </div>
+-->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+<!--
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="post.html">Sample Post</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                </ul>
+
+            </div>
+-->
+            <!-- /.navbar-collapse -->
+<!--
+        </div>
+-->
+        <!-- /.container -->
+<!--
+    </nav>
+-->
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('img/home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Chattanooga 2017</h1>
+                        <hr class="small">
+                        <span class="subheading">Code4lib National Conference Proposal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="post-preview">
+                        <h2 class="post-title">
+                            Why Chattanooga?
+                        </h2>
+                        <!--
+                        <h3 class="post-subtitle">
+                            Gig City has it all
+                        </h3>
+                      -->
+                    <p class="post-meta">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut diam a metus imperdiet dapibus accumsan sed quam. Vestibulum nisi tellus, molestie vitae posuere eget, rhoncus vel enim. In at pretium ex, non tristique lacus. Nam quam libero, tempor in odio vitae, faucibus gravida lectus. Integer ex augue, elementum at congue a, volutpat porta felis. Integer consequat et est id maximus. Nullam convallis lorem ut ex ultricies, nec lobortis augue elementum. Proin auctor vulputate dignissim. Etiam mattis quam in dolor ultrices gravida. Nunc varius velit mi, ac dictum sem cursus sit amet. Sed in arcu urna. Integer euismod felis non ligula ullamcorper, a dictum turpis dignissim. Praesent quis nibh in augue varius vestibulum vitae non est.</p>
+<p class="post-meta">
+  <!--
+  <em>embed our custom map here</em>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+  <div style="overflow:hidden;width:95%;padding-left:5%;">
+  <div id="gmap_canvas" style="height:500px;width:95%;"></div><style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
+  </div>
+  <script type="text/javascript"> function init_map(){var myOptions = {zoom:14,center:new google.maps.LatLng(35.0456297,-85.30968009999998),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(35.0456297, -85.30968009999998)});infowindow = new google.maps.InfoWindow({content:"<b>Chattanooga</b><br/><br/> Chattanooga" });google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>
+-->
+<div style="overflow:hidden;width:95%;padding-left:5%;">
+<iframe src="https://www.google.com/maps/d/embed?mid=zOu4AK4RRr84.kKmAEy6BqIU0" width="95%" height="480"></iframe>
+</div>
+</p>
+</div>
+<hr>
+
+                <div class="post-preview">
+                        <h2 class="post-title">
+                            Financial Sketch
+                        </h2>
+                        <!--
+                        <h3 class="post-subtitle">
+                            Gig City has it all
+                        </h3>
+                      -->
+                    <p class="post-meta">[short paragraph, with bullet points for expected registration fee, hotel rates, and total attendee numbers]</p></div>
+                <hr>
+                <div class="post-preview">
+                        <h2 class="post-title">
+                            Ideas: New and Mature
+                        </h2>
+                        <!--
+                        <h3 class="post-subtitle">
+                            Gig City has it all
+                        </h3>
+                      -->
+                    <p class="post-meta">[bullet point list about how this conference might be new and different compared to previous c4l conferences, as well as what might stay the same. also includes info about venues that might host the conference.]
+                    </p></div>
+<hr>
+<div class="post-preview">
+  <h2 class="post-title">Calendar</h2>
+  <p class="post-meta">[sentence about possible timeframe for conference]</p></div>
+  <hr>
+<div class="post-preview">
+  <h2 class="post-title">Transportation</h2>
+  <p class="post-meta">
+    <h3>Air</h3>
+      <ul>
+          <li>CHA - Chattanooga Airport</li>
+          <li>Atlanta, GA - 9 Daily via Delta.</li>
+          <li>Charlotte, NC - 6 Daily via American Airlines.</li>
+          <li>Chicago, IL - 1 Daily via American Eagle.</li>
+          <li>Dallas, TX - 2 Daily via American Eagle.</li>
+          <li>Detroit, MI - 2 Daily via Delta.</li>
+          <li>Orlando, FL - 2 Weekly via Allegiant.</li>
+          <li>Washington, DC - 1 Daily via American Airlines.</li>
+        </ul>
+    <h3>Ground Transport:</h3>
+      <h4>Car Rentals</h4>
+        <ul>
+          <li>Avis	(423) 855-2232</li>
+          <li>Budget	(423) 855-2224</li>
+          <li>Enterprise	(423) 855-2288</li>
+          <li>Hertz	(423) 855-8131</li>
+          <li>National	(423) 855-2229</li>
+          <li>Thrifty/Dollar 	(423) 855-2277*Thrifty/Dollar is located off-site. They will send a shuttle to pick you up from the airport.</li>
+        </ul>
+      <h4>Taxi and Limousine Service</h4>
+        <ul>
+          <li>Blue Ridge Limousine	(423) 902-6181 or (423) 304-5878</li>
+          <li>Checker Cab	(423) 553-1598</li>
+          <li>Mercury Cab	(423) 624-1084</li>
+          <li>Millennium Taxi	(423) 267-2008</li>
+          <li>Nation Taxi	(423) 987-9918</li>
+        </ul>
+      <h4>Shuttle Services</h4>
+        <ul>
+          <li>Wingate by Wyndham Chattanooga	Hamilton Place Mall	(423) 893-7400</li>
+          <li>Holiday Inn Choo Choo	Downtown	(423) 266-5000</li>
+          <li>Millennium Transportation	Downtown	(423) 267-2008</li>
+        </ul>
+    </p>
+</div>
+<hr>
+<div class="post-preview">
+  <h2 class="post-title">Entertainment</h2>
+  <p class="post-meta">
+    <h3>Art &amp; Museums</h3>
+    <h3>Historic Libraries</h3>
+    <h3>Restaurants</h3>
+    <h3>Beer</h3>
+    <h3>Music</h3>
+    <h3>Tech</h3>
+    <h3>History</h3>
+    <h3>Outdoor Recreation</h3>
+  </p>
+</div>
+<hr>
+<div class="post-preview">
+  <h2 class="post-title">Proposal Committee</h2>
+    <p class="post-meta">
+      <ul>
+        <li>Galen Charlton</li>
+        <li>Wendy Hagenmaier</li>
+        <li>Christina Harlow</li>
+        <li>Mary Jinglewski</li>
+        <li>Sarah Melton</li>
+        <li>Brian Rogers</li>
+        <li>Andrea Schurr</li>
+        <li>Steven Shelton</li>
+      </ul>
+    </p>
+</div>
+<hr>
+<div class="post-preview">
+  <h2 class="post-title">Host Institutions</h2>
+    <p class="post-meta">[bullet list]</p></div>
+<hr>
+</div>
+</div>
+</div>
+
+<hr>
+  <!-- Footer -->
+    <footer>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+<li><a href="http://chatype.com/">Chattanooga, a type unto ourselves</a></li>
+<hr/>
+<li><div xmlns:dc="http://purl.org/dc/terms/" xmlns:cc"http://creativecommons.org/#ns" about="https://www.flickr.com/photos/bryce_edwards/2094119137/in/photolist-4c3UEn-iGAvHM-a4yY5-5ceSmo-bvAsby-9FMJ7f-8hixP9-7FAGAX-9sVZKj-s4ifjh-fNGvu7-5kiasg-5camYZ-Fo4b-qBmzN1-fPW2B3-5carEK-5Ngcq8-5ceSms-keUkV-PCZVQ-PPz6t-4Mf2HK-ocsX5a-85wEqq-8hirgG-cwFfB3-duRJzW-gAHj5-hLq1wh-Cs5bsW-dCQ35k-jRHX66-vCGKAb-8gQ23B-aT1BbT-ow62Ch-8iPrCN-dyM11E-osaA9a-e8TdLj-9sVZio-aEsPJf-aEsH25-aEoQqn-aEoUNK-aEp3Nk-9Z5yKP-8htDfw-4sxbcr"><span property="dct:title">John Ross Bridge | Flickr - Photo Sharing! | </span><a rel="cc:attributionName" href="undefined" target="_blank">Bryce Edwards</a> | <a rel="license" target="_blank" href="https://creativecommons.org/licenses/by/2.0/"> Attribution 2.0 Generic /  CC BY 2.0 </a></div>
+</li>
+                    </ul>
+                    <!--
+                    <p class="copyright text-muted">Copyright &copy; Your Website 2014</p>
+                  -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+</html>
