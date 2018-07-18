@@ -147,6 +147,7 @@ ul.s-lg-link-list li:hover{
 $addfoot = "<script type='text/javascript' src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
       		<script type='text/javascript'>
+          //<![CDATA[
 	$('#search-highlight').hideseek({
   		highlight: true,
 		nodata: 'No results found'
@@ -186,6 +187,11 @@ console.log('who clicked that');
     press.which = 8;
     $('#search-highlight').trigger(press);
 }
+/* reload page on select */
+$( '#subject-select' ).change(function() {
+  window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#subject-select').val();
+ });
+//]]>
 </script>";
 //show or hide help button
 $help = "show";
@@ -275,10 +281,14 @@ $resultSL = mysqli_query($con , "set names 'utf8'");
 $resultSL = mysqli_query($con , $querySubjectList) or die($error);
   echo "<div class='clearfix'>";
 if ($alpha === "ALL"){
-echo "<select>
+echo "<select id='subject-select'>
         <option>Limit by Subject</option>";
   while($row = mysqli_fetch_array($resultSL)){
-    echo "<option>".$row['Subject']."</option>";
+    echo "<option";
+    if ($subj === $row['Subject']){
+      echo " selected='selected' ";
+    }
+    echo">".$row['Subject']."</option>";
   }
   echo "</select>";
 }
