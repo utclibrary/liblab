@@ -60,4 +60,126 @@ if (window.location.href.indexOf("test.utc.edu") > -1) {
 	$("#dev-environment").show();
 };
 </script>
-<?php print $addfoot; ?>
+<?php print $addfoot;
+if ($help === "show"){
+  echo "<style><!--
+#sidemenu a.accordion-toggle:not(.collapsed){
+  background-color: #D9D9D9;
+}
+#sidemenu ul > li.spacer {
+    background-color: #d6dfe8;
+    padding: 0px 13px;
+    font-style: italic;
+}
+#sidemenu ul.nav-department > li.active > a {
+    text-shadow: none;
+    background-color: #ADAFAA;
+    color: white;
+}
+#libraryh3lp:hover {
+	background-color:#E0AA0F;
+}
+#libraryh3lp:hover a{
+		padding-bottom:10px;
+		}
+#libraryh3lp:hover i{
+	color:#781e1e;
+		}
+#libraryh3lp a{
+	text-decoration: none;
+	color: white;
+	}
+#libraryh3lp i{
+	color:#E0AA0F;
+	}
+#libraryh3lp {
+    border: 1px solid whitesmoke;
+		 right: 0;
+   -webkit-transform-origin: 100% 50%;
+      -moz-transform-origin: 100% 50%;
+       -ms-transform-origin: 100% 50%;
+        -o-transform-origin: 100% 50%;
+           transform-origin: 100% 50%;
+   -webkit-transform: rotate(270deg) translate(50%, 50%);
+      -moz-transform: rotate(270deg) translate(50%, 50%);
+       -ms-transform: rotate(270deg) translate(50%, 50%);
+        -o-transform: rotate(270deg) translate(50%, 50%);
+           transform: rotate(270deg) translate(50%, 50%);
+	box-shadow: 0 2px 4px rgba(0,0,0,.4), 0 4px 8px rgba(0,0,0,.15);
+    background: #781e1e;
+    border-radius: .5em .5em 0 0 ;
+    -moz-border-radius: .5em .5em 0 0 ;
+    -webkit-border-radius: .5em .5em 0 0 ;
+    bottom: 50%;
+    color: white;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 150%;
+    padding: 5px 20px 5px 20px;
+    position: fixed;
+    text-align: center;
+    z-index: 1000;
+    right: 40px;
+}
+--></style>
+<div id='libraryh3lp'><a href='https://www.utc.edu/library/help'><i class='icon-comment' aria-hidden='true'><!-- comment icon --></i> Get Help</a></div>
+<!-- side menu tweaks -->
+<script type='text/javascript'>// <![CDATA[
+$( document ).ready(function() {
+    $('ul.breadcrumb li:eq(1)').hide();
+	  $('ul.breadcrumb li:eq(1)').next('span').hide();
+    $('ul.breadcrumb li:eq(2)').hide();
+	  $('ul.breadcrumb li:eq(2)').next('span').hide();
+
+      $( '#sidenav01 .collapsed' ).click(function() {
+        var sideMenuLink = $(this).next('ul').find('li:first').find('a').attr('href');
+        var delay = 250;
+		var sideMenuLink = $(this).next('ul').find('li:first').find('a').attr('href');
+			setTimeout(function() {
+          		if (sideMenuLink[0] == '/') {
+              		window.location.href = sideMenuLink;
+          		}
+			}, delay);
+      });
+/* remove scroll
+var nav = $('.content');
+if (nav.length) {
+	$('html, body').animate({
+        scrollTop: nav.offset().top-100
+    }, 250);
+}
+*/
+  });
+  /* captures scroll position to preserve for page reload */
+document.addEventListener('DOMContentLoaded', function() {
+    if(typeof(Storage) !== 'undefined') {
+        // See if there is a scroll pos and go there.
+        var lastYPos = +localStorage.getItem('scrollYPos');
+        if (lastYPos) {
+            window.scrollTo(0, lastYPos);
+        }
+
+        // On navigating away first save the position.
+        var anchors = document.querySelectorAll('a.collapsed');
+
+        var onNavClick = function() {
+            localStorage.setItem('scrollYPos', window.scrollY);
+        };
+
+        for (var i = 0; i < anchors.length; i++) {
+            anchors[i].addEventListener('click', onNavClick);
+        }
+    }
+	// Clear stored position on any other click
+var anchorsOther = document.querySelectorAll('a:not(.collapsed)');
+        var onOtherClick = function() {
+            localStorage.setItem('scrollYPos', 0);
+        };
+
+        for (var i = 0; i < anchorsOther.length; i++) {
+            anchorsOther[i].addEventListener('click', onOtherClick);
+        }
+});
+// ]]></script>";
+}
+?>

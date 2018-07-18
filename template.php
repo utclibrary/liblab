@@ -10,9 +10,14 @@ $override_side_menu="NO";
 //in case you need to add anything in the head or footer
 $addhead = "";
 $addfoot = "";
-//show nav menu ?
-$navmenu = Y;
-// show well on right
+//show or hide help button
+$help = "show";
+//show nav menu - left navigation menu Y or N
+$navmenu = "N";
+/*if right column is added set the following variable so that we can adjust the content width
+set to 0 if no right menu
+set to 3 and modify the content of the $rightmenu var
+*/
 $rightmenu = 3;
 include(dirname(__FILE__)."/includes/head.php");
 ?>
@@ -27,7 +32,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum 
 //this is where the content goes for the right menu could also use
  if ($rightmenu==3){?>
  </div> <!-- close content div -->
- <div class="span3 sidebar">
+ <div class="span3 sidebar" style="float: right;margin-left: 0;">
  <div class="sidebar well">
 <h2 class="welltopperGold" style="font-size: 24px;">Need More Help?</h2>
 <h3>Call</h3>

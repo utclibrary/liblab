@@ -140,7 +140,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                </div>
             </div>
          </div>
-		          <div class="container">
+<div class="container">
 <?php
 //check if section ~ left/nav menu is enabled
 if ($navmenu=="Y") {
@@ -182,16 +182,16 @@ foreach ($scanned_directory as &$value) {
 <div id="content" class="span<?php print (9-$reduceby);?> content">
 <?php
 } else {
-	if ($rightmenu==3){$reduceby=4;}else{$reduceby=0;}
+	if ($rightmenu==3){$reduceby=3;}else{$reduceby=0;}
 ?>
 <!-- Breadcrumbs================================================== -->
 <ul class="breadcrumb" data-original-title="breadcrumb"></ul>
 <div id="wrap" class="row-fluid wrap">
 <extranavs>
 </extranavs>
-</div>
+
 <!--/span3 column-->
-<div id="content" class="span<?php print (12-$reduceby);?> content">
+<div id="content" class="span<?php print (12-$reduceby);?> content" style="padding-right: 30px;">
 <?php
 }
 //get current directory name

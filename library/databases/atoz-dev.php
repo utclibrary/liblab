@@ -187,6 +187,8 @@ console.log('who clicked that');
     $('#search-highlight').trigger(press);
 }
 </script>";
+//show or hide help button
+$help = "show";
 /*if right column is added set the following variable so that we can adjust the content width
 set to 0 if no right menu
 set to 3 and modify the content of the
@@ -344,7 +346,7 @@ mysqli_close($con);
 //this is where the content goes for the right menu could also use
  if ($rightmenu==3){?>
  </div> <!-- close content div -->
- <div class="span3 sidebar" style="margin-top:3%;">
+ <div class="span3 sidebar" style="float: right;margin-left: 0;">
  <div class="sidebar well">
 <h2 class="welltopperGold" style="font-size: 24px;">New Databases</h2>
 <?php echo file_get_contents('https://www5.utc.edu/databases/LGSubject.php?sub=NEW');?>

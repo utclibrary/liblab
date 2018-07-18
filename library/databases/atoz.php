@@ -6,7 +6,7 @@ $title = "A to Z Databases | UTC Library";
 $description = "A to Z list of databases available at UTC Library";
 $keywords = "databases";
 //do you want to override the folder structure for menu? (default is NO)
-$override_side_menu="YES";
+$override_side_menu="NO";
 //in case you need to add anything in the head or footer
 $addhead = "<style>
 span.subjects{
@@ -167,11 +167,13 @@ console.log('who clicked that');
     $('#search-highlight').trigger(press);
 }
 </script>";
+//show or hide help button
+$help = "show";
 /*if right column is added set the following variable so that we can adjust the content width
 set to 0 if no right menu
 set to 3 and modify the content of the
 */
-$rightmenu=0;
+$rightmenu=3;
 /* switch leftmenu on or off Y or N*/
 $navmenu="N";
 include("/var/www/html/includes/head.php");
@@ -245,7 +247,7 @@ else{
 }
 echo "<a href='".$currentFile."?alpha=".$column."'> ".$column." </a></li>";
 }
-echo "</ul></div>";
+echo "</ul>";
 // get a list of current subjects - dev????
 /*$querySubjectList = " SELECT SubjectList.Subject
 FROM LuptonDB.SubjectList
@@ -325,7 +327,7 @@ mysqli_close($con);
 //this is where the content goes for the right menu could also use
  if ($rightmenu==3){?>
  </div> <!-- close content div -->
- <div class="span3 sidebar">
+ <div class="span3 sidebar" style="float: right;margin-left: 0;">
  <div class="sidebar well">
 <h2 class="welltopperGold" style="font-size: 24px;">Need More Help?</h2>
 <h3>Call</h3>
