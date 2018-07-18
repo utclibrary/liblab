@@ -35,7 +35,9 @@ ini_set('display_errors', 1);
   <![endif]-->
 <link rel="shortcut icon" href="https://www.utc.edu/favicon.ico?v=2" type="image/x-icon" />
 <link rel="apple-touch-icon" href="https://www.utc.edu/apple-touch-icon.png?v=2" />
+<!--
 <link rel="stylesheet" type="text/css" href="https://www.utc.edu/includes/print.css">
+-->
 <script>document.cookie='resolution='+Math.max(screen.width,screen.height)+("devicePixelRatio" in window ? ","+devicePixelRatio : ",1")+'; path=/';</script>
 <script>(function(){"use strict";var c=[],f={},a,e,d,b;if(!window.jQuery){a=function(g){c.push(g)};f.ready=function(g){a(g)};e=window.jQuery=window.$=function(g){if(typeof g=="function"){a(g)}return f};window.checkJQ=function(){if(!d()){b=setTimeout(checkJQ,100)}};b=setTimeout(checkJQ,100);d=function(){if(window.jQuery!==e){clearTimeout(b);var g=c.shift();while(g){jQuery(g);g=c.shift()}b=f=a=e=d=window.checkJQ=null;return true}return false}}})();</script>
 <meta name=”twitter:site” content=”@UTChattanooga”>
