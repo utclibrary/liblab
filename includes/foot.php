@@ -56,8 +56,14 @@
 <!-- Document Ready scripts for all pages -->
 <script type="text/javascript" src="//www.utc.edu/_resources/Kickstrap/apps/thememain/main.js"></script>
 <script type="text/javascript">
-if ((window.location.href.indexOf("test.utc.edu") > -1)||(window.location.href.indexOf("192.168.33.10") > -1)) {
+if (window.location.href.indexOf("test.utc.edu") > -1) {
 	$("#dev-environment").show();
+};
+if (window.location.href.indexOf("192.168.33.10") > -1) {
+	$("#dev-environment").show();
+  $('#dev-environment').removeClass('alert-info');
+  $('#dev-environment').addClass('alert-danger');
+  $('#dev-environment').html('| <strong>LOCAL DEV</strong> environment | ');
 };
 </script>
 <?php print $addfoot;
