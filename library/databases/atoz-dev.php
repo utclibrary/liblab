@@ -6,7 +6,7 @@ $title = "A to Z Databases Dev | UTC Library";
 $description = "Full A to Z list of databases available at the UTC Library";
 $keywords = "databases";
 //do you want to override the folder structure for menu? (default is NO)
-$override_side_menu="YES";
+$override_side_menu="NO";
 //in case you need to add anything in the head or footer
 $addhead = "<style>
 span.subjects{
@@ -58,9 +58,17 @@ input#search-highlight {
     display: none;
 }
 	}
-input#search-highlight{
-	width:50%;
-	}
+  input#search-highlight {
+    margin-right: 2em;
+      /*width: -webkit-fill-available;
+      width: -moz-available;*/
+      font-size: 1.25em;
+      height: auto;
+      line-height: 2em;
+  }
+  input#search-highlight.hidden {
+      display: none;
+  }
 #search-highlight::-ms-clear {
     display: none;
 }
@@ -143,6 +151,70 @@ ul.s-lg-link-list li:hover{
   background-color: whitesmoke;
   box-shadow: 0 0 5px 5px whitesmoke;
 }
+/*
+#subject-select{
+  font-size:1.5em;
+  height:auto;
+  width:auto;
+}*/
+#subject-select{
+  /* styling */
+  height: auto;
+    font-size: 1.125em;
+    width: auto;
+  background-color: white;
+  border: thin solid blue;
+  border-radius: 4px;
+  display: inline-block;
+  line-height: 1.5em;
+  padding: 0.5em 3.5em 0.5em 1em;
+
+  /* reset */
+
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+}
+
+#subject-select:focus {
+  background-image:
+    linear-gradient(45deg, green 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, green 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+  border-color: green;
+  outline: 0;
+}
+#subject-select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
 </style>";
 $addfoot = "<script type='text/javascript' src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
@@ -168,6 +240,21 @@ $(document).on('input', '.clearable', function(){
 	console.log('field cleared');
 	resetsearch();
 });
+/* toggle search button */
+/*
+$( '#searchbutton' ).toggle(function() {
+  console.log( 'First' );
+  $('#searchbox').slideUp();
+  $('#searchbox').focus();
+  $('#alphlist li:not(:first);
+  $('#subject-select').hide();
+}, function() {
+  console.log( 'Second' );
+  $('#searchbox').slideDown();
+  $('#alphlist li:not(:first);
+  $('#subject-select').show();
+});
+*/
 });
 function resetsearch() {
 console.log('who clicked that');
@@ -205,7 +292,6 @@ $navmenu="N";
 include("/var/www/html/includes/head.php");
 ?>
 <!-- Insert content here BEGIN -->
-<h1>A to Z Databases Demo</h1>
 <?php
 // Get current file name and directory to use in links
 $currentFile = $_SERVER['PHP_SELF'];
@@ -213,13 +299,18 @@ $lastletter = "";
 $error = "";
 // connect to database
 require_once '/var/www/html/includes/dbconnect.php';
-$subj = "";
 $alpha = "ALL";
 $queryKey = "";
 $queryKeySubj = "";
 if(isset($_GET["subj"])){
-$subj = $_GET["subj"];
-$queryKeySubj="AND SubjectList.Subject = \"".$subj."\" ";
+$subj = htmlentities($_GET["subj"]);
+$subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
+$queryKeySubj="AND SubjectList.Subject LIKE \"".$subject."\" ";
+echo "<style>h2.badge,span.subjects{display:none;}</style>";
+$orderby = "DBRanking.Ranking";
+}else{
+  $subj = "A to Z";
+  $orderby = "Dbases.Title";
 }
 if(isset($_GET["alpha"])){
 $alpha = $_GET["alpha"];
@@ -233,6 +324,7 @@ elseif ($alpha === "ALL"){
 else{
 	$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
 }
+echo "<h1>$subj Databases</h1>";
 //check for alpha in db
 $alphaListFull="";
 $queryAlpha = "SELECT DISTINCT
@@ -244,7 +336,8 @@ while($row = mysqli_fetch_array($alphaList))
 {
 	$alphaListFull .= $row['letter'];
 }
-echo " <div id='alpha' class='fluid-row'><ul class='nav nav-pills'>";
+echo " <div id='alpha' class='fluid-row'>
+<ul id='alphlist' class='nav nav-pills'>";
 if ($alpha === "ALL"){
 	echo "<li class='active'>";
 }
@@ -271,10 +364,12 @@ else{
 }
 echo "<a href='".$currentFile."?alpha=".$column."'> ".$column." </a></li>";
 }
-echo "</ul></div>";
+echo "
+</ul>
+    </div>";
 // get a list of current subjects - still working on this????
 $querySubjectList = " SELECT SubjectList.Subject
-FROM LuptonDB.SubjectList
+FROM LuptonDB.SubjectList WHERE SubjectList.NotSubjectList = 0
 ";
 //echo $querySubjectList;
 $resultSL = mysqli_query($con , "set names 'utf8'");
@@ -285,32 +380,35 @@ echo "<select id='subject-select'>
         <option>Limit by Subject</option>";
   while($row = mysqli_fetch_array($resultSL)){
     echo "<option";
-    if ($subj === $row['Subject']){
+    if (strpos($row['Subject'],$subj) === 0) {
       echo " selected='selected' ";
     }
     echo">".$row['Subject']."</option>";
   }
-  echo "</select>";
+  echo "</select>
+  <span id='searchbox'>
+  <label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
+    	<input id='search-highlight' class='clearable pull-right' autocomplete='off' name='search-highlight' type='text' placeholder='Type here to search page' data-list='.highlight_list'></span><!--
+      <button id='searchbutton' class='btn btn-primary'><i class='icon-search'><span class='hidden'>UTC Home</span></i></button> -->";
 }
-echo"<label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
-  	<input id='search-highlight' class='clearable pull-right' autocomplete='off' name='search-highlight' type='text' placeholder='Type here to search page' data-list='.highlight_list'>
-  </div>";
-$query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL,
+echo"</div>";
+
+$query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst,
 GROUP_CONCAT( SubjectList.Subject SEPARATOR ', ') AS Subjects
 					FROM Dbases
           LEFT JOIN LuptonDB.DBRanking
           ON Dbases.Key_ID = DBRanking.Key_ID
           LEFT JOIN LuptonDB.SubjectList
           ON DBRanking.Subject_ID = SubjectList.Subject_ID
-					WHERE Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKey.$queryKeySubj.
+					WHERE SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKey.$queryKeySubj.
           "GROUP BY Title
-          ORDER by Dbases.Title";
-//echo "diag<hr />".$query."<hr /><br />";
+          ORDER by ".$orderby;
+//echo "diag<hr />".$query."<hr /><br />subject = $subject";
 $result = mysqli_query($con , "set names 'utf8'");
 $result = mysqli_query($con , $query) or die($error);
 echo "<div class='highlight_list'>";
 if (!mysqli_num_rows($result)){
-echo "There are no databases meeting the parameters:<br/>alpha=$alpha";
+echo "No results";
 }
 else
 {
@@ -321,7 +419,11 @@ $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
 	    echo '<h2 id="Letter' . $currentletter .  '" class="badge badge-info">' . $currentletter . '</h2>';
 	    $lastletter = $currentletter;
 	}
-	echo "<div class='dbItem'><strong><a href='";
+	echo "<div class='dbItem'><strong>";
+  if ((!empty($row['TryTheseFirst']))&&($subj != "A to Z")){
+  echo "<span class='badge badge-primary pull-right'>Best Bet</span>";
+  }
+  echo "<a href='";
   if (!empty($row['ShortURL'])){
 	echo "https://www.utc.edu/" . $row['ShortURL'];
   }
