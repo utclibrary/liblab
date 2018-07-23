@@ -21,6 +21,8 @@ $addfoot = "
    $( '.date-field' ).datepicker();
  });
  </script>";
+ //show or hide help button
+ $help = "show";
 $rightmenu=0;
 /*if right column is added set the following variable so that we can adjust the content width
 set to 0 if no right menu
