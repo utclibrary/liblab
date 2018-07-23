@@ -214,7 +214,11 @@ ul.s-lg-link-list li:hover{
   color: transparent;
   text-shadow: 0 0 0 #000;
 }
-
+div.dbItem.alert-info{
+  margin: 0.75em 0;
+  border-bottom: 0px;
+  border-radius: 10px;
+}
 </style>";
 $addfoot = "<script type='text/javascript' src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
@@ -369,7 +373,7 @@ echo "
     </div>";
 // get a list of current subjects - still working on this????
 $querySubjectList = " SELECT SubjectList.Subject
-FROM LuptonDB.SubjectList WHERE SubjectList.NotSubjectList = 0
+FROM LuptonDB.SubjectList WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Format = 0 ORDER BY SubjectList.Subject
 ";
 //echo $querySubjectList;
 $resultSL = mysqli_query($con , "set names 'utf8'");
@@ -386,14 +390,16 @@ echo "<select id='subject-select'>
     echo">".$row['Subject']."</option>";
   }
   echo "</select>
-  <span id='searchbox'>
-  <label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
+  <span id='searchbox'>";
+if ($subj === "A to Z"){
+  echo"<label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
     	<input id='search-highlight' class='clearable pull-right' autocomplete='off' name='search-highlight' type='text' placeholder='Type here to search page' data-list='.highlight_list'></span><!--
       <button id='searchbutton' class='btn btn-primary'><i class='icon-search'><span class='hidden'>UTC Home</span></i></button> -->";
+    }
 }
 echo"</div>";
 
-$query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst,
+$query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,
 GROUP_CONCAT( SubjectList.Subject SEPARATOR ', ') AS Subjects
 					FROM Dbases
           LEFT JOIN LuptonDB.DBRanking
@@ -412,16 +418,25 @@ echo "No results";
 }
 else
 {
+    $i = 0;
 while($row = mysqli_fetch_array($result))
 {
+  if($i == 0){
+    if ((!empty($row['LibGuidesPage']))&&($subj != "A to Z")) {
+      echo "<div class='dbItem alert-info'>
+    <i class='icon-compass' style='padding-right: .25em;'><span class='hidden'> New Databases</span> </i>
+      <strong><a href='https://guides.lib.utc.edu/".$row['LibGuidesPage']."'>".$subj." Subject Guide</a></strong></div>";
+    }
+    $i++;
+  }
 $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
 	if (($lastletter != $currentletter)&&(preg_match("/[A-Z]|1/i", $currentletter))){
 	    echo '<h2 id="Letter' . $currentletter .  '" class="badge badge-info">' . $currentletter . '</h2>';
 	    $lastletter = $currentletter;
 	}
 	echo "<div class='dbItem'><strong>";
-  if ((!empty($row['TryTheseFirst']))&&($subj != "A to Z")){
-  echo "<span class='badge badge-primary pull-right'>Best Bet</span>";
+  if ((($row['TryTheseFirst']) === '1')&&($subj != "A to Z")){
+  echo "<span class='badge badge-primary pull-right'>Try First</span>";
   }
   echo "<a href='";
   if (!empty($row['ShortURL'])){
@@ -460,7 +475,8 @@ mysqli_close($con);
  </div> <!-- close content div -->
  <div class="span3 sidebar" style="float: right;margin-left: 0;">
  <div class="sidebar well">
-<h2 class="welltopperGold" style="font-size: 24px;">New Databases</h2>
+<h2 class="welltopperGold" style="font-size: 24px;">
+<i class="icon-bullhorn" style="padding-right: .25em;"><span class="hidden"> New Databases</span> </i>New Databases</h2>
 <?php echo file_get_contents('https://www5.utc.edu/databases/LGSubject.php?sub=NEW');?>
 </div>
 </div>
