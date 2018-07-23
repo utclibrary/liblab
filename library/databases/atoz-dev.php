@@ -347,7 +347,7 @@ while($row = mysqli_fetch_array($alphaList))
 }
 echo " <div id='alpha' class='fluid-row'>
 <ul id='alphlist' class='nav nav-pills'>";
-if ($alpha === "ALL"){
+if (($alpha === "ALL")&&($subj === "A to Z")){
 	echo "<li class='active'>";
 }
 else{
@@ -405,7 +405,7 @@ if ($subj === "A to Z"){
 echo"</div>";
 
 $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,
-GROUP_CONCAT( SubjectList.Subject SEPARATOR ', ') AS Subjects
+GROUP_CONCAT( '<a href=\"$currentFile?alpha=ALL&amp;subj=', SubjectList.Subject, '\">', SubjectList.Subject, '</a>' SEPARATOR ', ') AS Subjects
 					FROM Dbases
           LEFT JOIN LuptonDB.DBRanking
           ON Dbases.Key_ID = DBRanking.Key_ID
