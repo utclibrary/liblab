@@ -138,8 +138,9 @@ ul.s-lg-link-list li a:hover{
    background-color: transparent;
 }
 ul.s-lg-link-list{
-  padding:.5em 0;
-    margin-left: 0px;
+  margin-bottom: -10px;
+  padding: .5em 0 0 0;
+  margin-left: 0px;
 }
 ul.s-lg-link-list li{
  margin-bottom:1em;
@@ -150,6 +151,10 @@ ul.s-lg-link-list li{
 ul.s-lg-link-list li:hover{
   background-color: whitesmoke;
   box-shadow: 0 0 5px 5px whitesmoke;
+}
+.dbItem:hover{
+  background-color: white;
+  box-shadow: 0 0 5px 5px white;
 }
 /*
 #subject-select{
