@@ -405,8 +405,10 @@ if ($subj === "A to Z"){
 echo"</div>";
 
 $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,
-GROUP_CONCAT( '<a href=\"$currentFile?alpha=ALL&amp;subj=', SubjectList.Subject, '\">', SubjectList.Subject, '</a>' SEPARATOR ', ') AS Subjects
+#GROUP_CONCAT( DISTINCT '<a href=\"$currentFile?alpha=ALL\&subj=', SubjectList.Subject, '\">', SubjectList.Subject, '</a>' ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
+GROUP_CONCAT( DISTINCT SubjectList.Subject ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
 					FROM Dbases
+
           LEFT JOIN LuptonDB.DBRanking
           ON Dbases.Key_ID = DBRanking.Key_ID
           LEFT JOIN LuptonDB.SubjectList
@@ -465,7 +467,7 @@ $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
 		echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous users.</font></strong>";
   }
   if (!empty($row['Subjects'])){
-  echo "<span class='subjects'><strong>Subjects:</strong> ".$row['Subjects']."</span>";
+  echo "<span class='subjects'><strong>Subjects:</strong>| ".$row['Subjects']." |</span>";
 }
   echo "</div>";
 }
