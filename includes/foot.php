@@ -59,7 +59,7 @@
 if (window.location.href.indexOf("test.utc.edu") > -1) {
 	$("#dev-environment").show();
 };
-if (window.location.href.indexOf("192.168.33.10") > -1) {
+if ((window.location.href.indexOf("192.168.33.10") > -1)||(window.location.href.indexOf("localhost:8080") > -1)) {
 	$("#dev-environment").show();
   $('#dev-environment').removeClass('alert-info');
   $('#dev-environment').addClass('alert-danger');
