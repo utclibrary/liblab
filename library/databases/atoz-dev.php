@@ -485,11 +485,21 @@ mysqli_close($con);
 //this is where the content goes for the right menu could also use
  if ($rightmenu==3){?>
  </div> <!-- close content div -->
- <div class="span3 sidebar" style="float: right;margin-left: 0;">
- <div class="sidebar well">
+ <?php if (($alpha=== "ALL")&&($subj === "A to Z")){
+?>
+<div class="span3 sidebar" style="float: right;margin-left: 0;">
+<div class="sidebar well">
 <h2 class="welltopperGold" style="font-size: 24px;">
-<i class="icon-bullhorn" style="padding-right: .25em;"><span class="hidden"> New Databases</span> </i>New Databases</h2>
+<i class="icon-bullhorn" style="padding-right: .25em;"><span class="hidden"> New</span> </i>New</h2>
 <?php echo file_get_contents('https://www5.utc.edu/databases/LGSubject.php?sub=NEW');?>
+</div>
+<?php
+ }
+ ?>
+<div class="sidebar well">
+<h2 class="welltopperGold" style="font-size: 24px;">
+<i class="icon-search" style="padding-right: .25em;"><span class="hidden"> Multi-subject</span> </i>Multi-subject</h2>
+<?php echo file_get_contents('https://www5.utc.edu/databases/LGSubject.php?sub=MULTI&set=2');?>
 </div>
 </div>
 <?php
