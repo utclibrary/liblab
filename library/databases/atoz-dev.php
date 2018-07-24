@@ -434,7 +434,7 @@ while($row = mysqli_fetch_array($result))
   if($i == 0){
     if ((!empty($row['LibGuidesPage']))&&($subj != "A to Z")) {
       echo "<div class='dbItem alert-info'>
-    <i class='icon-compass' style='padding-right: .25em;'><span class='hidden'> New Databases</span> </i>
+    <i class='icon-compass' style='padding-right: .25em;'><span class='hidden'> ".$subj." Guide</span> </i>
       <strong><a href='https://guides.lib.utc.edu/".$row['LibGuidesPage']."'>".$subj." Subject Guide</a></strong></div>";
     }
     $i++;
@@ -490,7 +490,7 @@ mysqli_close($con);
 ?>
 <div class="span3 sidebar" style="float: right;margin-left: 0;">
 <div class="sidebar well">
-<h2 class="welltopperGold" style="font-size: 24px;">
+<h2 class="welltopperBlue" style="font-size: 24px;">
 <i class="icon-bullhorn" style="padding-right: .25em;"><span class="hidden"> New</span> </i>New</h2>
 <?php echo file_get_contents('https://www5.utc.edu/databases/LGSubject.php?sub=NEW');?>
 </div>
