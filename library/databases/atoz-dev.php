@@ -234,7 +234,12 @@ $addfoot = "<script type='text/javascript' src='//www.utc.edu/library/_resources
 		nodata: 'No results found'
 	});
 $(document).ready(function() {
-	console.log('dev code is running');
+var url = window.location.pathname;
+console.log (url);
+  $( '.subjects span' ).each(function() {
+    var subject = $( this ).text();
+    $(this).html('<a href=\"'+ url + '?alpha=ALL&subj=' + subject + '\">' + subject + '</a>');
+  });
   $('h2#Letter1').text('#');
 /* jquery for clearable fields */
 // CLEARABLE INPUT
@@ -406,9 +411,8 @@ echo"</div>";
 
 $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,
 #GROUP_CONCAT( DISTINCT '<a href=\"$currentFile?alpha=ALL\&subj=', SubjectList.Subject, '\">', SubjectList.Subject, '</a>' ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
-GROUP_CONCAT( DISTINCT SubjectList.Subject ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
+GROUP_CONCAT( DISTINCT '<span>' , SubjectList.Subject , '</span>' ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
 					FROM Dbases
-
           LEFT JOIN LuptonDB.DBRanking
           ON Dbases.Key_ID = DBRanking.Key_ID
           LEFT JOIN LuptonDB.SubjectList
