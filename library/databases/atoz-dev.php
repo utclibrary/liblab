@@ -234,11 +234,12 @@ $addfoot = "<script type='text/javascript' src='//www.utc.edu/library/_resources
 		nodata: 'No results found'
 	});
 $(document).ready(function() {
-var url = window.location.pathname;
-console.log (url);
+  var url = window.location.pathname;
+  var filename = url.substring(url.lastIndexOf('/')+1);
+  console.log(filename);
   $( '.subjects span' ).each(function() {
     var subject = $( this ).text();
-    $(this).html('<a href=\"'+ url + '?alpha=ALL&subj=' + subject + '\">' + subject + '</a>');
+    $(this).html('<a href=\"'+ filename + '?alpha=ALL&subj=' + subject + '\">' + subject + '</a>');
   });
   $('h2#Letter1').text('#');
 /* jquery for clearable fields */
@@ -417,7 +418,7 @@ GROUP_CONCAT( DISTINCT '<span>' , SubjectList.Subject , '</span>' ORDER BY Subje
           ON Dbases.Key_ID = DBRanking.Key_ID
           LEFT JOIN LuptonDB.SubjectList
           ON DBRanking.Subject_ID = SubjectList.Subject_ID
-					WHERE SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKey.$queryKeySubj.
+					WHERE SubjectList.Format = 0 AND SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKey.$queryKeySubj.
           "GROUP BY Title
           ORDER by ".$orderby;
 //echo "diag<hr />".$query."<hr /><br />subject = $subject";
