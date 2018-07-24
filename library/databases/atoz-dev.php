@@ -255,24 +255,8 @@ $(document).on('input', '.clearable', function(){
 	console.log('field cleared');
 	resetsearch();
 });
-/* toggle search button */
-/*
-$( '#searchbutton' ).toggle(function() {
-  console.log( 'First' );
-  $('#searchbox').slideUp();
-  $('#searchbox').focus();
-  $('#alphlist li:not(:first);
-  $('#subject-select').hide();
-}, function() {
-  console.log( 'Second' );
-  $('#searchbox').slideDown();
-  $('#alphlist li:not(:first);
-  $('#subject-select').show();
-});
-*/
 });
 function resetsearch() {
-console.log('who clicked that');
     $('#search-highlight').val('').trigger('keyup').focus();
     var press = jQuery.Event('keypress');
     press.bubbles = true;
@@ -314,22 +298,31 @@ $lastletter = "";
 $error = "";
 // connect to database
 require_once '/var/www/html/includes/dbconnect.php';
+//  set variables in case paramater is not passed
 $alpha = "ALL";
 $queryKey = "";
 $queryKeySubj = "";
+// get subject param if set
 if(isset($_GET["subj"])){
 $subj = htmlentities($_GET["subj"]);
+// sanitize
 $subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
+// set query variables for subjects used inn $query
 $queryKeySubj="AND SubjectList.Subject LIKE \"".$subject."\" ";
+// hide alpha badges on subject pages
 echo "<style>h2.badge,span.subjects{display:none;}</style>";
+// set order by used in $query
 $orderby = "DBRanking.Ranking";
 }else{
+  // if no subject change var and query used in $query
   $subj = "A to Z";
   $orderby = "Dbases.Title";
 }
+// get alpha if set
 if(isset($_GET["alpha"])){
 $alpha = $_GET["alpha"];
 }
+// check to see if alpha is num, empty or letter to change query used in $query
 if ($alpha === "num"){
 $queryKey = " AND Dbases.Title REGEXP '^[0-9]'";
 }
@@ -339,9 +332,11 @@ elseif ($alpha === "ALL"){
 else{
 	$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
 }
+// this changes dynamcially based on subject paramater
 echo "<h1>$subj Databases</h1>";
 //check for alpha in db
 $alphaListFull="";
+// query to generate a to z
 $queryAlpha = "SELECT DISTINCT
 LEFT(Title, 1) as letter
 FROM LuptonDB.Dbases ORDER BY letter";
@@ -367,6 +362,7 @@ else{
 	echo "<li>";
 }
 echo "<a href='".$currentFile."?alpha=num'>#</a></li>";
+// loop through A to Z highight if selected
 foreach (range('A', 'Z') as $column){
 	if ($column == $alpha){
 		echo "<li class='active'>";
@@ -375,6 +371,7 @@ elseif (strpos($alphaListFull, $column) !== FALSE){
 		echo "<li>";
 	}
 else{
+  // if letter not in query change class to grey it out
  echo "<li class='emptyAlpha'>";
 }
 echo "<a href='".$currentFile."?alpha=".$column."'> ".$column." </a></li>";
@@ -382,11 +379,10 @@ echo "<a href='".$currentFile."?alpha=".$column."'> ".$column." </a></li>";
 echo "
 </ul>
     </div>";
-// get a list of current subjects - still working on this????
+// get a list of current subjects for select box
 $querySubjectList = " SELECT SubjectList.Subject
 FROM LuptonDB.SubjectList WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Format = 0 ORDER BY SubjectList.Subject
 ";
-//echo $querySubjectList;
 $resultSL = mysqli_query($con , "set names 'utf8'");
 $resultSL = mysqli_query($con , $querySubjectList) or die($error);
   echo "<div class='clearfix'>";
@@ -409,7 +405,7 @@ if ($subj === "A to Z"){
     }
 }
 echo"</div>";
-
+// main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,
 #GROUP_CONCAT( DISTINCT '<a href=\"$currentFile?alpha=ALL\&subj=', SubjectList.Subject, '\">', SubjectList.Subject, '</a>' ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
 GROUP_CONCAT( DISTINCT '<span>' , SubjectList.Subject , '</span>' ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
@@ -421,7 +417,7 @@ GROUP_CONCAT( DISTINCT '<span>' , SubjectList.Subject , '</span>' ORDER BY Subje
 					WHERE SubjectList.Format = 0 AND SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKey.$queryKeySubj.
           "GROUP BY Title
           ORDER by ".$orderby;
-//echo "diag<hr />".$query."<hr /><br />subject = $subject";
+
 $result = mysqli_query($con , "set names 'utf8'");
 $result = mysqli_query($con , $query) or die($error);
 echo "<div class='highlight_list'>";
@@ -431,8 +427,10 @@ echo "No results";
 else
 {
     $i = 0;
+// loop through results
 while($row = mysqli_fetch_array($result))
 {
+  // if subj show Libguide once
   if($i == 0){
     if ((!empty($row['LibGuidesPage']))&&($subj != "A to Z")) {
       echo "<div class='dbItem alert-info'>
@@ -441,6 +439,7 @@ while($row = mysqli_fetch_array($result))
     }
     $i++;
   }
+  // create styled letter SEPARATOR
 $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
 	if (($lastletter != $currentletter)&&(preg_match("/[A-Z]|1/i", $currentletter))){
 	    echo '<h2 id="Letter' . $currentletter .  '" class="badge badge-info">' . $currentletter . '</h2>';
@@ -485,7 +484,9 @@ mysqli_close($con);
 //this is where the content goes for the right menu could also use
  if ($rightmenu==3){?>
  </div> <!-- close content div -->
- <?php if (($alpha=== "ALL")&&($subj === "A to Z")){
+ <?php
+// only show new on home page
+ if (($alpha=== "ALL")&&($subj === "A to Z")){
 ?>
 <div class="span3 sidebar" style="float: right;margin-left: 0;">
 <div class="sidebar well">
@@ -495,6 +496,7 @@ mysqli_close($con);
 </div>
 <?php
  }
+ //show multi on all pages
  ?>
 <div class="sidebar well">
 <h2 class="welltopperGold" style="font-size: 24px;">
