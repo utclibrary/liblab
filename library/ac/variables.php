@@ -9,7 +9,9 @@ $override_side_menu="NO";
 $addhead = "
   <link rel='stylesheet' href='ac-styles.css'>
   <link rel='stylesheet' href='//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css'>
+<!--
   <link rel='stylesheet' type='text/css' href='/includes/print.css'>
+  -->
   ";
 $addfoot = "
   <script src='//code.jquery.com/ui/1.11.4/jquery-ui.js'></script>
