@@ -27,7 +27,7 @@ ini_set('display_errors', 1);
   <!--[if lt IE 9]><div class="chromeframe alert alert-error alert-floating"></div>
   <div class="alert alert-info alert-floating" data-original-title="alert alert-info alert-floating"> <button type="button" class="close" data-dismiss="alert">×</button> <strong>Welcome to the website of the University of Tennessee at Chattanooga.</strong> <p>Your web browser is outdated. For the best experience on this site,&nbsp; <a href="http://browsehappy.com/">upgrade to a modern browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>.</p> </div><![endif]-->
   <!-- compiling css via codekit from kickstrap.less & its imports -->
-  <link rel="stylesheet" type="text/css" href="https://www.utc.edu/_resources/css/kickstrap.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/includes/css/kickstrap.css" media="all">
   <!-- Push HTML5 elements -->
   <!--[if lt IE 9]>
   <script src="https://www.utc.edu/_resources/Kickstrap/apps/html5shiv/dist/html5shiv.js"></script>
