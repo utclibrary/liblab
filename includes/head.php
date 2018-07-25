@@ -33,8 +33,8 @@ ini_set('display_errors', 1);
   <script src="https://www.utc.edu/_resources/Kickstrap/apps/html5shiv/dist/html5shiv.js"></script>
   <style>a.side-menu-link{display:none}</style>
   <![endif]-->
-<link rel="shortcut icon" href="https://www.utc.edu/favicon.ico?v=2" type="image/x-icon" />
-<link rel="apple-touch-icon" href="https://www.utc.edu/apple-touch-icon.png?v=2" />
+<link rel="shortcut icon" href="/favicon.ico?v=2a" type="image/x-icon" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2a" />
 <!--
 <link rel="stylesheet" type="text/css" href="https://www.utc.edu/includes/print.css">
 -->

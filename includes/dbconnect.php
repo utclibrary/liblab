@@ -1,6 +1,6 @@
 <?php
       $config = parse_ini_file('/var/www/private/config.ini');
-      $con = mysqli_connect($config['servername'],$config['username'],$config['password'],$config['dbname']);
+      $con = mysqli_connect($config['servername'],$config['username'],$config['password'],$dbname);
       if (!$con) {
           echo "Error: Unable to connect to MySQL." . PHP_EOL;
           echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
