@@ -9304,6 +9304,7 @@ table.well-blue-wide {
   text-shadow: none !important;
 }
 /* styles for jquery photo zoom; uses /Kickstrap/apps/zoom/ e.g. Campus Map -- only one per page, please */
+/*
 .zoom-info {
   background: #333333;
   padding: 8px 8px 2px 8px;
@@ -9314,7 +9315,9 @@ table.well-blue-wide {
   font-size: 1em;
   font-family: "Open Sans";
 }
+*/
 /* magnifying glass icon */
+/*
 .zoom-info:before {
   font-family: "FontAwesome";
   content: '\f002\00a0';
@@ -9334,7 +9337,7 @@ table.well-blue-wide {
 #zoomGrab img:active {
   cursor: url(grabbed.cur), default;
 }
-/* styles for jquery social stream 
+/* styles for jquery social stream
 .dcsns-content {
   min-height: 450px;
 }
