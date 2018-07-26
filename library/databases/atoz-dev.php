@@ -224,6 +224,9 @@ div.dbItem.alert-info{
   border-bottom: 0px;
   border-radius: 10px;
 }
+.highlighted-info{
+  color:#781e1e;
+}
 </style>";
 $addfoot = "<script type='text/javascript' src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
@@ -464,7 +467,7 @@ $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
   }
 	echo $row['ShortDescription'];
 	if (!empty($row['HighlightedInfo'])){
-		echo "<strong><font color='red'>  " . $row['HighlightedInfo'] . "</font></strong>";
+		echo "<span class='highlighted-info'>" . $row['HighlightedInfo'] . "</span>";
   }
 	if ($row['SimUsers'] == 1){
 		echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous user.</font></strong>";
