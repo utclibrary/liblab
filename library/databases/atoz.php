@@ -185,6 +185,8 @@ include("/var/www/html/includes/head.php");
 $currentFile = $_SERVER['PHP_SELF'];
 $lastletter = "";
 $error = "";
+//specify databases
+$dbname = "LuptonDB";
 // connect to database
 require_once '/var/www/html/includes/dbconnect.php';
 //require_once ("/var/www/html/includes/mysqlconnect.php');
