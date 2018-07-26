@@ -42,6 +42,7 @@
 </div>
 </div>
 </div>
+<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="icon-large icon-double-angle-up"><span class="hidden"> Back to top of page</span> </i></button>
       </footer>
       </body>
       <!-- document close
@@ -186,6 +187,22 @@ var anchorsOther = document.querySelectorAll('a:not(.collapsed)');
             anchorsOther[i].addEventListener('click', onOtherClick);
         }
 });
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById('myBtn').style.display = 'block';
+    } else {
+        document.getElementById('myBtn').style.display = 'none';
+    }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
 // ]]></script>";
 }
 ?>
