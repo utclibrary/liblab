@@ -9334,10 +9334,11 @@ table.well-blue-wide {
 #zoomGrab img:active {
   cursor: url(grabbed.cur), default;
 }
-/* styles for jquery social stream */
+/* styles for jquery social stream 
 .dcsns-content {
   min-height: 450px;
 }
+*/
 /* Centering */
 .center {
   float: none;
