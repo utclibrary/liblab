@@ -173,7 +173,7 @@ $help = "show";
 set to 0 if no right menu
 set to 3 and modify the content of the
 */
-$rightmenu=3;
+$rightmenu=0;
 /* switch leftmenu on or off Y or N*/
 $navmenu="N";
 include("/var/www/html/includes/head.php");
