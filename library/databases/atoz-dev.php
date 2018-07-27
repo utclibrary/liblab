@@ -59,7 +59,7 @@ input#search-highlight {
 }
 	}
   input#search-highlight {
-    margin-right: 2em;
+    margin-right: 1em;
       /*width: -webkit-fill-available;
       width: -moz-available;*/
       font-size: 1.25em;
@@ -227,6 +227,24 @@ div.dbItem.alert-info{
 .highlighted-info{
   color:#781e1e;
 }
+.page-search {
+  width:1.5em;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
+    float: right;
+    font-family: FontAwesome;
+   font-style: normal;
+   font-weight: normal;
+   text-decoration: inherit;
+}
+.page-search:focus {
+    width: 100%;
+}
+.input-hold{
+  width:100%;
+}
+
 </style>";
 $addfoot = "<script type='text/javascript' src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
@@ -249,13 +267,14 @@ $(document).ready(function() {
 // CLEARABLE INPUT
 function tog(v){return v?'addClass':'removeClass';}
 $(document).on('input', '.clearable', function(){
+  console.log('somethig typed');
+    $(this).addClass('input-hold');
     $('.clearable')[tog(this.value)]('x');
 }).on('mousemove', '.x', function( e ){
-    $('.clearable')[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');
-}).on('touchstart click', '.onX', function( ev ){
+    $('.clearable')[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');  $(this).removeClass('input-hold');
+}).on('touchstart click', '.onX', function( ev ){  $(this).removeClass('input-hold');
     ev.preventDefault();
     $('.clearable').removeClass('x onX').val('').change();
-	console.log('field cleared');
 	resetsearch();
 });
 });
@@ -391,6 +410,11 @@ FROM LuptonDB.SubjectList WHERE SubjectList.NotSubjectList = 0 AND SubjectList.S
 $resultSL = mysqli_query($con , "set names 'utf8'");
 $resultSL = mysqli_query($con , $querySubjectList) or die($error);
   echo "<div class='clearfix'>";
+  if ($subj === "A to Z"){
+    echo"<span id='searchbox'><label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
+      	<input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list'></span><!--
+        <button id='searchbutton' class='btn btn-primary'><i class='icon-search'><span class='hidden'>UTC Home</span></i></button> --></span>";
+      }
 if ($alpha === "ALL"){
 echo "<select id='subject-select'>
         <option>Limit by Subject</option>";
@@ -401,13 +425,7 @@ echo "<select id='subject-select'>
     }
     echo">".$row['Subject']."</option>";
   }
-  echo "</select>
-  <span id='searchbox'>";
-if ($subj === "A to Z"){
-  echo"<label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
-    	<input id='search-highlight' class='clearable pull-right' autocomplete='off' name='search-highlight' type='text' placeholder='Type here to search page' data-list='.highlight_list'></span><!--
-      <button id='searchbutton' class='btn btn-primary'><i class='icon-search'><span class='hidden'>UTC Home</span></i></button> -->";
-    }
+  echo "</select>";
 }
 echo"</div>";
 // main query to generate lists of dbs
