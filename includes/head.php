@@ -129,7 +129,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="navbar-inner">
                <div class="squeezer container"><a class="btn btn-navbar" data-toggle="collapse" data-target="#secondaryTopNav .nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a href="#" class="brand" data-toggle="collapse" data-target="#secondaryTopNav .nav-collapse">Menu</a><div class="nav-collapse collapse">
                      <ul class="nav">
-                       <li><a href="//www.utc.edu/library/index.php">Home</a></li>
+                       <li><a href="//www.utc.edu/library/index.php">Library Home</a></li>
                        <li><a id="lib-menu-collections" href="//www.utc.edu/library/collections/">Collections</a></li>
                        <li><a id="lib-menu-help" href="//www.utc.edu/library/help/" >Research Help</a></li>
                        <li><a id="lib-menu-services" href="//www.utc.edu/library/services/">Services</a></li>
