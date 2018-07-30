@@ -117,7 +117,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			                  <div class="container header-image" style="background-image:url('/library/images/mastheads/rotate.php');">
                   <div id="header-text" class="pull-left">
                      <h1><a href="//www.utc.edu/">
-					 <img src="//www.utc.edu/_resources/img/utc-lettertype-logo-small.png" alt="UTC wordmark"></a></h1>
+					 <img src="/includes/img/utc-lettertype-logo-small.png" alt="UTC wordmark"></a></h1>
                      <h2><a href="//www.utc.edu/library/">UTC Library</a></h2>
                   </div>
                </div>
