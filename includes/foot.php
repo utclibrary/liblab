@@ -45,17 +45,16 @@
 <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="icon-large icon-double-angle-up"><span class="hidden"> Back to top of page</span> </i></button>
       </footer>
       </body>
-      <!-- document close
-================================================== --><!-- FOOTER - jQuery 1.8 series for OU LDP compatibility -->
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+      <!-- document close -->
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Common Bootstrap Scripts for all pages -->
 <script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<!-- Fit Text plugin for big hero-unit -->
-<script type="text/javascript" src="//www.utc.edu/_resources/Kickstrap/apps/fittext/jquery.fittext.js"></script>
-<!-- Image Zoom plugin -->
-<script type="text/javascript" src="//www.utc.edu/_resources/Kickstrap/apps/zoom/jquery.zoom.js"></script>
-<!-- Document Ready scripts for all pages -->
-<script type="text/javascript" src="//www.utc.edu/_resources/Kickstrap/apps/thememain/main.js"></script>
+<!-- Fit Text plugin for big hero-unit
+<script type="text/javascript" src="//www.utc.edu/_resources/Kickstrap/apps/fittext/jquery.fittext.js"></script>-->
+<!-- Image Zoom plugin
+<script type="text/javascript" src="//www.utc.edu/_resources/Kickstrap/apps/zoom/jquery.zoom.js"></script>-->
+<!-- Document Ready scripts for all pages
+<script type="text/javascript" src="//www.utc.edu/_resources/Kickstrap/apps/thememain/main.js"></script>-->
 <script type="text/javascript">
 if (window.location.href.indexOf("test.utc.edu") > -1) {
 	$("#dev-environment").show();
