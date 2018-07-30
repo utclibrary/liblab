@@ -9,7 +9,12 @@ http://photomatt.net/scripts/randomimage
 $folder = '';
 
 // Space seperated list of extensions, you probably won't have to change this.
-$exts = 'webp';
+if( strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false ) {
+    $exts = 'webp';
+}else{
+  $exts = 'jpg';
+}
+
 
 $files = array(); $i = -1; // Initialize some variables
 if ('' == $folder) $folder = './';
