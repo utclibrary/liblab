@@ -362,7 +362,7 @@ echo "<h1>$subj Databases</h1>
 <script type='text/javascript'>
 
     $(document).ready(function() {
-        document.title = '".$subj." Databases';
+        document.title = '".$subj." Databases | UTC Library';
     });
 
 </script>";
