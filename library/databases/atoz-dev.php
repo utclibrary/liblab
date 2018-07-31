@@ -2,7 +2,7 @@
 //error reporting - default N off
 $errorReporting = "Y";
 //template system to replicate main website look and feel
-$title = "A to Z Databases Dev | UTC Library";
+$title = "A to Z Databases | UTC Library";
 $description = "Full A to Z list of databases available at the UTC Library";
 $keywords = "databases";
 //do you want to override the folder structure for menu? (default is NO)
@@ -357,7 +357,14 @@ else{
 	$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
 }
 // this changes dynamcially based on subject paramater
-echo "<h1>$subj Databases</h1>";
+echo "<h1>$subj Databases</h1>
+<script type='text/javascript'>
+
+    $(document).ready(function() {
+        document.title = '".$subj." Databases';
+    });
+
+</script>";
 //check for alpha in db
 $alphaListFull="";
 // query to generate a to z
@@ -410,7 +417,7 @@ FROM LuptonDB.SubjectList WHERE SubjectList.NotSubjectList = 0 AND SubjectList.S
 $resultSL = mysqli_query($con , "set names 'utf8'");
 $resultSL = mysqli_query($con , $querySubjectList) or die($error);
   echo "<div class='clearfix'>";
-  if ($subj === "A to Z"){
+  if (($subj === "A to Z")&&($alpha === "ALL")){
     echo"<span id='searchbox'><label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
       	<input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list'></span><!--
         <button id='searchbutton' class='btn btn-primary'><i class='icon-search'><span class='hidden'>UTC Home</span></i></button> --></span>";
