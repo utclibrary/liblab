@@ -69,7 +69,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-TRJN3JP');</script>
 <!-- End Google Tag Manager -->
 <div id="dev-environment" class="alert alert-info" role="alert" style="padding: .25em;text-align: center;margin-bottom: 0px;">
-            | <strong>DEV</strong> environment | </div>
+            | <strong>STAGING</strong> environment | </div>
       <div id="skip"><a class="btn btn-success btn-large btn-block" tabindex="1" href="#content">Skip to Main Content</a></div>
       <div id="sf-wrapper">
          <!-- stickyfooter wrapper -->

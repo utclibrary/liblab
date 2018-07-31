@@ -257,7 +257,6 @@ $addfoot = "<script type='text/javascript' src='//www.utc.edu/library/_resources
 $(document).ready(function() {
   var url = window.location.pathname;
   var filename = url.substring(url.lastIndexOf('/')+1);
-  console.log(filename);
   $( '.subjects span' ).each(function() {
     var subject = $( this ).text();
     $(this).html('<a href=\"'+ filename + '?alpha=ALL&subj=' + subject + '\">' + subject + '</a>');
@@ -267,7 +266,6 @@ $(document).ready(function() {
 // CLEARABLE INPUT
 function tog(v){return v?'addClass':'removeClass';}
 $(document).on('input', '.clearable', function(){
-  console.log('somethig typed');
     $(this).addClass('input-hold');
     $('.clearable')[tog(this.value)]('x');
 }).on('mousemove', '.x', function( e ){
