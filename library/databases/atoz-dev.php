@@ -316,6 +316,7 @@ include("/var/www/html/includes/head.php");
 <?php
 // Get current file name and directory to use in links
 $currentFile = $_SERVER['PHP_SELF'];
+// declare variables
 $lastletter = "";
 $error = "";
 //specify databases
@@ -356,7 +357,7 @@ elseif ($alpha === "ALL"){
 else{
 	$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
 }
-// this changes dynamcially based on subject paramater
+// this changes dynamcially based on subject paramater - jquery updates the page title
 echo "<h1>$subj Databases</h1>
 <script type='text/javascript'>
 
@@ -417,11 +418,13 @@ FROM LuptonDB.SubjectList WHERE SubjectList.NotSubjectList = 0 AND SubjectList.S
 $resultSL = mysqli_query($con , "set names 'utf8'");
 $resultSL = mysqli_query($con , $querySubjectList) or die($error);
   echo "<div class='clearfix'>";
+  //show search box only on full atoz
   if (($subj === "A to Z")&&($alpha === "ALL")){
     echo"<span id='searchbox'><label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
       	<input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list'></span><!--
         <button id='searchbutton' class='btn btn-primary'><i class='icon-search'><span class='hidden'>UTC Home</span></i></button> --></span>";
       }
+      //show subject select box atoz and subject selected
 if ($alpha === "ALL"){
 echo "<select id='subject-select'>
         <option>Limit by Subject</option>";
