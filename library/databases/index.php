@@ -485,7 +485,7 @@ $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
 	echo "https://www.utc.edu/" . $row['ShortURL'];
   }
   else{
-  echo "https://www5.utc.edu/databases/LGForward.php?db=". $row['Key_ID'];
+  echo "/scripts/LGForward.php?db=". $row['Key_ID'];
   }
   echo"' target='_blank'>" . $row['Title'] . "</a></strong><br />";
 	if (!empty($row['ContentType'])){
