@@ -441,9 +441,9 @@ $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.Co
 #GROUP_CONCAT( DISTINCT '<a href=\"$currentFile?alpha=ALL\&subj=', SubjectList.Subject, '\">', SubjectList.Subject, '</a>' ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
 GROUP_CONCAT( DISTINCT '<span>' , SubjectList.Subject , '</span>' ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
 					FROM Dbases
-          LEFT JOIN LuptonDB.DBRanking
+          INNER JOIN LuptonDB.DBRanking
           ON Dbases.Key_ID = DBRanking.Key_ID
-          LEFT JOIN LuptonDB.SubjectList
+          INNER JOIN LuptonDB.SubjectList
           ON DBRanking.Subject_ID = SubjectList.Subject_ID
 					WHERE SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKey.$queryKeySubj.
           "GROUP BY Title
