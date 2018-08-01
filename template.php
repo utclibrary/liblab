@@ -19,7 +19,7 @@ set to 0 if no right menu
 set to 3 and modify the content of the $rightmenu var
 */
 $rightmenu = 3;
-include(dirname(__FILE__)."/includes/head.php");
+include($_SERVER['DOCUMENT_ROOT']."/includes/head.php");
 ?>
 <!-- Insert content here BEGIN -->
 <h1>Template Content</h1>
@@ -47,6 +47,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum 
 </div>
 <?php
  }
- include(dirname(__FILE__)."/includes/foot.php"); ?>
+ include($_SERVER['DOCUMENT_ROOT']."/includes/foot.php"); ?>
 <!-- add any additional footer code here -->
 </html>

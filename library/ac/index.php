@@ -1,6 +1,6 @@
 <?php
 include('variables.php');
-include('/var/www/html/includes/head.php');
+include($_SERVER['DOCUMENT_ROOT'].'/includes/head.php');
 include("instructions.php");
 ?>
 <style>
@@ -32,5 +32,5 @@ if (isset($_GET['err']) && $_GET['err'] == 1) {
 <center><input type="submit" class="btn btn-inverse btn-large" value="Calculate"></center>
 </form>
  <?php
-include ('/var/www/html/includes/foot.php');
+include ($_SERVER['DOCUMENT_ROOT'].'/includes/foot.php');
 ?>

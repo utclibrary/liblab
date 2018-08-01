@@ -308,7 +308,7 @@ set to 3 and modify the content of the
 $rightmenu=3;
 /* switch leftmenu on or off Y or N*/
 $navmenu="N";
-include("/var/www/html/includes/head.php");
+include($_SERVER['DOCUMENT_ROOT']."/includes/head.php");
 ?>
 <!-- Insert content here BEGIN -->
 <?php
@@ -537,6 +537,6 @@ mysqli_close($con);
 </div>
 <?php
  }
-include("/var/www/html/includes/foot.php");
+include($_SERVER['DOCUMENT_ROOT']."/includes/foot.php");
 ?>
 <!-- add any additional footer code here -->
