@@ -44,11 +44,11 @@ if ($database == 0 || empty($database) || is_nan($database))
 else
 {
   //specify databases
-  $dbname = "LuptonDB";
+  //$dbname = "LuptonDB";
   // connect to database
   require_once '/var/www/html/includes/dbconnect.php';
 
-	$result = mysqli_query($con, "SELECT Dbases.NotProxy, Dbases.URL FROM Dbases
+	$result = mysqli_query($conLuptonDB, "SELECT Dbases.NotProxy, Dbases.URL FROM Dbases
 		WHERE Dbases.Key_ID = $database") or die("Database Query Failed");
 
 	while($row = mysqli_fetch_array($result))
@@ -63,11 +63,11 @@ else
 
 	if ($url != 'https://guides.lib.utc.edu/')
 	{
-		mysqli_query($con , "LOCK TABLES DBUsage WRITE");
-		mysqli_query($con , "INSERT INTO DBUsage (Key_ID, RefURL) VALUES ($database, '$refURL')");
-		mysqli_query($con , "UNLOCK TABLES");
+		mysqli_query($conLuptonDB , "LOCK TABLES DBUsage WRITE");
+		mysqli_query($conLuptonDB , "INSERT INTO DBUsage (Key_ID, RefURL) VALUES ($database, '$refURL')");
+		mysqli_query($conLuptonDB , "UNLOCK TABLES");
 	}
-	mysqli_close($con);
+	mysqli_close($conLuptonDB);
 }
 //redirect to url built previously
 header('Location:' . $url);

@@ -135,7 +135,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                        <li><a id="lib-menu-services" href="//www.utc.edu/library/services/">Services</a></li>
                        <li><a id="lib-menu-about" href="//www.utc.edu/library/about/">About</a></li>
                      </ul>
-<?php echo file_get_contents ("https://www5.utc.edu/scripts/Hours/index.php"); ?>
+<?php
+include($_SERVER['DOCUMENT_ROOT']."/scripts/hours.php"); 
+?>
                   </div>
                </div>
             </div>

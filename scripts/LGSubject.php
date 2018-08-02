@@ -73,12 +73,13 @@ else
 			AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0
 		ORDER BY DBRanking.Ranking";
 }
+echo $query;
 //specify databases
-$dbname = "LuptonDB";
+//$dbname = "LuptonDB";
 // connect to database
 require_once '/var/www/html/includes/dbconnect.php';
-$result = mysqli_query($con , "set names 'utf8'");
-$result = mysqli_query($con , $query) or die($error);
+$result = mysqli_query($conLuptonDB , "set names 'utf8'");
+$result = mysqli_query($conLuptonDB , $query) or die($error);
 
 if (!mysqli_num_rows($result))
 	echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
@@ -108,5 +109,5 @@ else{
 	}
 		echo "</ul>";
 }
-mysqli_close($con);
+mysqli_close($conLuptonDB);
 ?>

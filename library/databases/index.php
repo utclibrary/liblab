@@ -370,8 +370,8 @@ $alphaListFull="";
 $queryAlpha = "SELECT DISTINCT
 LEFT(Title, 1) as letter
 FROM LuptonDB.Dbases ORDER BY letter";
-$alphaList = mysqli_query($con , "set names 'utf8'");
-$alphaList = mysqli_query($con , $queryAlpha) or die($error);
+$alphaList = mysqli_query($conLuptonDB , "set names 'utf8'");
+$alphaList = mysqli_query($conLuptonDB , $queryAlpha) or die($error);
 while($row = mysqli_fetch_array($alphaList))
 {
 	$alphaListFull .= $row['letter'];
@@ -413,8 +413,8 @@ echo "
 $querySubjectList = " SELECT SubjectList.Subject
 FROM LuptonDB.SubjectList WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Subject_ID <> 59 ORDER BY SubjectList.Format , SubjectList.Subject
 ";
-$resultSL = mysqli_query($con , "set names 'utf8'");
-$resultSL = mysqli_query($con , $querySubjectList) or die($error);
+$resultSL = mysqli_query($conLuptonDB , "set names 'utf8'");
+$resultSL = mysqli_query($conLuptonDB , $querySubjectList) or die($error);
   echo "<div class='clearfix'>";
   //show search box only on full atoz
   if (($subj === "A to Z")&&($alpha === "ALL")){
@@ -449,8 +449,8 @@ GROUP_CONCAT( DISTINCT '<span>' , SubjectList.Subject , '</span>' ORDER BY Subje
           "GROUP BY Title
           ORDER by ".$orderby;
 
-$result = mysqli_query($con , "set names 'utf8'");
-$result = mysqli_query($con , $query) or die($error);
+$result = mysqli_query($conLuptonDB , "set names 'utf8'");
+$result = mysqli_query($conLuptonDB , $query) or die($error);
 echo "<div class='highlight_list'>";
 if (!mysqli_num_rows($result)){
 echo "No results";
@@ -509,7 +509,7 @@ $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
 }
 echo "</div><!-- highlight_list -->";
 
-mysqli_close($con);
+
 
 
 //this is where the content goes for the right menu could also use
@@ -520,11 +520,81 @@ mysqli_close($con);
  if (($alpha=== "ALL")&&($subj === "A to Z")){
 ?>
 <div class="span3 sidebar" style="float: right;margin-left: 0;">
+  <div class="sidebar well">
+  <h2 class="welltopperGold" style="font-size: 24px;">
+  <i class="icon-star" style="padding-right: .25em;"><span class="hidden"> Check it out</span> </i>Check Out</h2>
+  <?php
+  $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases ORDER BY RAND() LIMIT 1";
+  $result = mysqli_query($conLuptonDB , $randquery) or die($error);
+
+  if (!mysqli_num_rows($result))
+  	echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
+  else{
+  		echo "<ul class='s-lg-link-list'>";
+  	while($row = mysqli_fetch_array($result))
+  	{
+  		echo "<li><a href='";
+  		if (!empty($row['ShortURL'])){
+  		echo "https://www.utc.edu/" . $row['ShortURL'];
+  		}
+  		else{
+  		echo "/scripts/LGForward.php?db=" . $row['Key_ID']  ;
+  	  }
+  		echo"' target='_blank'>" . $row['Title'] . "</a>";
+  		if (!empty($row['ContentType']))
+  			echo "<div class='s-lg-link-desc'><span class='contentType'>" . $row['ContentType'] . ": </span>";
+  		echo $row['ShortDescription'];
+  		if (!empty($row['HighlightedInfo']))
+  			echo "<span class='highlightedInfo'>  " . $row['HighlightedInfo'] . "</span>";
+  		if (!empty($row['SimUsers']))
+  		if ($row['SimUsers'] == 1)
+  			echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous user.</span>";
+  		else if ($row['SimUsers'] > 1)
+  			echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
+  		echo "</div></li>";
+  	}
+  		echo "</ul>";
+  }
+   ?>
+  </div>
 <div class="sidebar well">
 <h2 class="welltopperBlue" style="font-size: 24px;">
 <i class="icon-bullhorn" style="padding-right: .25em;"><span class="hidden"> New</span> </i>New</h2>
-<?php echo file_get_contents('https://www5.utc.edu/databases/LGSubject.php?sub=NEW');?>
+<?php
+$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'NEW' AND DBRanking.TryTheseFirst = 1 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+$result = mysqli_query($conLuptonDB , $newquery) or die($error);
+
+if (!mysqli_num_rows($result))
+	echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
+else{
+		echo "<ul class='s-lg-link-list'>";
+	while($row = mysqli_fetch_array($result))
+	{
+		echo "<li><a href='";
+		if (!empty($row['ShortURL'])){
+		echo "https://www.utc.edu/" . $row['ShortURL'];
+		}
+		else{
+		echo "/scripts/LGForward.php?db=" . $row['Key_ID']  ;
+	  }
+		echo"' target='_blank'>" . $row['Title'] . "</a>";
+		if (!empty($row['ContentType']))
+			echo "<div class='s-lg-link-desc'><span class='contentType'>" . $row['ContentType'] . ": </span>";
+		echo $row['ShortDescription'];
+		if (!empty($row['HighlightedInfo']))
+			echo "<span class='highlightedInfo'>  " . $row['HighlightedInfo'] . "</span>";
+		if (!empty($row['SimUsers']))
+		if ($row['SimUsers'] == 1)
+			echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous user.</span>";
+		else if ($row['SimUsers'] > 1)
+			echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
+		echo "</div></li>";
+	}
+		echo "</ul>";
+}
+ ?>
 </div>
+
 <?php
  }
  //show multi on all pages
@@ -532,7 +602,40 @@ mysqli_close($con);
 <div class="sidebar well">
 <h2 class="welltopperGold" style="font-size: 24px;">
 <i class="icon-search" style="padding-right: .25em;"><span class="hidden"> Multi-subject</span> </i>Multi-subject</h2>
-<?php echo file_get_contents('https://www5.utc.edu/databases/LGSubject.php?sub=MULTI&set=2');?>
+<?php
+$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+$result = mysqli_query($conLuptonDB , $multiquery) or die($error);
+
+if (!mysqli_num_rows($result))
+	echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
+else{
+		echo "<ul class='s-lg-link-list'>";
+	while($row = mysqli_fetch_array($result))
+	{
+		echo "<li><a href='";
+		if (!empty($row['ShortURL'])){
+		echo "https://www.utc.edu/" . $row['ShortURL'];
+		}
+		else{
+		echo "/scripts/LGForward.php?db=" . $row['Key_ID']  ;
+	  }
+		echo"' target='_blank'>" . $row['Title'] . "</a>";
+		if (!empty($row['ContentType']))
+			echo "<div class='s-lg-link-desc'><span class='contentType'>" . $row['ContentType'] . ": </span>";
+		echo $row['ShortDescription'];
+		if (!empty($row['HighlightedInfo']))
+			echo "<span class='highlightedInfo'>  " . $row['HighlightedInfo'] . "</span>";
+		if (!empty($row['SimUsers']))
+		if ($row['SimUsers'] == 1)
+			echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous user.</span>";
+		else if ($row['SimUsers'] > 1)
+			echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
+		echo "</div></li>";
+	}
+		echo "</ul>";
+}
+mysqli_close($conLuptonDB);
+?>
 </div>
 </div>
 <?php
