@@ -609,7 +609,7 @@ mysqli_close($conLuptonDB);
    }
    echo"' target='_blank'>" . $row['Title'] . "</a>";
    if (!empty($row['ContentType']))
-     echo "<div class='s-lg-link-desc'><span class='contentType'>" . $row['ContentType'] . ": </span>";
+     echo "<div class='s-lg-link-desc'><span class='contentType'><strong>" . $row['ContentType'] . ": </strong></span>";
    echo $row['ShortDescription'];
    if (!empty($row['HighlightedInfo']))
      echo "<span class='highlightedInfo'>  " . $row['HighlightedInfo'] . "</span>";
