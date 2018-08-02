@@ -465,7 +465,7 @@ while($row = mysqli_fetch_array($result))
   if($i == 0){
     if ((!empty($row['LibGuidesPage']))&&($subj != "A to Z")) {
       echo "<div class='dbItem alert-info'>
-    <i class='icon-compass' style='padding-right: .25em;'><span class='hidden'> ".$subj." Guide</span> </i>
+    <i class='icon-large icon-compass' style='padding-right: .25em;'><span class='hidden'> ".$subj." Guide</span> </i>
       <strong><a href='https://guides.lib.utc.edu/".$row['LibGuidesPage']."'>".$subj." Subject Guide</a></strong></div>";
     }
     $i++;
