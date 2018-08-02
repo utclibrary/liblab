@@ -530,30 +530,7 @@ echo "</div><!-- highlight_list -->";
   if (!mysqli_num_rows($result))
   	echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
   else{
-  		echo "<ul class='s-lg-link-list'>";
-  	while($row = mysqli_fetch_array($result))
-  	{
-  		echo "<li><a href='";
-  		if (!empty($row['ShortURL'])){
-  		echo "https://www.utc.edu/" . $row['ShortURL'];
-  		}
-  		else{
-  		echo "/scripts/LGForward.php?db=" . $row['Key_ID']  ;
-  	  }
-  		echo"' target='_blank'>" . $row['Title'] . "</a>";
-  		if (!empty($row['ContentType']))
-  			echo "<div class='s-lg-link-desc'><span class='contentType'>" . $row['ContentType'] . ": </span>";
-  		echo $row['ShortDescription'];
-  		if (!empty($row['HighlightedInfo']))
-  			echo "<span class='highlightedInfo'>  " . $row['HighlightedInfo'] . "</span>";
-  		if (!empty($row['SimUsers']))
-  		if ($row['SimUsers'] == 1)
-  			echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous user.</span>";
-  		else if ($row['SimUsers'] > 1)
-  			echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
-  		echo "</div></li>";
-  	}
-  		echo "</ul>";
+  generatelist($result);
   }
    ?>
   </div>
@@ -567,30 +544,7 @@ $result = mysqli_query($conLuptonDB , $newquery) or die($error);
 if (!mysqli_num_rows($result))
 	echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
 else{
-		echo "<ul class='s-lg-link-list'>";
-	while($row = mysqli_fetch_array($result))
-	{
-		echo "<li><a href='";
-		if (!empty($row['ShortURL'])){
-		echo "https://www.utc.edu/" . $row['ShortURL'];
-		}
-		else{
-		echo "/scripts/LGForward.php?db=" . $row['Key_ID']  ;
-	  }
-		echo"' target='_blank'>" . $row['Title'] . "</a>";
-		if (!empty($row['ContentType']))
-			echo "<div class='s-lg-link-desc'><span class='contentType'>" . $row['ContentType'] . ": </span>";
-		echo $row['ShortDescription'];
-		if (!empty($row['HighlightedInfo']))
-			echo "<span class='highlightedInfo'>  " . $row['HighlightedInfo'] . "</span>";
-		if (!empty($row['SimUsers']))
-		if ($row['SimUsers'] == 1)
-			echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous user.</span>";
-		else if ($row['SimUsers'] > 1)
-			echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
-		echo "</div></li>";
-	}
-		echo "</ul>";
+  generatelist($result);
 }
  ?>
 </div>
@@ -609,6 +563,8 @@ $result = mysqli_query($conLuptonDB , $multiquery) or die($error);
 if (!mysqli_num_rows($result))
 	echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
 else{
+  generatelist($result);
+  /*
 		echo "<ul class='s-lg-link-list'>";
 	while($row = mysqli_fetch_array($result))
 	{
@@ -632,13 +588,39 @@ else{
 			echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
 		echo "</div></li>";
 	}
-		echo "</ul>";
+		echo "</ul>";*/
 }
 mysqli_close($conLuptonDB);
 ?>
 </div>
 </div>
 <?php
+ }
+ function generatelist ($result){
+   echo "<ul class='s-lg-link-list'>";
+ while($row = mysqli_fetch_array($result))
+ {
+   echo "<li><a href='";
+   if (!empty($row['ShortURL'])){
+   echo "https://www.utc.edu/" . $row['ShortURL'];
+   }
+   else{
+   echo "/scripts/LGForward.php?db=" . $row['Key_ID']  ;
+   }
+   echo"' target='_blank'>" . $row['Title'] . "</a>";
+   if (!empty($row['ContentType']))
+     echo "<div class='s-lg-link-desc'><span class='contentType'>" . $row['ContentType'] . ": </span>";
+   echo $row['ShortDescription'];
+   if (!empty($row['HighlightedInfo']))
+     echo "<span class='highlightedInfo'>  " . $row['HighlightedInfo'] . "</span>";
+   if (!empty($row['SimUsers']))
+   if ($row['SimUsers'] == 1)
+     echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous user.</span>";
+   else if ($row['SimUsers'] > 1)
+     echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
+   echo "</div></li>";
+ }
+   echo "</ul>";
  }
 include($_SERVER['DOCUMENT_ROOT']."/includes/foot.php");
 ?>
