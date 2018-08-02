@@ -12,9 +12,9 @@
         exit;
         }
       //}
-      //if ($dbname === "Date"){
-      $conDate = mysqli_connect($servername,$username,$password, 'Date');
-      if (!$conDate) {
+      //if ($dbname === "Dates"){
+      $conDates = mysqli_connect($servername,$username,$password, 'Dates');
+      if (!$conDates) {
           echo "Error: Unable to connect to MySQL." . PHP_EOL;
           echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
           echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;

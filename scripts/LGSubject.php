@@ -1,7 +1,8 @@
 <?php
 // enable/disable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+error_reporting(0);
+//error_reporting(E_ALL);
+//ini_set('display_errors', '1');
 //get parameters if set
 if((isset($_GET["sub"]))&&(ctype_alpha($_GET["sub"]))){
 	$subject = $_GET["sub"];
@@ -73,7 +74,7 @@ else
 			AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0
 		ORDER BY DBRanking.Ranking";
 }
-echo $query;
+//echo $query;
 //specify databases
 //$dbname = "LuptonDB";
 // connect to database
@@ -92,7 +93,7 @@ else{
 		echo "https://www.utc.edu/" . $row['ShortURL'];
 		}
 		else{
-		echo "/scripts/LGForward.php?db=" . $row['Key_ID']  ;
+		echo "https://liblab.utc.edu/scripts/LGForward.php?db=" . $row['Key_ID']  ;
 	  }
 		echo"' target='_blank'>" . $row['Title'] . "</a>";
 		if (!empty($row['ContentType']))

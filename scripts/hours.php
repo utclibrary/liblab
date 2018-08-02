@@ -6,10 +6,10 @@
 </style>
 <?php
 // block error reporting for live code
-//error_reporting(0);
+error_reporting(0);
 // enable/disable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+//error_reporting(E_ALL);
+//ini_set('display_errors', '1');
 //if specialMessageLine1 is populated, the special message will replace the Library Hours, otherwise library hours will appear as usual
 $specialMessageLine1 = "";
 $specialMessageLine2 = "";
@@ -81,7 +81,7 @@ else
 	}
 
 	// fetch all start dates
-	$resultDate = mysqli_query($conDate , "SELECT startDate, termLabel FROM Calendar ORDER BY startDate");
+	$resultDate = mysqli_query($conDates , "SELECT startDate, termLabel FROM Calendar ORDER BY startDate");
 
 	// choose the current term (nearest date in the past)
 	while($row = mysqli_fetch_array($resultDate))
@@ -98,7 +98,7 @@ else
 	$end = $todayDay . "Close";
 
 	// fetch open and close times for current day of week
-	$resultDate = mysqli_query($conDate , "SELECT $start, $end FROM Term WHERE termLabel='$term'");
+	$resultDate = mysqli_query($conDates , "SELECT $start, $end FROM Term WHERE termLabel='$term'");
 	while($row = mysqli_fetch_array($resultDate))
 	{
 		// create time from string
@@ -117,7 +117,7 @@ else
 		$display .= date('D n/j/y',$today) . ", " . date('g:ia',$open) . "-" . date('g:ia',$close);
 	$display .= "</a></div>";
 
-	mysqli_close($conDate);
+	mysqli_close($conDates);
 
 	$display .= "<br/><div class='pull-right'><a class='libhours' href='//www.utc.edu/library/services/accounts.php'>My Library Accounts</a></div>";
 }

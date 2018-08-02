@@ -1,6 +1,6 @@
 <?php
 //error reporting - default N off
-$errorReporting = "Y";
+$errorReporting = "N";
 //template system to replicate main website look and feel
 $title = "A to Z Databases | UTC Library";
 $description = "Full A to Z list of databases available at the UTC Library";

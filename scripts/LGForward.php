@@ -4,8 +4,9 @@
 <?php
 //script to redirect db urls
 // enable/disable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+error_reporting(0);
+//error_reporting(E_ALL);
+//ini_set('display_errors', '1');
 //get url 'db' param if set and make sure it is a number
 if((isset($_GET["db"]))&&(is_numeric($_GET["db"]))) {
     $database = $_GET["db"];
