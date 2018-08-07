@@ -1,0 +1,72 @@
+
+            body {
+                text-align: center;
+            }   
+            div.form {
+                margin: 0 auto;
+                text-align: left;
+                width: 680px;
+            }   
+	        form {
+			    padding: 0px;
+			    margin: 0px;
+			    display: inline;
+			}
+			fieldset {
+			    margin: 1em 0;
+			    padding: 1em;
+			    border: 1px solid #c7cfd5;
+			    background: #f1f5f9;
+                position: relative;
+                display: block;
+			}
+			legend {
+			    font-weight: bold;
+                color: #000;
+                position: relative;
+             
+			}
+			label {
+			    float: left;
+			    width: 20em;
+			    padding-right: 5px;
+                font-weight: bold;
+                font-size: 90%;
+			}
+			.required {
+			    font-size: 0.75em;
+			    color: #760000;
+			}
+			input {
+			width: auto;
+			}
+			input.radio, input.checkbox, input.submit {
+			    width: auto;
+			}
+			input.textbox {
+			    width: 200px;
+			}
+			input:focus, textarea:focus {
+			    background: #ffc;
+			}
+            span.error {
+                color: red;
+            }
+            div.radio {
+                position: relative;
+                left: 150;
+                padding: 0px 0px 0px 250px;
+            }
+            div.column-1 {
+                padding: 10px;
+                float: left;
+                width: 300px;
+            }
+            div.column-2 {
+                padding: 10px;
+                float: left;
+                width: 300px;
+            }
+            div.clear {
+                height: 1px;
+            }
