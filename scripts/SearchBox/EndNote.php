@@ -1,19 +1,22 @@
 <?php
-	//  block error reporting for live code
-	error_reporting(0);
+
+// enable/disable error reporting
+//error_reporting(0);
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
 	$url = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
 	// connect to database
-	require_once ('mysqlconnect.php');
+	require_once $_SERVER['DOCUMENT_ROOT'].'/includes/dbconnect.php';
 
 	$query = "SELECT Dbases.Key_ID, Dbases.Title, Vendor.EndNoteWeb, Vendor.EndNoteDesktop, Vendor.EndNoteWebBrowser, Vendor.EndNoteDesktopBrowser
 		FROM Dbases INNER JOIN Vendor ON Vendor.Vendor_ID = Dbases.Vendor_ID
 		WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY Dbases.Title";
 
-	$result = mysql_query($query);
+	$result = mysqli_query($conLuptonDB , $query);
 
-	if (!$con || empty($result))
+	if (!$conLuptonDB || empty($result))
 	{
 		echo "Database search is currently unavailable.";
 	}
@@ -21,7 +24,7 @@
 	$count = 1;
 	$browserNote = "<p><i><b>Best with Internet Explorer on Windows or Firefox on Mac.</b></i></p>";
 
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result))
 	{
 		$dbTitle[$count] = $row['Title'];
 		if (empty($row['EndNoteWeb'])) $endNoteWeb = "No direct import to EndNote Online is available.";
@@ -70,6 +73,7 @@
 			<option value="0">Select a database to see EndNote instructions...</option>
 			<?php for ($i=1; $i<$count; $i++)
 				echo "<option value='$i'>$dbTitle[$i]</option>";
+mysqli_close($conLuptonDB);
 			?>
 		</select><br>
 	</form>
