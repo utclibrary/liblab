@@ -13,7 +13,7 @@ error_reporting(0);
 	$query = "SELECT Dbases.Key_ID, Dbases.Title, Vendor.EndNoteWeb, Vendor.EndNoteDesktop, Vendor.EndNoteWebBrowser, Vendor.EndNoteDesktopBrowser
 		FROM Dbases INNER JOIN Vendor ON Vendor.Vendor_ID = Dbases.Vendor_ID
 		WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY Dbases.Title";
-
+  $result = mysqli_query($conLuptonDB , "set names 'utf8'");
 	$result = mysqli_query($conLuptonDB , $query);
 
 	if (!$conLuptonDB || empty($result))
@@ -49,10 +49,8 @@ error_reporting(0);
 	}
 ?>
 
-<div id="libsearch" class="well well-raised">
-	<legend>Exporting from Databases to EndNote
-		<p class="pull-right"><a href="https://proxy.lib.utc.edu/login?url=http://www.myendnoteweb.com" target="_blank" class="btn btn-danger">EndNote Online</a></p>
-	</legend>
+<div class="well well-raised">
+	<legend><h3>Exporting from Databases to EndNote</h3></legend>
 	<script type="text/javascript">
 
 		function changetext(elemid)
