@@ -317,8 +317,6 @@ $currentFile = $_SERVER['PHP_SELF'];
 // declare variables
 $lastletter = "";
 $error = "";
-//specify databases
-$dbname = "LuptonDB";
 // connect to database
 require_once '/var/www/html/includes/dbconnect.php';
 //  set variables in case paramater is not passed
