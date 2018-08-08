@@ -17,11 +17,11 @@ v2 changes
 *added accordion multi-subject on db page
 */
 // enable/disable error reporting
-//error_reporting(0);
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+error_reporting(0);
+//error_reporting(E_ALL);
+//ini_set('display_errors', '1');
 date_default_timezone_set('America/New_York');
-$today = time();
+//$today = time();
 // set link for Search Help for first three tabs - need to set back after semester start (<a href="/library/help/tutorials/research-bascis.php">Search Help</a>)
 $searchHelpLink='<a class="btn btn-mini search-xtra-left" href="/library/help/tutorials/reseach-basics.php">Search Help</a>';
 // emergency message within the search box
@@ -87,7 +87,7 @@ $emergMessage = "<br/><br/><p><font color='red'>The UTC Library catalog will be 
 	</form>
 	<?php echo $searchHelpLink; ?>
 				<a class="btn btn-mini search-xtra-right" href="https://utc.primo.exlibrisgroup.com/discovery/search?vid=01UTC_INST:01UTC&sortby=rank&mode=advanced" target="_blank">Advanced Search</a>
-	<?php if ($today < $endTime) echo $emergMessage; ?>
+	<?php // if ($today < $endTime) echo $emergMessage; ?>
 	</div>
 
 <div class='tab-pane' id='journals'>
@@ -120,7 +120,7 @@ $emergMessage = "<br/><br/><p><font color='red'>The UTC Library catalog will be 
 			-->
 	</form>
 <small class="pull-left"><?php echo $searchHelpLink; ?></small>
-<?php if ($today < $endTime) echo $emergMessage; ?>
+<?php // if ($today < $endTime) echo $emergMessage; ?>
 </div>
 
 <div class='tab-pane' id='databases'>
@@ -178,7 +178,7 @@ foreach ($dbFormatKey as $key => $i){
 
 		formatId.onchange = function()
 		{
-      console.log('135 onchange function called');
+      //console.log('135 onchange function called');
 			$('#resetDb').show();
       $('#descriptions').empty();
       $('span.db-legend').hide();
@@ -270,7 +270,7 @@ function changetext(elemid){
 	if (elemid === 'jumptodatabase'){
 	//$('.select2-container').hide();
 }
-  console.log('230 changetext function called');
+  //console.log('230 changetext function called');
 	if ($('#jumptodatabase').val() === ''){$('#resetDb').hide();
 	/*
 $('#subjectSelect .search-btn').prop('disabled', true);
@@ -303,7 +303,7 @@ $( "span:contains('Streaming Music: ')" ).parent('p').before( "<span class='icon
 $( "span:contains('Images: ')" ).parent('p').before( "<span class='icon-picture icon-large db-legend' title='Images' onclick='showLegendModal();'></span> " );
 		}
   </script>
-<form class='form-search' name='databases' action='https://www5.utc.edu/databases/LGForward.php' method='get' target='_blank'>
+<form class='form-search' name='databases' action='https://liblab.utc.edu/scripts/LGForward.php' method='get' target='_blank'>
 	<input type='hidden' name='url' value=$url></input>
 	<div id='allDb' style='display: block;'>
 	<label for="jumptodatabase" class="hide" aria-label="select databases from full list">Select Database</label>
@@ -375,11 +375,11 @@ foreach ($dbFormatKey as $key => $i){
     <div id="collapseOne" class="accordion-body collapse">
       <div class="accordion-inner">
         <ul class='multisubject'>
-        <? // get multiusbject dbs
+        <?php // get multiusbject dbs
         $query4 = "SELECT * FROM Dbases INNER JOIN DBRanking ON Dbases.Key_ID = DBRanking.Key_ID
                     WHERE DBRanking.Subject_ID=23 ORDER BY DBRanking.Ranking";
         //eliminate SubjectList.Format = 0 to pull in all groups (ex: multiusbject, ebooks, etc.)
-        $result4 = mysqli_query($query4);
+        $result4 = mysqli_query($conLuptonDB , $query4);
         while($row = mysqli_fetch_array($result4))
         {
           echo "<li><a href='";
@@ -387,7 +387,7 @@ foreach ($dbFormatKey as $key => $i){
 					echo "https://www.utc.edu/" . $row['ShortURL'];
 				  }
 				  else{
-				  echo "https://www5.utc.edu/databases/LGForward.php?db=". $row['Key_ID'];
+				  echo "https://liblab.utc.edu/scripts/LGForward.php?db=". $row['Key_ID'];
 				  }
 					echo "' target='_blank'>";
           if (strpos($row['Title'], '*Trial*') !== false) {
@@ -409,14 +409,14 @@ foreach ($dbFormatKey as $key => $i){
   </div>
 </div>
 
-<?php if ($today < $endTime) echo $emergMessage; ?>
+<?php // if ($today < $endTime) echo $emergMessage; ?>
 
 </div>
 <div class='tab-pane' id='subjects'>
 
 <?php
 $query = "SELECT Subject, LibGuidesPage FROM SubjectList WHERE NotSubjectList = 0 AND LibGuidesPage IS NOT NULL ORDER BY Subject";
-$result = mysqli_query($query);
+$result = mysqli_query($conLuptonDB , $query);
 if (!$conLuptonDB || empty($result))
 	{
 	echo "Subject search is currently unavailable.";
@@ -450,7 +450,7 @@ You can now access Subject Guides from the Databases tab!</p>
 <a  class="btn btn-mini search-xtra-left" href="https://guides.lib.utc.edu/eresources" target="_blank">Databases By Subject</a
 <a  class="btn btn-mini search-xtra-right" href="https://guides.lib.utc.edu/" target="_blank">Subject Guides</a>
 -->
-<?php if ($today < $endTime) echo $emergMessage; ?>
+<?php // if ($today < $endTime) echo $emergMessage; ?>
 </div>
 <div class='tab-pane' id='courses'>
 
@@ -480,7 +480,7 @@ You can now access Subject Guides from the Databases tab!</p>
 	-->
 	</form>
 <a  class="btn btn-mini search-xtra-left" href="/library/services/students/course-reserves.php">Reserves Help</a>
-<?php if ($today < $endTime) echo $emergMessage; ?>
+<?php // if ($today < $endTime) echo $emergMessage; ?>
 			</div>
 	</div>
 </div>
