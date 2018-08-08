@@ -1,9 +1,9 @@
 <?php
 
 // enable/disable error reporting
-//error_reporting(0);
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+error_reporting(0);
+//error_reporting(E_ALL);
+//ini_set('display_errors', '1');
 
 	$url = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
@@ -50,7 +50,7 @@ ini_set('display_errors', '1');
 ?>
 
 <div class="well well-raised">
-	<legend>Exporting from Databases to EndNote</legend>
+	<legend><h3>Exporting from Databases to EndNote</h3></legend>
 	<script type="text/javascript">
 
 		function changetext(elemid)
