@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel><title>UTC Library  Public Events occurring between Tuesday, August 28, 2018 4:28 PM EDT and Saturday, October 27, 2018 4:28 PM EDT</title>
+<description>A listing of public events for UTC Library  occurring between Tuesday, August 28, 2018 4:28 PM EDT and Saturday, October 27, 2018 4:28 PM EDT.</description>
+<language>en-us</language>
+<lastBuildDate>Tue, 28 Aug 2018 20:28:07 GMT</lastBuildDate>
+<category>Public Events</category>
+<generator>Campus Labs Engage</generator>
+<ttl>300</ttl>
+<pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+<link>https://mocsyncorgs.utc.edu/events</link>
+<item>
+  <title>Free Workshop: Outlook 101</title>
+  <guid>https://mocsyncorgs.utc.edu/event/2695017</guid>
+  <link>https://mocsyncorgs.utc.edu/event/2695017</link>
+  <enclosure url="https://images.collegiatelink.net/clink/images/d456738c-b43d-4c03-a8aa-083988af724d7652d51f-c686-43bc-bc3c-76be5fd29207.png?preset=med-w" length="1" type="image/jpeg" />
+  <description><![CDATA[<div class="h-event vevent">
+  <div class="p-name summary">Free Workshop: Outlook 101</div>
+  <div class="p-description description"><p>Outlook is good for far more than just sending emails. In this session, we will explore its calendar and scheduling functions, installing Outlook on mobile devices, and other features.</p></div>
+  <div>
+    <p>
+      From <time class="dt-start dtstart" datetime="2018-08-29T12:00:00.0000000-04:00" title="2018-08-29T12:00:00.0000000-04:00">Wednesday, August 29, 2018 12:00 PM</time>
+      to <time class="dt-end dtend" datetime="2018-08-29T12:50:00.0000000-04:00" title="2018-08-29T12:50:00.0000000-04:00">12:50 PM EDT</time>
+      at <span class="p-location location">UTC Library, Room 204</span>.
+    </p>
+  </div>
+</div>]]></description>
+  <category>ThoughtfulLearning</category>
+  <category>Academics</category>
+  <category>General</category>
+  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <start>Wed, 29 Aug 2018 16:00:00 GMT</start>
+  <end>Wed, 29 Aug 2018 16:50:00 GMT</end>
+  <location>UTC Library, Room 204</location>
+  <status>confirmed</status>
+  <author>library@utc.edu (UTC Library )</author>
+  <host>ThinkAchieve</host>
+  <host>UTC Library </host>
+</item>
+<item>
+  <title>Free Workshop: How to Email Your Professor</title>
+  <guid>https://mocsyncorgs.utc.edu/event/2702475</guid>
+  <link>https://mocsyncorgs.utc.edu/event/2702475</link>
+  <enclosure url="https://images.collegiatelink.net/clink/images/930fa3c5-8645-4f12-b68f-ae3131d4f44484ade313-eb72-4e02-b45f-9d5c66a9717c.png?preset=med-w" length="1" type="image/jpeg" />
+  <description><![CDATA[<div class="h-event vevent">
+  <div class="p-name summary">Free Workshop: How to Email Your Professor</div>
+  <div class="p-description description"><p><em>Professor? Dr.? Ms./Mr.? </em></p>
+<p>This workshop, led by a peer tutor&nbsp;from the Writing &amp; Communication Center, will give you more confidence in your ability to express yourself effectively over email. Get help with how to address your professor and how to include relevant information in your email to get the responses you&rsquo;re looking for.</p></div>
+  <div>
+    <p>
+      From <time class="dt-start dtstart" datetime="2018-09-05T13:00:00.0000000-04:00" title="2018-09-05T13:00:00.0000000-04:00">Wednesday, September 5, 2018 1:00 PM</time>
+      to <time class="dt-end dtend" datetime="2018-09-05T13:45:00.0000000-04:00" title="2018-09-05T13:45:00.0000000-04:00">1:45 PM EDT</time>
+      at <span class="p-location location">UTC Library, Room 205</span>.
+    </p>
+  </div>
+</div>]]></description>
+  <category>ThoughtfulLearning</category>
+  <category>Academics</category>
+  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <start>Wed, 05 Sep 2018 17:00:00 GMT</start>
+  <end>Wed, 05 Sep 2018 17:45:00 GMT</end>
+  <location>UTC Library, Room 205</location>
+  <status>confirmed</status>
+  <author>library@utc.edu (UTC Library )</author>
+  <host>ThinkAchieve</host>
+  <host>UTC Library </host>
+</item>
+<item>
+  <title>Free Workshop: Intro to Capturing Audio</title>
+  <guid>https://mocsyncorgs.utc.edu/event/2700796</guid>
+  <link>https://mocsyncorgs.utc.edu/event/2700796</link>
+  <enclosure url="https://images.collegiatelink.net/clink/images/26ad45bc-d6ce-4830-aa96-465fecab37d4b56d91d2-1886-4929-a60a-8749a6c60ced.png?preset=med-w" length="1" type="image/jpeg" />
+  <description><![CDATA[<div class="h-event vevent">
+  <div class="p-name summary">Free Workshop: Intro to Capturing Audio</div>
+  <div class="p-description description"><p>Learn the basics of capturing and editing audio. Using the Library Studio's equipment, you will discover the use of different microphones for specific settings. Afterwards, we will go over the Basics of Audacity and discuss using the timeline, multiple tracks, splicing audio recordings, adding effects / filters, and mixing tracks.</p></div>
+  <div>
+    <p>
+      From <time class="dt-start dtstart" datetime="2018-09-05T16:00:00.0000000-04:00" title="2018-09-05T16:00:00.0000000-04:00">Wednesday, September 5, 2018 4:00 PM</time>
+      to <time class="dt-end dtend" datetime="2018-09-05T17:00:00.0000000-04:00" title="2018-09-05T17:00:00.0000000-04:00">5:00 PM EDT</time>
+      at <span class="p-location location">UTC Library, Room 204</span>.
+    </p>
+  </div>
+</div>]]></description>
+  <category>ThoughtfulLearning</category>
+  <category><![CDATA[Performing & Fine Arts]]></category>
+  <category>Academics</category>
+  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <start>Wed, 05 Sep 2018 20:00:00 GMT</start>
+  <end>Wed, 05 Sep 2018 21:00:00 GMT</end>
+  <location>UTC Library, Room 204</location>
+  <status>confirmed</status>
+  <author>library@utc.edu (UTC Library )</author>
+  <host>ThinkAchieve</host>
+  <host>UTC Library </host>
+</item>
+<item>
+  <title><![CDATA[Free Workshop: Learn APA Documentation & Style]]></title>
+  <guid>https://mocsyncorgs.utc.edu/event/2705868</guid>
+  <link>https://mocsyncorgs.utc.edu/event/2705868</link>
+  <enclosure url="https://images.collegiatelink.net/clink/images/e2ddceb9-4cb3-4700-a823-89f5d9daaa5a31b5861b-cca5-4fa2-bbc4-81a3aba0a917.png?preset=med-w" length="1" type="image/jpeg" />
+  <description><![CDATA[<div class="h-event vevent">
+  <div class="p-name summary">Free Workshop: Learn APA Documentation & Style</div>
+  <div class="p-description description"><p>Writing your first paper in APA or just want to get better at it? Come to this workshop to learn the basics of APA style, formatting, and writing, including how to use the UTC APA paper template.</p></div>
+  <div>
+    <p>
+      From <time class="dt-start dtstart" datetime="2018-09-06T13:45:00.0000000-04:00" title="2018-09-06T13:45:00.0000000-04:00">Thursday, September 6, 2018 1:45 PM</time>
+      to <time class="dt-end dtend" datetime="2018-09-06T14:45:00.0000000-04:00" title="2018-09-06T14:45:00.0000000-04:00">2:45 PM EDT</time>
+      at <span class="p-location location">UTC Library, Room 204</span>.
+    </p>
+  </div>
+</div>]]></description>
+  <category>ThoughtfulLearning</category>
+  <category>Academics</category>
+  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <start>Thu, 06 Sep 2018 17:45:00 GMT</start>
+  <end>Thu, 06 Sep 2018 18:45:00 GMT</end>
+  <location>UTC Library, Room 204</location>
+  <status>confirmed</status>
+  <author>library@utc.edu (UTC Library )</author>
+  <host>ThinkAchieve</host>
+  <host>UTC Library </host>
+</item>
+<item>
+  <title>Free Workshop: Learn Advanced Word Skills: Styles and Publication</title>
+  <guid>https://mocsyncorgs.utc.edu/event/2706155</guid>
+  <link>https://mocsyncorgs.utc.edu/event/2706155</link>
+  <enclosure url="https://images.collegiatelink.net/clink/images/849c873a-89db-4341-996f-61d438794ab707c7ab17-4dbc-45f7-a5aa-957d19ffb634.png?preset=med-w" length="1" type="image/jpeg" />
+  <description><![CDATA[<div class="h-event vevent">
+  <div class="p-name summary">Free Workshop: Learn Advanced Word Skills: Styles and Publication</div>
+  <div class="p-description description"><p>Planning on writing an article for publication? Come to this session to learn about using styles in Microsoft Word to help prepare your manuscript for submission to a journal, image preparation, and more.</p></div>
+  <div>
+    <p>
+      From <time class="dt-start dtstart" datetime="2018-09-10T12:00:00.0000000-04:00" title="2018-09-10T12:00:00.0000000-04:00">Monday, September 10, 2018 12:00 PM</time>
+      to <time class="dt-end dtend" datetime="2018-09-10T12:50:00.0000000-04:00" title="2018-09-10T12:50:00.0000000-04:00">12:50 PM EDT</time>
+      at <span class="p-location location">UTC Library, Room 204</span>.
+    </p>
+  </div>
+</div>]]></description>
+  <category>ThoughtfulLearning</category>
+  <category>Academics</category>
+  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <start>Mon, 10 Sep 2018 16:00:00 GMT</start>
+  <end>Mon, 10 Sep 2018 16:50:00 GMT</end>
+  <location>UTC Library, Room 204</location>
+  <status>confirmed</status>
+  <author>library@utc.edu (UTC Library )</author>
+  <host>ThinkAchieve</host>
+  <host>UTC Library </host>
+</item>
+<item>
+  <title>Free Workshop: Excel 101</title>
+  <guid>https://mocsyncorgs.utc.edu/event/2706327</guid>
+  <link>https://mocsyncorgs.utc.edu/event/2706327</link>
+  <enclosure url="https://images.collegiatelink.net/clink/images/6a888e50-5853-4450-8b4b-bcc8a41d6f9c924fb2c4-f340-4f79-bc3a-c9e9e8b8048f.png?preset=med-w" length="1" type="image/jpeg" />
+  <description><![CDATA[<div class="h-event vevent">
+  <div class="p-name summary">Free Workshop: Excel 101</div>
+  <div class="p-description description"><p>Learn the basics of Microsoft Excel: basic spreadsheet functions; generating graphs, charts, and other visualizations; and other common tasks for business, classes, and research. No prior experience with Excel is required.</p></div>
+  <div>
+    <p>
+      From <time class="dt-start dtstart" datetime="2018-09-11T13:45:00.0000000-04:00" title="2018-09-11T13:45:00.0000000-04:00">Tuesday, September 11, 2018 1:45 PM</time>
+      to <time class="dt-end dtend" datetime="2018-09-11T14:45:00.0000000-04:00" title="2018-09-11T14:45:00.0000000-04:00">2:45 PM EDT</time>
+      at <span class="p-location location">UTC Library, Room 204</span>.
+    </p>
+  </div>
+</div>]]></description>
+  <category>ThoughtfulLearning</category>
+  <category>Academics</category>
+  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <start>Tue, 11 Sep 2018 17:45:00 GMT</start>
+  <end>Tue, 11 Sep 2018 18:45:00 GMT</end>
+  <location>UTC Library, Room 204</location>
+  <status>confirmed</status>
+  <author>library@utc.edu (UTC Library )</author>
+  <host>ThinkAchieve</host>
+  <host>UTC Library </host>
+</item>
+<item>
+  <title>Therapy Dog Visit at the UTC Library</title>
+  <guid>https://mocsyncorgs.utc.edu/event/2701462</guid>
+  <link>https://mocsyncorgs.utc.edu/event/2701462</link>
+  <enclosure url="https://images.collegiatelink.net/clink/images/b8aa641c-da96-4976-94c2-01ef3f4dcf53894378e7-5725-420f-b688-1861db471120.png?preset=med-w" length="1" type="image/jpeg" />
+  <description><![CDATA[<div class="h-event vevent">
+  <div class="p-name summary">Therapy Dog Visit at the UTC Library</div>
+  <div class="p-description description"><p>Take advantage of the stress-relief benefits of spending time with a therapy dog. Community volunteers from&nbsp;the Human Animal Bond in Tennessee (H.A.B.I.T.) program, which began with help from the UT College of Veterinary Medicine, will be at the UTC Library with their registered therapy dog.</p>
+<p>Meet <strong>Penny</strong>, a gorgeous Labradoodle who has been visiting UTC since 2014! Penny loves Mocs!</p></div>
+  <div>
+    <p>
+      From <time class="dt-start dtstart" datetime="2018-09-19T17:30:00.0000000-04:00" title="2018-09-19T17:30:00.0000000-04:00">Wednesday, September 19, 2018 5:30 PM</time>
+      to <time class="dt-end dtend" datetime="2018-09-19T18:30:00.0000000-04:00" title="2018-09-19T18:30:00.0000000-04:00">6:30 PM EDT</time>
+      at <span class="p-location location">UTC Library</span>.
+    </p>
+  </div>
+</div>]]></description>
+  <category>Social</category>
+  <category>Service </category>
+  <category>General</category>
+  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <start>Wed, 19 Sep 2018 21:30:00 GMT</start>
+  <end>Wed, 19 Sep 2018 22:30:00 GMT</end>
+  <location>UTC Library</location>
+  <status>confirmed</status>
+  <author>library@utc.edu (UTC Library )</author>
+  <host>UTC Library </host>
+</item>
+<item>
+  <title>Free Workshop: Protecting Your Privacy Online</title>
+  <guid>https://mocsyncorgs.utc.edu/event/2701712</guid>
+  <link>https://mocsyncorgs.utc.edu/event/2701712</link>
+  <enclosure url="https://images.collegiatelink.net/clink/images/908de50d-bc56-4bb6-b748-fafa58383e8da27fb6bf-6401-4d65-a4ea-3c52b3547f84.png?preset=med-w" length="1" type="image/jpeg" />
+  <description><![CDATA[<div class="h-event vevent">
+  <div class="p-name summary">Free Workshop: Protecting Your Privacy Online</div>
+  <div class="p-description description"><p>Overview of what type of personal data is collected from various apps and websites, and how to have more control on what you are sharing online.</p></div>
+  <div>
+    <p>
+      From <time class="dt-start dtstart" datetime="2018-09-25T16:00:00.0000000-04:00" title="2018-09-25T16:00:00.0000000-04:00">Tuesday, September 25, 2018 4:00 PM</time>
+      to <time class="dt-end dtend" datetime="2018-09-25T16:50:00.0000000-04:00" title="2018-09-25T16:50:00.0000000-04:00">4:50 PM EDT</time>
+      at <span class="p-location location">UTC Library, Room 205</span>.
+    </p>
+  </div>
+</div>]]></description>
+  <category>ThoughtfulLearning</category>
+  <category>Academics</category>
+  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <start>Tue, 25 Sep 2018 20:00:00 GMT</start>
+  <end>Tue, 25 Sep 2018 20:50:00 GMT</end>
+  <location>UTC Library, Room 205</location>
+  <status>confirmed</status>
+  <author>library@utc.edu (UTC Library )</author>
+  <host>ThinkAchieve</host>
+  <host>UTC Library </host>
+</item>
+<item>
+  <title>Therapy Dog Visit at the UTC Library</title>
+  <guid>https://mocsyncorgs.utc.edu/event/2701463</guid>
+  <link>https://mocsyncorgs.utc.edu/event/2701463</link>
+  <enclosure url="https://images.collegiatelink.net/clink/images/b8aa641c-da96-4976-94c2-01ef3f4dcf53894378e7-5725-420f-b688-1861db471120.png?preset=med-w" length="1" type="image/jpeg" />
+  <description><![CDATA[<div class="h-event vevent">
+  <div class="p-name summary">Therapy Dog Visit at the UTC Library</div>
+  <div class="p-description description"><p>Take advantage of the stress-relief benefits of spending time with a therapy dog. Community volunteers from&nbsp;the Human Animal Bond in Tennessee (H.A.B.I.T.) program, which began with help from the UT College of Veterinary Medicine, will be at the UTC Library with their registered therapy dog.</p>
+<p>Meet <strong>Penny</strong>, a gorgeous Labradoodle who has been visiting UTC since 2014! Penny loves Mocs!</p></div>
+  <div>
+    <p>
+      From <time class="dt-start dtstart" datetime="2018-10-25T17:30:00.0000000-04:00" title="2018-10-25T17:30:00.0000000-04:00">Thursday, October 25, 2018 5:30 PM</time>
+      to <time class="dt-end dtend" datetime="2018-10-25T18:30:00.0000000-04:00" title="2018-10-25T18:30:00.0000000-04:00">6:30 PM EDT</time>
+      at <span class="p-location location">UTC Library</span>.
+    </p>
+  </div>
+</div>]]></description>
+  <category>Social</category>
+  <category>General</category>
+  <category>Service </category>
+  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <start>Thu, 25 Oct 2018 21:30:00 GMT</start>
+  <end>Thu, 25 Oct 2018 22:30:00 GMT</end>
+  <location>UTC Library</location>
+  <status>confirmed</status>
+  <author>library@utc.edu (UTC Library )</author>
+  <host>UTC Library </host>
+</item></channel>
+</rss>
