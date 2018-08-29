@@ -1,5 +1,11 @@
 <?php
-//generate all list
+/*generate backup of orgsync and WP alerts
+/ need to edit cron to run every 30 mintues
+/ $ sudo crontab -e
+/ ADD
+/ MAILTO={email} (ex: steven-shelton@utc.edu)
+/ {star}/30 * * * * /usr/bin/php /var/www/html/orgsync/get-orgsync-rss-feed.php
+*/
 $feedUrl2 ="https://mocsyncorgs.utc.edu/organization/utc-library/events.rss";
 $data2 = file_get_contents($feedUrl2);
 $file2 = fopen('/var/www/html/orgsync/orgsync-feed.txt',"w");
