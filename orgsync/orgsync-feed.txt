@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0">
-  <channel><title>UTC Library  Public Events occurring between Tuesday, August 28, 2018 4:28 PM EDT and Saturday, October 27, 2018 4:28 PM EDT</title>
-<description>A listing of public events for UTC Library  occurring between Tuesday, August 28, 2018 4:28 PM EDT and Saturday, October 27, 2018 4:28 PM EDT.</description>
+  <channel><title>UTC Library  Public Events occurring between Wednesday, August 29, 2018 12:46 PM EDT and Sunday, October 28, 2018 12:46 PM EDT</title>
+<description>A listing of public events for UTC Library  occurring between Wednesday, August 29, 2018 12:46 PM EDT and Sunday, October 28, 2018 12:46 PM EDT.</description>
 <language>en-us</language>
-<lastBuildDate>Tue, 28 Aug 2018 20:28:07 GMT</lastBuildDate>
+<lastBuildDate>Wed, 29 Aug 2018 16:46:18 GMT</lastBuildDate>
 <category>Public Events</category>
 <generator>Campus Labs Engage</generator>
 <ttl>300</ttl>
-<pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+<pubDate>Wed, 29 Aug 2018 16:46:18 GMT</pubDate>
 <link>https://mocsyncorgs.utc.edu/events</link>
 <item>
   <title>Free Workshop: Outlook 101</title>
@@ -28,7 +28,7 @@
   <category>ThoughtfulLearning</category>
   <category>Academics</category>
   <category>General</category>
-  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <pubDate>Wed, 29 Aug 2018 16:46:18 GMT</pubDate>
   <start>Wed, 29 Aug 2018 16:00:00 GMT</start>
   <end>Wed, 29 Aug 2018 16:50:00 GMT</end>
   <location>UTC Library, Room 204</location>
@@ -56,7 +56,7 @@
 </div>]]></description>
   <category>ThoughtfulLearning</category>
   <category>Academics</category>
-  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <pubDate>Wed, 29 Aug 2018 16:46:18 GMT</pubDate>
   <start>Wed, 05 Sep 2018 17:00:00 GMT</start>
   <end>Wed, 05 Sep 2018 17:45:00 GMT</end>
   <location>UTC Library, Room 205</location>
@@ -84,7 +84,7 @@
   <category>ThoughtfulLearning</category>
   <category><![CDATA[Performing & Fine Arts]]></category>
   <category>Academics</category>
-  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <pubDate>Wed, 29 Aug 2018 16:46:18 GMT</pubDate>
   <start>Wed, 05 Sep 2018 20:00:00 GMT</start>
   <end>Wed, 05 Sep 2018 21:00:00 GMT</end>
   <location>UTC Library, Room 204</location>
@@ -111,7 +111,7 @@
 </div>]]></description>
   <category>ThoughtfulLearning</category>
   <category>Academics</category>
-  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <pubDate>Wed, 29 Aug 2018 16:46:18 GMT</pubDate>
   <start>Thu, 06 Sep 2018 17:45:00 GMT</start>
   <end>Thu, 06 Sep 2018 18:45:00 GMT</end>
   <location>UTC Library, Room 204</location>
@@ -138,7 +138,7 @@
 </div>]]></description>
   <category>ThoughtfulLearning</category>
   <category>Academics</category>
-  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <pubDate>Wed, 29 Aug 2018 16:46:18 GMT</pubDate>
   <start>Mon, 10 Sep 2018 16:00:00 GMT</start>
   <end>Mon, 10 Sep 2018 16:50:00 GMT</end>
   <location>UTC Library, Room 204</location>
@@ -165,7 +165,7 @@
 </div>]]></description>
   <category>ThoughtfulLearning</category>
   <category>Academics</category>
-  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <pubDate>Wed, 29 Aug 2018 16:46:18 GMT</pubDate>
   <start>Tue, 11 Sep 2018 17:45:00 GMT</start>
   <end>Tue, 11 Sep 2018 18:45:00 GMT</end>
   <location>UTC Library, Room 204</location>
@@ -194,7 +194,7 @@
   <category>Social</category>
   <category>Service </category>
   <category>General</category>
-  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <pubDate>Wed, 29 Aug 2018 16:46:18 GMT</pubDate>
   <start>Wed, 19 Sep 2018 21:30:00 GMT</start>
   <end>Wed, 19 Sep 2018 22:30:00 GMT</end>
   <location>UTC Library</location>
@@ -220,7 +220,7 @@
 </div>]]></description>
   <category>ThoughtfulLearning</category>
   <category>Academics</category>
-  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <pubDate>Wed, 29 Aug 2018 16:46:18 GMT</pubDate>
   <start>Tue, 25 Sep 2018 20:00:00 GMT</start>
   <end>Tue, 25 Sep 2018 20:50:00 GMT</end>
   <location>UTC Library, Room 205</location>
@@ -249,7 +249,7 @@
   <category>Social</category>
   <category>General</category>
   <category>Service </category>
-  <pubDate>Tue, 28 Aug 2018 20:28:07 GMT</pubDate>
+  <pubDate>Wed, 29 Aug 2018 16:46:18 GMT</pubDate>
   <start>Thu, 25 Oct 2018 21:30:00 GMT</start>
   <end>Thu, 25 Oct 2018 22:30:00 GMT</end>
   <location>UTC Library</location>
