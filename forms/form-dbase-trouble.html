@@ -1,9 +1,0 @@
-<script type="text/javascript" src="http://l2.io/ip.js?var=userip"></script>
-<script>
-var staff = location.search.split('staff=')[1];
-if ( !staff ) { var staff = "no"; }
-function postIP() {
-	window.location.href = "./form-dbase-trouble.php?ip=" + userip + "&staff=" + staff;
-}
-postIP();
-</script>
