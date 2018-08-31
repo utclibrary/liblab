@@ -1,20 +1,6 @@
 <?php
 /*
-v4.00
-short URL on multisubjects
-v3.00
-move search to Primo
-v2.1
-changed http to https on external calls
-v2 changes
-*moved ask button and quick links to OUCampus
-*added override id to enclosing div to circumvent OUCampus css
-*integrated code to narrow db selection by subjects
-*removed articles and eBooks+ tabs
-*added message to subjects tab with goal to remove this tab based on usage
-*type-ahead feature
-*text input fields synchronized and clearable
-*added accordion multi-subject on db page
+script to generate search box on library home page
 */
 // enable/disable error reporting
 error_reporting(0);
