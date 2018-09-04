@@ -5,7 +5,7 @@ if ($errorReporting == "N"){
 error_reporting(0);
 }
 else{
-  error_reporting(E_ALL);
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
 }
 ?>
@@ -136,7 +136,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                        <li><a id="lib-menu-about" href="//www.utc.edu/library/about/">About</a></li>
                      </ul>
 <?php
-include($_SERVER['DOCUMENT_ROOT']."/scripts/hours.php"); 
+include($_SERVER['DOCUMENT_ROOT']."/scripts/hours.php");
 ?>
                   </div>
                </div>
