@@ -56,18 +56,31 @@ span.subjects{
       display: none;
   }
 }
+input::placeholder{
+  color:whitesmoke;
+  opacity:1;
+}
+/*
 input::-webkit-input-placeholder{
     color:whitesmoke;
 }
 input:-moz-placeholder {
     color:whitesmoke;
+    opacity:1;
 }
+*/
+input:hover::placeholder{
+    color:#781e1e;
+    opacity:1;
+}
+/*
 input:hover::-webkit-input-placeholder{
     color:#781e1e;
 }
 input:hover:-moz-placeholder{
     color:#781e1e;
 }
+*/
 input#search-highlight{
   padding-left:.5em;
   background-color:#00386b;
@@ -75,11 +88,10 @@ input#search-highlight{
   border:2px solid #e0aa0f;
   margin-right: 1em;
   font-size: 1.5em;
-  height: auto;
+  height: 2em;
   line-height: 2em;
   }
-  input#search-highlight:hover, input#search-highlight:focus{
-    content:'SEARCH';
+input#search-highlight:hover, input#search-highlight:focus{
     cursor:pointer;
     border:2px solid #e0aa0f;
     background-color:white;
@@ -136,6 +148,9 @@ input#search-highlight.x{
   width:100%;
   height:100%;
 	text-decoration: none;
+}
+.form-dropdown::-ms-expand {
+  display: none;
 }
 .selected{
 	border-right:1px solid black;
@@ -272,9 +287,9 @@ div.dbItem.alert-info{
   background-color: #781e1e;
 }
 </style>";
-$addfoot = "<script type='text/javascript' src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
+$addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
-      		<script type='text/javascript'>
+      		<script>
           //<![CDATA[
 	$('#search-highlight').hideseek({
   		highlight: true,
@@ -353,6 +368,12 @@ $queryKeySubj = "";
 // get subject param if set
 if(isset($_GET["subj"])){
 $subj = htmlentities($_GET["subj"]);
+// ignore limit by subject selection
+if (strpos($subj, 'Limit') !== false){
+  // if no subject change var and query used in $query
+  $subj = "A to Z";
+  $orderby = "Dbases.Title";
+}else{
 // sanitize
 $subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
 // set query variables for subjects used inn $query
@@ -361,6 +382,7 @@ $queryKeySubj="AND SubjectList.Subject LIKE \"".$subject."\" ";
 echo "<style>h2.badge,span.subjects{display:none;}</style>";
 // set order by used in $query
 $orderby = "DBRanking.Ranking";
+}
 }else{
   // if no subject change var and query used in $query
   $subj = "A to Z";
@@ -446,11 +468,13 @@ $resultSL = mysqli_query($conLuptonDB , $querySubjectList) or die($error);
       }
       //show subject select box atoz and subject selected
 if ($alpha === "ALL"){
-echo "<span id='searchbox'><label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
-    <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span><!--
-    <button id='searchbutton' class='btn btn-primary'><i class='icon-search'><span class='hidden'>UTC Home</span></i></button> --></span>
-    <select id='subject-select'>
-        <option>Limit by Subject</option>";
+echo "<span id='searchbox'>
+      <label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
+      <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span><!--
+      <button id='searchbutton' class='btn btn-primary'><i class='icon-search'>
+      <span class='hidden'>Search Databases</span></i></button> -->
+      <select id='subject-select'>
+      <option>Limit by Subject</option>";
   while($row = mysqli_fetch_array($resultSL)){
     echo "<option";
     if (strpos($row['Subject'],$subj) === 0) {
