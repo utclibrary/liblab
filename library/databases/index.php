@@ -382,6 +382,7 @@ $queryKeySubj="AND SubjectList.Subject LIKE \"".$subject."\" ";
 echo "<style>h2.badge,span.subjects{display:none;}</style>";
 // set order by used in $query
 $orderby = "DBRanking.Ranking";
+echo "<style>.highlight_list h2[id^='Letter']{display:none !important;}</style>";
 }
 }else{
   // if no subject change var and query used in $query
