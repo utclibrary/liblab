@@ -504,14 +504,13 @@ echo "<span id='searchbox'>
 echo"</div>";
 // main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,
-#GROUP_CONCAT( DISTINCT '<a href=\"$currentFile?alpha=ALL\&subj=', SubjectList.Subject, '\">', SubjectList.Subject, '</a>' ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
 GROUP_CONCAT( DISTINCT '<span>' , SubjectList.Subject , '</span>' ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
 					FROM Dbases
-          INNER JOIN LuptonDB.DBRanking
+          LEFT JOIN LuptonDB.DBRanking
           ON Dbases.Key_ID = DBRanking.Key_ID
-          INNER JOIN LuptonDB.SubjectList
+          LEFT JOIN LuptonDB.SubjectList
           ON DBRanking.Subject_ID = SubjectList.Subject_ID
-					WHERE SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKey.$queryKeySubj.
+					WHERE Dbases.Key_ID <> 529 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ".$queryKey.$queryKeySubj.
           "GROUP BY Title
           ORDER by ".$orderby;
 
@@ -590,7 +589,8 @@ echo "</div><!-- highlight_list -->";
   <h2 class="welltopperGold" style="font-size: 24px;">
   <i class="icon-star" style="padding-right: .25em;"><span class="hidden"> Check it out</span> </i>Check Out</h2>
   <?php
-  $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY RAND() LIMIT 1";
+  $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
+  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
   $result = mysqli_query($conLuptonDB , $randquery) or die($error);
 
   if (!mysqli_num_rows($result))
