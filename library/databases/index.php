@@ -3,7 +3,7 @@
 $errorReporting = "N";
 //template system to replicate main website look and feel
 $title = "A to Z Databases | UTC Library";
-$description = "Full A to Z list of databases available at the UTC Library";
+$description = "Full A to Z list of databases available at the UTC Library.";
 $keywords = "databases";
 //do you want to override the folder structure for menu? (default is NO)
 $override_side_menu="NO";
@@ -45,32 +45,56 @@ span.subjects{
 /*  border-bottom: 1px solid #EFD487;*/
 }
 .highlight_list > h2.badge{
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	min-width: 25px;
 	font-size: 40px;
 	padding: 15px;
 	margin-top: 10px;
 	text-align: center;
 }
-@media (max-width: 768px)
-	{
-input#search-highlight {
-    display: none;
-}
-	}
+@media (max-width: 768px){
   input#search-highlight {
-    margin-right: 1em;
-      /*width: -webkit-fill-available;
-      width: -moz-available;*/
-      font-size: 1.25em;
-      height: auto;
-      line-height: 2em;
+      display: none;
   }
-  input#search-highlight.hidden {
+}
+input::-webkit-input-placeholder{
+    color:whitesmoke;
+}
+input:-moz-placeholder {
+    color:whitesmoke;
+}
+input:hover::-webkit-input-placeholder{
+    color:#781e1e;
+}
+input:hover:-moz-placeholder{
+    color:#781e1e;
+}
+input#search-highlight{
+  padding-left:.5em;
+  background-color:#00386b;
+  min-width: 1.75em;
+  border:2px solid #e0aa0f;
+  margin-right: 1em;
+  font-size: 1.5em;
+  height: auto;
+  line-height: 2em;
+  }
+  input#search-highlight:hover, input#search-highlight:focus{
+    content:'SEARCH';
+    cursor:pointer;
+    border:2px solid #e0aa0f;
+    background-color:white;
+  }
+input#search-highlight.hidden {
       display: none;
   }
 #search-highlight::-ms-clear {
     display: none;
+}
+input#search-highlight.x{
+  font-size:1.5em;
+  font-family: \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;
+  width:100%;
+  background-color:white;
 }
 .clearable.onX {
     cursor: pointer;
@@ -80,7 +104,7 @@ input#search-highlight {
 }
 .clearable {
     background: url(//i.stack.imgur.com/mJotv.gif) right -10px center no-repeat #fff;
-    border: 1px solid #999;
+    /*border: 1px solid #999;*/
     padding: 3px 18px 3px 4px;
     border-radius: 3px;
     transition: background .4s;
@@ -244,7 +268,9 @@ div.dbItem.alert-info{
 .input-hold{
   width:100%;
 }
-
+#alpha .nav-pills > .red-btn > a{
+  background-color: #781e1e;
+}
 </style>";
 $addfoot = "<script type='text/javascript' src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
@@ -255,6 +281,7 @@ $addfoot = "<script type='text/javascript' src='//www.utc.edu/library/_resources
 		nodata: 'No results found'
 	});
 $(document).ready(function() {
+  $('[data-toggle=\"tooltip\"]').tooltip();
   var url = window.location.pathname;
   var filename = url.substring(url.lastIndexOf('/')+1);
   $( '.subjects span' ).each(function() {
@@ -377,12 +404,11 @@ while($row = mysqli_fetch_array($alphaList))
 echo " <div id='alpha' class='fluid-row'>
 <ul id='alphlist' class='nav nav-pills'>";
 if (($alpha === "ALL")&&($subj === "A to Z")){
-	echo "<li class='active'>";
+	echo "<li>";
 }
 else{
-echo "<li>";
+echo "<li class='active pull-right red-btn'><a href='".$currentFile."?alpha=ALL'>RESET</a></li>";
 }
-echo "<a href='".$currentFile."?alpha=ALL'>ALL</a></li>";
 if ($alpha === "num"){
 echo "<li class='active'>";
 }
@@ -416,13 +442,14 @@ $resultSL = mysqli_query($conLuptonDB , $querySubjectList) or die($error);
   echo "<div class='clearfix'>";
   //show search box only on full atoz
   if (($subj === "A to Z")&&($alpha === "ALL")){
-    echo"<span id='searchbox'><label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
-      	<input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list'></span><!--
-        <button id='searchbutton' class='btn btn-primary'><i class='icon-search'><span class='hidden'>UTC Home</span></i></button> --></span>";
+    echo"";
       }
       //show subject select box atoz and subject selected
 if ($alpha === "ALL"){
-echo "<select id='subject-select'>
+echo "<span id='searchbox'><label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
+    <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span><!--
+    <button id='searchbutton' class='btn btn-primary'><i class='icon-search'><span class='hidden'>UTC Home</span></i></button> --></span>
+    <select id='subject-select'>
         <option>Limit by Subject</option>";
   while($row = mysqli_fetch_array($resultSL)){
     echo "<option";
