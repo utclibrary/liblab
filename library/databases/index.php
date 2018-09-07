@@ -590,7 +590,7 @@ echo "</div><!-- highlight_list -->";
   <h2 class="welltopperGold" style="font-size: 24px;">
   <i class="icon-star" style="padding-right: .25em;"><span class="hidden"> Check it out</span> </i>Check Out</h2>
   <?php
-  $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases ORDER BY RAND() LIMIT 1";
+  $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY RAND() LIMIT 1";
   $result = mysqli_query($conLuptonDB , $randquery) or die($error);
 
   if (!mysqli_num_rows($result))
