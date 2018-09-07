@@ -394,17 +394,20 @@ echo "<style>.highlight_list h2[id^='Letter']{display:none !important;}</style>"
   $orderby = "Dbases.Title";
 }
 // get alpha if set
+$queryKeyAlpha = "";
 if(isset($_GET["alpha"])){
 $alpha = $_GET["alpha"];
 }
 // check to see if alpha is num, empty or letter to change query used in $query
 if ($alpha === "num"){
 $queryKey = " AND Dbases.Title REGEXP '^[0-9]'";
+$queryKeyAlpha = "&alpha=num";
 }
 elseif ($alpha === "ALL"){
 	$queryKey = "";
 }
 else{
+  $queryKeyAlpha = "&alpha=".$alpha;
 	$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
 }
 // this changes dynamcially based on subject paramater - jquery updates the page title
@@ -467,8 +470,14 @@ echo "
 </ul>
     </div>";
 // get a list of current subjects for select box
-$querySubjectList = " SELECT SubjectList.Subject
-FROM LuptonDB.SubjectList WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Subject_ID <> 59 ORDER BY SubjectList.Format , SubjectList.Subject
+$querySubjectList = " SELECT DISTINCT SubjectList.Subject
+FROM LuptonDB.SubjectList
+INNER JOIN LuptonDB.DBRanking
+ON DBRanking.Subject_ID = SubjectList.Subject_ID
+INNER JOIN LuptonDB.Dbases
+ON Dbases.Key_ID = DBRanking.Key_ID
+WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Subject_ID <> 59 ".$queryKey."
+ORDER BY SubjectList.Format , SubjectList.Subject
 ";
 $resultSL = mysqli_query($conLuptonDB , "set names 'utf8'");
 $resultSL = mysqli_query($conLuptonDB , $querySubjectList) or die($error);
@@ -491,7 +500,7 @@ echo "<span id='searchbox'>
     if (strpos($row['Subject'],$subj) === 0) {
       echo " selected='selected' ";
     }
-    echo">".$row['Subject']."</option>";
+    echo" value='".$row['Subject'].$queryKeyAlpha."'>".$row['Subject']."</option>";
   }
   echo "</select>";
 //}
