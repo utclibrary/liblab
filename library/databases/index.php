@@ -696,7 +696,11 @@ echo "
   var filename = url.substring(url.lastIndexOf('/')+1);
   $( '.subjects span' ).each(function() {
     var subject = $( this ).text();
+    if (subject =='New'){
+      $(this).html('<span class=\"badge badge-success\">NEW !</span>');
+    }else{
     $(this).html('<a href=\"'+ filename + '?subj=' + subject + '".$queryKeyAlpha."\">' + subject + '</a>');
+  }
   });
 });</script>";
 ?>
