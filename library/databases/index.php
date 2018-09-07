@@ -365,6 +365,7 @@ require_once '/var/www/html/includes/dbconnect.php';
 $alpha = "ALL";
 $queryKey = "";
 $queryKeySubj = "";
+$urlsubjappend="";
 // get subject param if set
 if(isset($_GET["subj"])){
 $subj = htmlentities($_GET["subj"]);
@@ -378,10 +379,13 @@ if (strpos($subj, 'Limit') !== false){
 $subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
 // set query variables for subjects used inn $query
 $queryKeySubj="AND SubjectList.Subject LIKE \"".$subject."\" ";
+// create append for alpha clicks within subject
+$urlsubjappend = "&subj=".$subject;
 // hide alpha badges on subject pages
 echo "<style>h2.badge,span.subjects{display:none;}</style>";
 // set order by used in $query
 $orderby = "DBRanking.Ranking";
+//hide letter badges on clear search
 echo "<style>.highlight_list h2[id^='Letter']{display:none !important;}</style>";
 }
 }else{
@@ -417,7 +421,13 @@ $alphaListFull="";
 // query to generate a to z
 $queryAlpha = "SELECT DISTINCT
 LEFT(Title, 1) as letter
-FROM LuptonDB.Dbases ORDER BY letter";
+FROM LuptonDB.Dbases
+INNER JOIN LuptonDB.DBRanking
+ON Dbases.Key_ID = DBRanking.Key_ID
+INNER JOIN LuptonDB.SubjectList
+ON DBRanking.Subject_ID = SubjectList.Subject_ID
+WHERE SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKeySubj."
+ORDER BY letter";
 $alphaList = mysqli_query($conLuptonDB , "set names 'utf8'");
 $alphaList = mysqli_query($conLuptonDB , $queryAlpha) or die($error);
 while($row = mysqli_fetch_array($alphaList))
@@ -432,13 +442,13 @@ if (($alpha === "ALL")&&($subj === "A to Z")){
 else{
 echo "<li class='active pull-right red-btn'><a href='".$currentFile."?alpha=ALL'>RESET</a></li>";
 }
-if ($alpha === "num"){
-echo "<li class='active'>";
-}
-else{
+//if ($alpha === "num"){
+//echo "<li class='active'>";
+//}
+//else{
 	echo "<li>";
-}
-echo "<a href='".$currentFile."?alpha=num'>#</a></li>";
+//}
+//echo "<a href='".$currentFile."?alpha=num'>#</a></li>";
 // loop through A to Z highight if selected
 foreach (range('A', 'Z') as $column){
 	if ($column == $alpha){
@@ -451,7 +461,7 @@ else{
   // if letter not in query change class to grey it out
  echo "<li class='emptyAlpha'>";
 }
-echo "<a href='".$currentFile."?alpha=".$column."'> ".$column." </a></li>";
+echo "<a href='".$currentFile."?alpha=".$column.$urlsubjappend."'> ".$column." </a></li>";
 }
 echo "
 </ul>
@@ -468,7 +478,7 @@ $resultSL = mysqli_query($conLuptonDB , $querySubjectList) or die($error);
     echo"";
       }
       //show subject select box atoz and subject selected
-if ($alpha === "ALL"){
+//if ($alpha === "ALL"){
 echo "<span id='searchbox'>
       <label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
       <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span><!--
@@ -484,7 +494,7 @@ echo "<span id='searchbox'>
     echo">".$row['Subject']."</option>";
   }
   echo "</select>";
-}
+//}
 echo"</div>";
 // main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,
