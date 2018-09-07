@@ -510,7 +510,7 @@ GROUP_CONCAT( DISTINCT '<span>' , SubjectList.Subject , '</span>' ORDER BY Subje
           ON Dbases.Key_ID = DBRanking.Key_ID
           LEFT JOIN LuptonDB.SubjectList
           ON DBRanking.Subject_ID = SubjectList.Subject_ID
-					WHERE Dbases.Key_ID <> 529 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ".$queryKey.$queryKeySubj.
+					WHERE SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ".$queryKey.$queryKeySubj.
           "GROUP BY Title
           ORDER by ".$orderby;
 
