@@ -297,12 +297,6 @@ $addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min
 	});
 $(document).ready(function() {
   $('[data-toggle=\"tooltip\"]').tooltip();
-  var url = window.location.pathname;
-  var filename = url.substring(url.lastIndexOf('/')+1);
-  $( '.subjects span' ).each(function() {
-    var subject = $( this ).text();
-    $(this).html('<a href=\"'+ filename + '?alpha=ALL&subj=' + subject + '\">' + subject + '</a>');
-  });
   $('h2#Letter1').text('#');
 /* jquery for clearable fields */
 // CLEARABLE INPUT
@@ -380,7 +374,7 @@ $subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
 // set query variables for subjects used inn $query
 $queryKeySubj="AND SubjectList.Subject LIKE \"".$subject."\" ";
 // create append for alpha clicks within subject
-$urlsubjappend = "&subj=".$subject;
+$urlsubjappend = "&subj=".$subj;
 // hide alpha badges on subject pages
 echo "<style>h2.badge,span.subjects{display:none;}</style>";
 // set order by used in $query
@@ -395,8 +389,10 @@ echo "<style>.highlight_list h2[id^='Letter']{display:none !important;}</style>"
 }
 // get alpha if set
 $queryKeyAlpha = "";
+$displayAlpha = "";
 if(isset($_GET["alpha"])){
 $alpha = $_GET["alpha"];
+$displayAlpha = " - ".$alpha;
 }
 // check to see if alpha is num, empty or letter to change query used in $query
 if ($alpha === "num"){
@@ -405,17 +401,18 @@ $queryKeyAlpha = "&alpha=num";
 }
 elseif ($alpha === "ALL"){
 	$queryKey = "";
+  $displayAlpha = "";
 }
 else{
   $queryKeyAlpha = "&alpha=".$alpha;
 	$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
 }
 // this changes dynamcially based on subject paramater - jquery updates the page title
-echo "<h1>$subj Databases</h1>
+echo "<h1>".$subj." Databases".$displayAlpha."</h1>
 <script type='text/javascript'>
 
     $(document).ready(function() {
-        document.title = '".$subj." Databases | UTC Library';
+        document.title = '".$subj." Databases".$displayAlpha." | UTC Library';
     });
 
 </script>";
@@ -692,5 +689,15 @@ mysqli_close($conLuptonDB);
    echo "</ul>";
  }
 include($_SERVER['DOCUMENT_ROOT']."/includes/foot.php");
+echo "
+<script>$(document).ready(function() {
+  console.log('".$queryKeyAlpha."');
+  var url = window.location.pathname;
+  var filename = url.substring(url.lastIndexOf('/')+1);
+  $( '.subjects span' ).each(function() {
+    var subject = $( this ).text();
+    $(this).html('<a href=\"'+ filename + '?subj=' + subject + '".$queryKeyAlpha."\">' + subject + '</a>');
+  });
+});</script>";
 ?>
 <!-- add any additional footer code here -->
