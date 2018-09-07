@@ -3,10 +3,63 @@
 $errorReporting = "N";
 //template system to replicate main website look and feel
 $title = "A to Z Databases | UTC Library";
-$description = "Full A to Z list of databases available at the UTC Library";
+$description = "Full A to Z list of databases available at the UTC Library.";
 $keywords = "databases";
 //do you want to override the folder structure for menu? (default is NO)
 $override_side_menu="NO";
+// stuff for dbatoz that I need to call in js
+//  set variables in case paramater is not passed
+$alpha = "ALL";
+$queryKey = "";
+$queryKeySubj = "";
+$urlsubjappend="";
+// get subject param if set
+if(isset($_GET["subj"])){
+$subj = htmlentities($_GET["subj"]);
+// ignore limit by subject selection
+if (strpos($subj, 'Limit') !== false){
+  // if no subject change var and query used in $query
+  $subj = "A to Z";
+  $orderby = "Dbases.Title";
+}else{
+// sanitize
+$subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
+// set query variables for subjects used inn $query
+$queryKeySubj="AND SubjectList.Subject LIKE \"".$subject."\" ";
+// create append for alpha clicks within subject
+$urlsubjappend = "&subj=".$_GET["subj"];
+// hide alpha badges on subject pages
+echo "<style>h2.badge,span.subjects{display:none;}</style>";
+// set order by used in $query
+$orderby = "DBRanking.Ranking";
+//hide letter badges on clear search
+echo "<style>.highlight_list h2[id^='Letter']{display:none !important;}</style>";
+}
+}else{
+  // if no subject change var and query used in $query
+  $subj = "A to Z";
+  $orderby = "Dbases.Title";
+}
+// get alpha if set
+$queryKeyAlpha = "";
+$displayAlpha = "";
+if(isset($_GET["alpha"])){
+$alpha = $_GET["alpha"];
+$displayAlpha = " - ".$alpha;
+}
+// check to see if alpha is num, empty or letter to change query used in $query
+if ($alpha === "num"){
+$queryKey = " AND Dbases.Title REGEXP '^[0-9]'";
+$queryKeyAlpha = "&alpha=num";
+}
+elseif ($alpha === "ALL"){
+	$queryKey = "";
+  $displayAlpha = "";
+}
+else{
+  $queryKeyAlpha = "&alpha=".$alpha;
+	$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
+}
 //in case you need to add anything in the head or footer
 $addhead = "<style>
 span.subjects{
@@ -45,32 +98,72 @@ span.subjects{
 /*  border-bottom: 1px solid #EFD487;*/
 }
 .highlight_list > h2.badge{
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	min-width: 25px;
 	font-size: 40px;
 	padding: 15px;
 	margin-top: 10px;
 	text-align: center;
 }
-@media (max-width: 768px)
-	{
-input#search-highlight {
-    display: none;
-}
-	}
+@media (max-width: 768px){
   input#search-highlight {
-    margin-right: 1em;
-      /*width: -webkit-fill-available;
-      width: -moz-available;*/
-      font-size: 1.25em;
-      height: auto;
-      line-height: 2em;
+      display: none;
   }
-  input#search-highlight.hidden {
+}
+input::placeholder{
+  text-align:center;
+  color:whitesmoke;
+  opacity:1;
+}
+
+input::-webkit-input-placeholder{
+  text-align:center;
+  color:whitesmoke;
+  opacity:1;
+}
+input:-moz-placeholder {
+    color:whitesmoke;
+    opacity:1;
+}
+
+input:hover::placeholder{
+    color:#781e1e;
+    opacity:1;
+}
+input:focus::placeholder{
+  text-align:left;
+}
+input:focus::-webkit-input-placeholder{
+  text-align:left;
+}
+input:hover::-webkit-input-placeholder{
+    color:#781e1e;
+}
+input:hover:-moz-placeholder{
+    color:#781e1e;
+}
+
+input#search-highlight{
+  padding: 10px;
+  background-color:#00386b;
+  border:2px solid #e0aa0f;
+  font-size: 1.5em;
+  }
+input#search-highlight:hover, input#search-highlight:focus{
+    cursor:pointer;
+    border:2px solid #e0aa0f;
+    background-color:white;
+  }
+input#search-highlight.hidden {
       display: none;
   }
 #search-highlight::-ms-clear {
     display: none;
+}
+input#search-highlight.x{
+  font-size:1.5em;
+  font-family: \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;
+  width:100%;
+  background-color:white;
 }
 .clearable.onX {
     cursor: pointer;
@@ -80,7 +173,7 @@ input#search-highlight {
 }
 .clearable {
     background: url(//i.stack.imgur.com/mJotv.gif) right -10px center no-repeat #fff;
-    border: 1px solid #999;
+    /*border: 1px solid #999;*/
     padding: 3px 18px 3px 4px;
     border-radius: 3px;
     transition: background .4s;
@@ -112,6 +205,9 @@ input#search-highlight {
   width:100%;
   height:100%;
 	text-decoration: none;
+}
+.form-dropdown::-ms-expand {
+  display: none;
 }
 .selected{
 	border-right:1px solid black;
@@ -244,22 +340,25 @@ div.dbItem.alert-info{
 .input-hold{
   width:100%;
 }
-
+#alpha .nav-pills > .red-btn > a{
+  background-color: #781e1e;
+}
 </style>";
-$addfoot = "<script type='text/javascript' src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
+$addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
-      		<script type='text/javascript'>
+      		<script>
           //<![CDATA[
 	$('#search-highlight').hideseek({
   		highlight: true,
 		nodata: 'No results found'
 	});
 $(document).ready(function() {
+  $('[data-toggle=\"tooltip\"]').tooltip();
   var url = window.location.pathname;
   var filename = url.substring(url.lastIndexOf('/')+1);
   $( '.subjects span' ).each(function() {
     var subject = $( this ).text();
-    $(this).html('<a href=\"'+ filename + '?alpha=ALL&subj=' + subject + '\">' + subject + '</a>');
+    $(this).html('<a href=\"'+ filename + '?subj=' + subject + '".$queryKeyAlpha."\">' + subject + '</a>');
   });
   $('h2#Letter1').text('#');
 /* jquery for clearable fields */
@@ -295,7 +394,7 @@ function resetsearch() {
 }
 /* reload page on select */
 $( '#subject-select' ).change(function() {
-  window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#subject-select').val();
+  window.location.href = window.location.href.split('?')[0] + '?subj=' + $( '#subject-select').val();
  });
 //]]>
 </script>";
@@ -317,54 +416,15 @@ $currentFile = $_SERVER['PHP_SELF'];
 // declare variables
 $lastletter = "";
 $error = "";
-//specify databases
-$dbname = "LuptonDB";
 // connect to database
 require_once '/var/www/html/includes/dbconnect.php';
-//  set variables in case paramater is not passed
-$alpha = "ALL";
-$limit = " LIMIT 15";
-$queryKey = "";
-$queryKeySubj = "";
-//set more btn for intitial load
-$morebtn = "<div class='span12'><a href='".$currentFile."?alpha=ALL' class='more btn btn-block btn-large'>Load All</a></div>";
-// get subject param if set
-if(isset($_GET["subj"])){
-$subj = htmlentities($_GET["subj"]);
-// sanitize
-$subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
-// set query variables for subjects used inn $query
-$queryKeySubj="AND SubjectList.Subject LIKE \"".$subject."\" ";
-// hide alpha badges on subject pages
-echo "<style>h2.badge,span.subjects{display:none;}</style>";
-// set order by used in $query
-$orderby = "DBRanking.Ranking";
-}else{
-  // if no subject change var and query used in $query
-  $subj = "A to Z";
-  $orderby = "Dbases.Title";
-}
-// get alpha if set
-if(isset($_GET["alpha"])){
-$alpha = $_GET["alpha"];
-  $limit = ""; $morebtn = "";
-}
-// check to see if alpha is num, empty or letter to change query used in $query
-if ($alpha === "num"){
-$queryKey = " AND Dbases.Title REGEXP '^[0-9]'";
-}
-elseif ($alpha === "ALL"){
-	$queryKey = "";
-}
-else{
-	$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
-}
+
 // this changes dynamcially based on subject paramater - jquery updates the page title
-echo "<h1>$subj Databases</h1>
+echo "<h1>".$subj." Databases".$displayAlpha."</h1>
 <script type='text/javascript'>
 
     $(document).ready(function() {
-        document.title = '".$subj." Databases | UTC Library';
+        document.title = '".$subj." Databases".$displayAlpha." | UTC Library';
     });
 
 </script>";
@@ -373,7 +433,13 @@ $alphaListFull="";
 // query to generate a to z
 $queryAlpha = "SELECT DISTINCT
 LEFT(Title, 1) as letter
-FROM LuptonDB.Dbases ORDER BY letter";
+FROM LuptonDB.Dbases
+INNER JOIN LuptonDB.DBRanking
+ON Dbases.Key_ID = DBRanking.Key_ID
+INNER JOIN LuptonDB.SubjectList
+ON DBRanking.Subject_ID = SubjectList.Subject_ID
+WHERE SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKeySubj."
+ORDER BY letter";
 $alphaList = mysqli_query($conLuptonDB , "set names 'utf8'");
 $alphaList = mysqli_query($conLuptonDB , $queryAlpha) or die($error);
 while($row = mysqli_fetch_array($alphaList))
@@ -383,19 +449,18 @@ while($row = mysqli_fetch_array($alphaList))
 echo " <div id='alpha' class='fluid-row'>
 <ul id='alphlist' class='nav nav-pills'>";
 if (($alpha === "ALL")&&($subj === "A to Z")){
-	echo "<li class='active'>";
-}
-else{
-echo "<li>";
-}
-echo "<a href='".$currentFile."?alpha=ALL'>ALL</a></li>";
-if ($alpha === "num"){
-echo "<li class='active'>";
-}
-else{
 	echo "<li>";
 }
-echo "<a href='".$currentFile."?alpha=num'>#</a></li>";
+else{
+echo "<li class='active pull-right red-btn'><a href='".$currentFile."?alpha=ALL'>RESET</a></li>";
+}
+//if ($alpha === "num"){
+//echo "<li class='active'>";
+//}
+//else{
+	echo "<li>";
+//}
+//echo "<a href='".$currentFile."?alpha=num'>#</a></li>";
 // loop through A to Z highight if selected
 foreach (range('A', 'Z') as $column){
 	if ($column == $alpha){
@@ -408,37 +473,44 @@ else{
   // if letter not in query change class to grey it out
  echo "<li class='emptyAlpha'>";
 }
-echo "<a href='".$currentFile."?alpha=".$column."'> ".$column." </a></li>";
+echo "<a href='".$currentFile."?alpha=".$column.$urlsubjappend."'> ".$column." </a></li>";
 }
 echo "
 </ul>
     </div>";
 // get a list of current subjects for select box
-$querySubjectList = " SELECT SubjectList.Subject
-FROM LuptonDB.SubjectList WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Subject_ID <> 59 ORDER BY SubjectList.Format , SubjectList.Subject
+$querySubjectList = " SELECT DISTINCT SubjectList.Subject
+FROM LuptonDB.SubjectList
+INNER JOIN LuptonDB.DBRanking
+ON DBRanking.Subject_ID = SubjectList.Subject_ID
+INNER JOIN LuptonDB.Dbases
+ON Dbases.Key_ID = DBRanking.Key_ID
+WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Subject_ID <> 59 ".$queryKey."
+ORDER BY SubjectList.Format , SubjectList.Subject
 ";
 $resultSL = mysqli_query($conLuptonDB , "set names 'utf8'");
 $resultSL = mysqli_query($conLuptonDB , $querySubjectList) or die($error);
   echo "<div class='clearfix'>";
   //show search box only on full atoz
-  if (($subj === "A to Z")&&($alpha === "ALL")){
-    echo"<span id='searchbox'><label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
-      	<input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list'></span><!--
-        <button id='searchbutton' class='btn btn-primary'><i class='icon-search'><span class='hidden'>UTC Home</span></i></button> --></span>";
-      }
-      //show subject select box atoz and subject selected
-if ($alpha === "ALL"){
-echo "<select id='subject-select'>
-        <option>Limit by Subject</option>";
+if ($subj !== "A to Z"){
+  echo "<style>input#search-highlight {
+          min-height: 50px;
+          min-width: 50px;
+        }</style>";
+}
+echo "<span id='searchbox'>
+      <label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
+      <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder='&#xF002;' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span>
+      <select id='subject-select'>
+      <option>Limit by Subject</option>";
   while($row = mysqli_fetch_array($resultSL)){
     echo "<option";
     if (strpos($row['Subject'],$subj) === 0) {
       echo " selected='selected' ";
     }
-    echo">".$row['Subject']."</option>";
+    echo" value='".$row['Subject'].$queryKeyAlpha."'>".$row['Subject']."</option>";
   }
   echo "</select>";
-}
 echo"</div>";
 // main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,
@@ -451,8 +523,8 @@ GROUP_CONCAT( DISTINCT '<span>' , SubjectList.Subject , '</span>' ORDER BY Subje
           ON DBRanking.Subject_ID = SubjectList.Subject_ID
 					WHERE SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKey.$queryKeySubj.
           "GROUP BY Title
-          ORDER by ".$orderby.$limit;
-//echo $query;
+          ORDER by ".$orderby;
+
 $result = mysqli_query($conLuptonDB , "set names 'utf8'");
 $result = mysqli_query($conLuptonDB , $query) or die($error);
 echo "<div class='highlight_list'>";
@@ -626,7 +698,6 @@ mysqli_close($conLuptonDB);
  }
    echo "</ul>";
  }
- echo $morebtn;
 include($_SERVER['DOCUMENT_ROOT']."/includes/foot.php");
 ?>
 <!-- add any additional footer code here -->
