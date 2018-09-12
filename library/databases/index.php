@@ -390,6 +390,7 @@ $alpha = "ALL";
 $queryKey = "";
 $queryKeySubj = "";
 $urlsubjappend="";
+$queryKeySubjAtoZ="";
 // get subject param if set
 if(isset($_GET["subj"])){
 $subj = htmlentities($_GET["subj"]);
@@ -401,8 +402,10 @@ if (strpos($subj, 'Limit') !== false){
 }else{
 // sanitize
 $subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
-// set query variables for subjects used inn $query
+// set query variables for subjects used in main $query
 $queryKeySubj="AND (SubjectList.Subject LIKE '".$subject."' OR SubjectList.Subject = 'New')";
+//this is used in alpha query to show letters available in this subject
+$queryKeySubjAtoZ="AND SubjectList.Subject LIKE '".$subject."'";
 // create append for alpha clicks within subject
 $urlsubjappend = "&subj=".$subj;
 
@@ -457,7 +460,7 @@ INNER JOIN LuptonDB.DBRanking
 ON Dbases.Key_ID = DBRanking.Key_ID
 INNER JOIN LuptonDB.SubjectList
 ON DBRanking.Subject_ID = SubjectList.Subject_ID
-WHERE Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKeySubj."
+WHERE Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKeySubjAtoZ."
 ORDER BY letter";
 $alphaList = mysqli_query($conLuptonDB , "set names 'utf8'");
 $alphaList = mysqli_query($conLuptonDB , $queryAlpha) or die($error);
@@ -498,7 +501,8 @@ echo "
 </ul>
     </div>";
 // get a list of current subjects for select box
-$querySubjectList = " SELECT DISTINCT SubjectList.Subject
+$querySubjectList = " SELECT DISTINCT SubjectList.Subject,
+IF (SubjectList.NotSubjectList = 0,'true','false') AS NotSubjectList
 FROM LuptonDB.SubjectList
 INNER JOIN LuptonDB.DBRanking
 ON DBRanking.Subject_ID = SubjectList.Subject_ID
@@ -557,6 +561,7 @@ else
 // loop through results
 while($row = mysqli_fetch_array($result))
 {
+  if ((strpos($row['Subjects'], $subj) !== false)||($subj==="A to Z")){
   // if subj show Libguide once
   if($i == 0){
     if ((!empty($row['LibGuidesPage']))&&($subj != "A to Z")) {
@@ -594,7 +599,7 @@ $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
     }
   	echo $row['ShortDescription'];
   	if (!empty($row['HighlightedInfo'])){
-  		echo "<span class='highlighted-info'>" . $row['HighlightedInfo'] . "</span>";
+  		echo "<span class='highlighted-info'> " . $row['HighlightedInfo'] . "</span>";
     }
   	if ($row['SimUsers'] == 1){
   		echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous user.</font></strong>";
@@ -612,7 +617,7 @@ $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
     echo "</div>";//close each item
 
 }
-
+}
 }
 }
 echo "</div><!-- highlight_list -->";
