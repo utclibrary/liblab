@@ -446,7 +446,7 @@ echo "<h1>".$subj." Databases".$displayAlpha."</h1>
 <script type='text/javascript'>
 
     $(document).ready(function() {
-        document.title = '".$subj." Databases".$displayAlpha." | UTC Library';
+        document.title = \"".$subj." Databases".$displayAlpha." | UTC Library\";
     });
 
 </script>";
