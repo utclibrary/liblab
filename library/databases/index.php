@@ -557,7 +557,6 @@ else
 // loop through results
 while($row = mysqli_fetch_array($result))
 {
-  if (strpos($row['Subjects'], $subj) !== false){
   // if subj show Libguide once
   if($i == 0){
     if ((!empty($row['LibGuidesPage']))&&($subj != "A to Z")) {
@@ -613,7 +612,7 @@ $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
     echo "</div>";//close each item
 
 }
-}
+
 }
 }
 echo "</div><!-- highlight_list -->";
