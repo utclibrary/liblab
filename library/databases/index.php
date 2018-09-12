@@ -286,6 +286,36 @@ div.dbItem.alert-info{
 #alpha .nav-pills > .red-btn > a{
   background-color: #781e1e;
 }
+.subjects .badge{
+  margin:6px 10px 5px 5px;
+}
+.subjects .nav-pills > li:nth-of-type(2) > a{
+  border-left:1px solid black;
+}
+.subjects .nav-pills > li > a,.subjects .nav-pills > li > a:hover{
+  font-size:.85em;
+  border-right: 1px solid black;
+  border-bottom:0px;
+  padding:0 5px;
+  text-decoration:none;
+  border-radius:0px;
+}
+.subjects .nav-pills > li > a:hover{
+  color: white;
+  background: darkblue;
+}
+.subjects ul.nav{
+  margin:2px 2px 2px -5px;
+  padding:3px;
+}
+.dbItem .badge{
+  margin-left:5px;
+}
+.dbItem .strong{
+  font-size: .85em;
+  padding-right: 5px;
+  font-weight: bold;
+}
 </style>";
 $addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
@@ -372,9 +402,10 @@ if (strpos($subj, 'Limit') !== false){
 // sanitize
 $subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
 // set query variables for subjects used inn $query
-$queryKeySubj="AND SubjectList.Subject LIKE \"".$subject."\" ";
+$queryKeySubj="AND (SubjectList.Subject LIKE '".$subject."' OR SubjectList.Subject = 'New')";
 // create append for alpha clicks within subject
 $urlsubjappend = "&subj=".$subj;
+
 // hide alpha badges on subject pages
 echo "<style>h2.badge,span.subjects{display:none;}</style>";
 // set order by used in $query
@@ -426,7 +457,7 @@ INNER JOIN LuptonDB.DBRanking
 ON Dbases.Key_ID = DBRanking.Key_ID
 INNER JOIN LuptonDB.SubjectList
 ON DBRanking.Subject_ID = SubjectList.Subject_ID
-WHERE SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKeySubj."
+WHERE Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKeySubj."
 ORDER BY letter";
 $alphaList = mysqli_query($conLuptonDB , "set names 'utf8'");
 $alphaList = mysqli_query($conLuptonDB , $queryAlpha) or die($error);
@@ -461,7 +492,7 @@ else{
   // if letter not in query change class to grey it out
  echo "<li class='emptyAlpha'>";
 }
-echo "<a href='".$currentFile."?alpha=".$column.$urlsubjappend."'> ".$column." </a></li>";
+echo "<a href=\"".$currentFile."?alpha=".$column.$urlsubjappend."\"> ".$column." </a></li>";
 }
 echo "
 </ul>
@@ -497,24 +528,24 @@ echo "<span id='searchbox'>
     if (strpos($row['Subject'],$subj) === 0) {
       echo " selected='selected' ";
     }
-    echo" value='".$row['Subject'].$queryKeyAlpha."'>".$row['Subject']."</option>";
+    echo" value=\"".$row['Subject'].$queryKeyAlpha."\">".$row['Subject']."</option>";
   }
   echo "</select>";
 //}
 echo"</div>";
 // main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,
-GROUP_CONCAT( DISTINCT '<span>' , SubjectList.Subject , '</span>' ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
-					FROM Dbases
+GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
+          FROM Dbases
           LEFT JOIN LuptonDB.DBRanking
           ON Dbases.Key_ID = DBRanking.Key_ID
           LEFT JOIN LuptonDB.SubjectList
           ON DBRanking.Subject_ID = SubjectList.Subject_ID
-					WHERE Dbases.Key_ID <> 529 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ".$queryKey.$queryKeySubj.
-          "GROUP BY Title
+					WHERE Dbases.Key_ID <> 529 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ".$queryKey.$queryKeySubj."
+          GROUP BY Title
           ORDER by ".$orderby;
-
 $result = mysqli_query($conLuptonDB , "set names 'utf8'");
+
 $result = mysqli_query($conLuptonDB , $query) or die($error);
 echo "<div class='highlight_list'>";
 if (!mysqli_num_rows($result)){
@@ -541,35 +572,47 @@ $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
 	    echo '<h2 id="Letter' . $currentletter .  '" class="badge badge-info">' . $currentletter . '</h2>';
 	    $lastletter = $currentletter;
 	}
-	echo "<div class='dbItem'><strong>";
-  if ((($row['TryTheseFirst']) === '1')&&($subj != "A to Z")){
-  echo "<span class='badge badge-primary pull-right'>Try First</span>";
+  // set condition for new but not subjects
+  if (((strpos($row['Subjects'], $subj) !== false)&&($subj != "A to Z"))||($subj==='A to Z')) {
+    echo "<div class='dbItem'>";
+    if ((($row['TryTheseFirst']) === '1')&&($subj != "A to Z")){
+    echo "<span class='badge badge-primary pull-right'>Try First</span>";
+    }
+    if (strpos($row['Subjects'], '<li>New</li>') !== false){
+      echo "<span class='badge badge-warning pull-right'> NEW </span>";
+    }
+    echo "<strong><a href='";
+    if (!empty($row['ShortURL'])){
+  	echo "https://www.utc.edu/" . $row['ShortURL'];
+    }
+    else{
+    echo "/scripts/LGForward.php?db=". $row['Key_ID'];
+    }
+    echo"' target='_blank'>" . $row['Title'] . "</a></strong><br />";
+  	if (!empty($row['ContentType'])){
+  		echo "<strong>" . $row['ContentType'] . ": </strong>";
+    }
+  	echo $row['ShortDescription'];
+  	if (!empty($row['HighlightedInfo'])){
+  		echo "<span class='highlighted-info'>" . $row['HighlightedInfo'] . "</span>";
+    }
+  	if ($row['SimUsers'] == 1){
+  		echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous user.</font></strong>";
+    }
+  	else if ($row['SimUsers'] > 1){
+  		echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous users.</font></strong>";
+    }
+    if (!empty($row['Subjects'])){
+    echo "<span class='subjects'><ul class='nav nav-pills'><li class='strong'>Subject";
+    if (strpos($row['Subjects'], '</li><li>') !== false) {
+      echo "s";
+    }
+    echo ": </li>".$row['Subjects']."</ul></span>";
   }
-  echo "<a href='";
-  if (!empty($row['ShortURL'])){
-	echo "https://www.utc.edu/" . $row['ShortURL'];
-  }
-  else{
-  echo "/scripts/LGForward.php?db=". $row['Key_ID'];
-  }
-  echo"' target='_blank'>" . $row['Title'] . "</a></strong><br />";
-	if (!empty($row['ContentType'])){
-		echo "<strong>" . $row['ContentType'] . ": </strong>";
-  }
-	echo $row['ShortDescription'];
-	if (!empty($row['HighlightedInfo'])){
-		echo "<span class='highlighted-info'>" . $row['HighlightedInfo'] . "</span>";
-  }
-	if ($row['SimUsers'] == 1){
-		echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous user.</font></strong>";
-  }
-	else if ($row['SimUsers'] > 1){
-		echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous users.</font></strong>";
-  }
-  if (!empty($row['Subjects'])){
-  echo "<span class='subjects'><strong>Subjects:</strong>| ".$row['Subjects']." |</span>";
+    echo "</div>";//close each item
+
 }
-  echo "</div>";
+
 }
 }
 echo "</div><!-- highlight_list -->";
@@ -691,16 +734,19 @@ mysqli_close($conLuptonDB);
 include($_SERVER['DOCUMENT_ROOT']."/includes/foot.php");
 echo "
 <script>$(document).ready(function() {
-  console.log('".$queryKeyAlpha."');
   var url = window.location.pathname;
   var filename = url.substring(url.lastIndexOf('/')+1);
-  $( '.subjects span' ).each(function() {
+  $( '.subjects li' ).each(function() {
     var subject = $( this ).text();
     if (subject =='New'){
-      $(this).html('<span class=\"badge badge-success\">NEW !</span>');
+      //$(this).html('<span class=\"badge badge-success\">NEW !</span>');
+      //$(this).closest('li').addClass('pull-right');
+      $(this).closest('li').hide();
     }else{
+      if (subject.indexOf('Subject') <= -1){
     $(this).html('<a href=\"'+ filename + '?subj=' + subject + '".$queryKeyAlpha."\">' + subject + '</a>');
-  }
+    }
+}
   });
 });</script>";
 ?>

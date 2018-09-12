@@ -7,59 +7,6 @@ $description = "Full A to Z list of databases available at the UTC Library.";
 $keywords = "databases";
 //do you want to override the folder structure for menu? (default is NO)
 $override_side_menu="NO";
-// stuff for dbatoz that I need to call in js
-//  set variables in case paramater is not passed
-$alpha = "ALL";
-$queryKey = "";
-$queryKeySubj = "";
-$urlsubjappend="";
-// get subject param if set
-if(isset($_GET["subj"])){
-$subj = htmlentities($_GET["subj"]);
-// ignore limit by subject selection
-if (strpos($subj, 'Limit') !== false){
-  // if no subject change var and query used in $query
-  $subj = "A to Z";
-  $orderby = "Dbases.Title";
-}else{
-// sanitize
-$subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
-// set query variables for subjects used inn $query
-$queryKeySubj="AND SubjectList.Subject LIKE \"".$subject."\" ";
-// create append for alpha clicks within subject
-$urlsubjappend = "&subj=".$_GET["subj"];
-// hide alpha badges on subject pages
-echo "<style>h2.badge,span.subjects{display:none;}</style>";
-// set order by used in $query
-$orderby = "DBRanking.Ranking";
-//hide letter badges on clear search
-echo "<style>.highlight_list h2[id^='Letter']{display:none !important;}</style>";
-}
-}else{
-  // if no subject change var and query used in $query
-  $subj = "A to Z";
-  $orderby = "Dbases.Title";
-}
-// get alpha if set
-$queryKeyAlpha = "";
-$displayAlpha = "";
-if(isset($_GET["alpha"])){
-$alpha = $_GET["alpha"];
-$displayAlpha = " - ".$alpha;
-}
-// check to see if alpha is num, empty or letter to change query used in $query
-if ($alpha === "num"){
-$queryKey = " AND Dbases.Title REGEXP '^[0-9]'";
-$queryKeyAlpha = "&alpha=num";
-}
-elseif ($alpha === "ALL"){
-	$queryKey = "";
-  $displayAlpha = "";
-}
-else{
-  $queryKeyAlpha = "&alpha=".$alpha;
-	$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
-}
 //in case you need to add anything in the head or footer
 $addhead = "<style>
 span.subjects{
@@ -110,43 +57,39 @@ span.subjects{
   }
 }
 input::placeholder{
-  text-align:center;
   color:whitesmoke;
   opacity:1;
 }
-
+/*
 input::-webkit-input-placeholder{
-  text-align:center;
-  color:whitesmoke;
-  opacity:1;
+    color:whitesmoke;
 }
 input:-moz-placeholder {
     color:whitesmoke;
     opacity:1;
 }
-
+*/
 input:hover::placeholder{
     color:#781e1e;
     opacity:1;
 }
-input:focus::placeholder{
-  text-align:left;
-}
-input:focus::-webkit-input-placeholder{
-  text-align:left;
-}
+/*
 input:hover::-webkit-input-placeholder{
     color:#781e1e;
 }
 input:hover:-moz-placeholder{
     color:#781e1e;
 }
-
+*/
 input#search-highlight{
-  padding: 10px;
+  padding-left:.5em;
   background-color:#00386b;
+  min-width: 1.75em;
   border:2px solid #e0aa0f;
+  margin-right: 1em;
   font-size: 1.5em;
+  height: 2em;
+  line-height: 2em;
   }
 input#search-highlight:hover, input#search-highlight:focus{
     cursor:pointer;
@@ -343,6 +286,36 @@ div.dbItem.alert-info{
 #alpha .nav-pills > .red-btn > a{
   background-color: #781e1e;
 }
+.subjects .badge{
+  margin:6px 10px 5px 5px;
+}
+.subjects .nav-pills > li:nth-of-type(2) > a{
+  border-left:1px solid black;
+}
+.subjects .nav-pills > li > a,.subjects .nav-pills > li > a:hover{
+  font-size:.85em;
+  border-right: 1px solid black;
+  border-bottom:0px;
+  padding:0 5px;
+  text-decoration:none;
+  border-radius:0px;
+}
+.subjects .nav-pills > li > a:hover{
+  color: white;
+  background: darkblue;
+}
+.subjects ul.nav{
+  margin:2px 2px 2px -5px;
+  padding:3px;
+}
+.dbItem .badge{
+  margin-left:5px;
+}
+.dbItem .strong{
+  font-size: .85em;
+  padding-right: 5px;
+  font-weight: bold;
+}
 </style>";
 $addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
@@ -354,12 +327,6 @@ $addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min
 	});
 $(document).ready(function() {
   $('[data-toggle=\"tooltip\"]').tooltip();
-  var url = window.location.pathname;
-  var filename = url.substring(url.lastIndexOf('/')+1);
-  $( '.subjects span' ).each(function() {
-    var subject = $( this ).text();
-    $(this).html('<a href=\"'+ filename + '?subj=' + subject + '".$queryKeyAlpha."\">' + subject + '</a>');
-  });
   $('h2#Letter1').text('#');
 /* jquery for clearable fields */
 // CLEARABLE INPUT
@@ -394,7 +361,7 @@ function resetsearch() {
 }
 /* reload page on select */
 $( '#subject-select' ).change(function() {
-  window.location.href = window.location.href.split('?')[0] + '?subj=' + $( '#subject-select').val();
+  window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#subject-select').val();
  });
 //]]>
 </script>";
@@ -418,7 +385,58 @@ $lastletter = "";
 $error = "";
 // connect to database
 require_once '/var/www/html/includes/dbconnect.php';
-
+//  set variables in case paramater is not passed
+$alpha = "ALL";
+$queryKey = "";
+$queryKeySubj = "";
+$urlsubjappend="";
+// get subject param if set
+if(isset($_GET["subj"])){
+$subj = htmlentities($_GET["subj"]);
+// ignore limit by subject selection
+if (strpos($subj, 'Limit') !== false){
+  // if no subject change var and query used in $query
+  $subj = "A to Z";
+  $orderby = "Dbases.Title";
+}else{
+// sanitize
+$subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
+// set query variables for subjects used inn $query
+$queryKeySubj="AND (SubjectList.Subject LIKE '".$subject."' OR SubjectList.Subject = 'New')";
+// create append for alpha clicks within subject
+$urlsubjappend = "&subj=".$subj;
+// hide alpha badges on subject pages
+echo "<style>h2.badge,span.subjects{display:none;}</style>";
+// set order by used in $query
+$orderby = "DBRanking.Ranking";
+//hide letter badges on clear search
+echo "<style>.highlight_list h2[id^='Letter']{display:none !important;}</style>";
+}
+}else{
+  // if no subject change var and query used in $query
+  $subj = "A to Z";
+  $orderby = "Dbases.Title";
+}
+// get alpha if set
+$queryKeyAlpha = "";
+$displayAlpha = "";
+if(isset($_GET["alpha"])){
+$alpha = $_GET["alpha"];
+$displayAlpha = " - ".$alpha;
+}
+// check to see if alpha is num, empty or letter to change query used in $query
+if ($alpha === "num"){
+$queryKey = " AND Dbases.Title REGEXP '^[0-9]'";
+$queryKeyAlpha = "&alpha=num";
+}
+elseif ($alpha === "ALL"){
+	$queryKey = "";
+  $displayAlpha = "";
+}
+else{
+  $queryKeyAlpha = "&alpha=".$alpha;
+	$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
+}
 // this changes dynamcially based on subject paramater - jquery updates the page title
 echo "<h1>".$subj." Databases".$displayAlpha."</h1>
 <script type='text/javascript'>
@@ -438,7 +456,7 @@ INNER JOIN LuptonDB.DBRanking
 ON Dbases.Key_ID = DBRanking.Key_ID
 INNER JOIN LuptonDB.SubjectList
 ON DBRanking.Subject_ID = SubjectList.Subject_ID
-WHERE SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKeySubj."
+WHERE SubjectList.NotSubjectList=0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKeySubj."
 ORDER BY letter";
 $alphaList = mysqli_query($conLuptonDB , "set names 'utf8'");
 $alphaList = mysqli_query($conLuptonDB , $queryAlpha) or die($error);
@@ -479,28 +497,34 @@ echo "
 </ul>
     </div>";
 // get a list of current subjects for select box
-$querySubjectList = " SELECT DISTINCT SubjectList.Subject
+$querySubjectList = " SELECT DISTINCT SubjectList.Subject,
+IF (SubjectList.NotSubjectList = 0,'true','false') AS NotSubjectList
 FROM LuptonDB.SubjectList
-INNER JOIN LuptonDB.DBRanking
+LEFT JOIN LuptonDB.DBRanking
 ON DBRanking.Subject_ID = SubjectList.Subject_ID
-INNER JOIN LuptonDB.Dbases
+LEFT JOIN LuptonDB.Dbases
 ON Dbases.Key_ID = DBRanking.Key_ID
-WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Subject_ID <> 59 ".$queryKey."
+WHERE SubjectList.Subject_ID <> 59 ".$queryKey."
 ORDER BY SubjectList.Format , SubjectList.Subject
 ";
+
 $resultSL = mysqli_query($conLuptonDB , "set names 'utf8'");
 $resultSL = mysqli_query($conLuptonDB , $querySubjectList) or die($error);
+// use this list to remove not subject items from subjects list
+      $notSubjectListCompare = array();
+
   echo "<div class='clearfix'>";
   //show search box only on full atoz
-if ($subj !== "A to Z"){
-  echo "<style>input#search-highlight {
-          min-height: 50px;
-          min-width: 50px;
-        }</style>";
-}
+  if (($subj === "A to Z")&&($alpha === "ALL")){
+    echo"";
+      }
+      //show subject select box atoz and subject selected
+//if ($alpha === "ALL"){
 echo "<span id='searchbox'>
       <label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
-      <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder='&#xF002;' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span>
+      <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span><!--
+      <button id='searchbutton' class='btn btn-primary'><i class='icon-search'>
+      <span class='hidden'>Search Databases</span></i></button> -->
       <select id='subject-select'>
       <option>Limit by Subject</option>";
   while($row = mysqli_fetch_array($resultSL)){
@@ -508,23 +532,28 @@ echo "<span id='searchbox'>
     if (strpos($row['Subject'],$subj) === 0) {
       echo " selected='selected' ";
     }
-    echo" value='".$row['Subject'].$queryKeyAlpha."'>".$row['Subject']."</option>";
-  }
-  echo "</select>";
+    if ($row['NotSubjectList'] === 'true'){
+           echo" value=\"".$row['Subject'].$queryKeyAlpha."\">".$row['Subject']."</option>";
+   }
+if ($row['NotSubjectList'] === 'false'){
+     array_push ($notSubjectListCompare, "<li>".$row['Subject']."</li>");
+   }
+ }
+ print_r($notSubjectListCompare);
+echo "</select>";
+//}
 echo"</div>";
 // main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,
-#GROUP_CONCAT( DISTINCT '<a href=\"$currentFile?alpha=ALL\&subj=', SubjectList.Subject, '\">', SubjectList.Subject, '</a>' ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
-GROUP_CONCAT( DISTINCT '<span>' , SubjectList.Subject , '</span>' ORDER BY SubjectList.Subject SEPARATOR ' | ') AS Subjects
-					FROM Dbases
-          INNER JOIN LuptonDB.DBRanking
+GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
+          FROM Dbases
+          LEFT JOIN LuptonDB.DBRanking
           ON Dbases.Key_ID = DBRanking.Key_ID
-          INNER JOIN LuptonDB.SubjectList
+          LEFT JOIN LuptonDB.SubjectList
           ON DBRanking.Subject_ID = SubjectList.Subject_ID
-					WHERE SubjectList.NotSubjectList = 0 AND Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKey.$queryKeySubj.
-          "GROUP BY Title
+					WHERE Dbases.Key_ID <> 529 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ".$queryKey.$queryKeySubj."
+          GROUP BY Title
           ORDER by ".$orderby;
-
 $result = mysqli_query($conLuptonDB , "set names 'utf8'");
 $result = mysqli_query($conLuptonDB , $query) or die($error);
 echo "<div class='highlight_list'>";
@@ -537,6 +566,9 @@ else
 // loop through results
 while($row = mysqli_fetch_array($result))
 {
+echo $row['Subjects'];
+echo $subj;
+if (strpos($row['Subjects'], $subj) !== false) {
   // if subj show Libguide once
   if($i == 0){
     if ((!empty($row['LibGuidesPage']))&&($subj != "A to Z")) {
@@ -546,41 +578,55 @@ while($row = mysqli_fetch_array($result))
     }
     $i++;
   }
+}
   // create styled letter SEPARATOR
 $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
 	if (($lastletter != $currentletter)&&(preg_match("/[A-Z]|1/i", $currentletter))){
 	    echo '<h2 id="Letter' . $currentletter .  '" class="badge badge-info">' . $currentletter . '</h2>';
 	    $lastletter = $currentletter;
 	}
-	echo "<div class='dbItem'><strong>";
-  if ((($row['TryTheseFirst']) === '1')&&($subj != "A to Z")){
-  echo "<span class='badge badge-primary pull-right'>Try First</span>";
+  // set condition for new but not subjects
+  if ((($subj != "A to Z"))||($subj==='A to Z')) {
+    echo "<div class='dbItem'>";
+    if ((($row['TryTheseFirst']) === '1')&&($subj != "A to Z")){
+    echo "<span class='badge badge-primary pull-right'>Try First</span>";
+    }
+    if (strpos($row['Subjects'], '<li>New</li>') !== false){
+      echo "<span class='badge badge-warning pull-right'> NEW </span>";
+    }
+    echo "<strong><a href='";
+    if (!empty($row['ShortURL'])){
+  	echo "https://www.utc.edu/" . $row['ShortURL'];
+    }
+    else{
+    echo "/scripts/LGForward.php?db=". $row['Key_ID'];
+    }
+    echo"' target='_blank'>" . $row['Title'] . "</a></strong><br />";
+  	if (!empty($row['ContentType'])){
+  		echo "<strong>" . $row['ContentType'] . ": </strong>";
+    }
+  	echo $row['ShortDescription'];
+  	if (!empty($row['HighlightedInfo'])){
+  		echo "<span class='highlighted-info'>" . $row['HighlightedInfo'] . "</span>";
+    }
+  	if ($row['SimUsers'] == 1){
+  		echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous user.</font></strong>";
+    }
+  	else if ($row['SimUsers'] > 1){
+  		echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous users.</font></strong>";
+    }
+    if ((!empty($row['Subjects']))&&(str_replace($notSubjectListCompare,"",$row['Subjects']) != "")){
+    echo "<span class='subjects'><ul class='nav nav-pills'><li class='strong'>Subject";
+    $subjectList = str_replace($notSubjectListCompare,"",$row['Subjects']);
+    if (strpos($subjectList, '</li><li>') !== false) {
+      echo "s";
+    }
+    echo ": </li>".str_replace($notSubjectListCompare,"",$row['Subjects'])."</ul></span>";
   }
-  echo "<a href='";
-  if (!empty($row['ShortURL'])){
-	echo "https://www.utc.edu/" . $row['ShortURL'];
-  }
-  else{
-  echo "/scripts/LGForward.php?db=". $row['Key_ID'];
-  }
-  echo"' target='_blank'>" . $row['Title'] . "</a></strong><br />";
-	if (!empty($row['ContentType'])){
-		echo "<strong>" . $row['ContentType'] . ": </strong>";
-  }
-	echo $row['ShortDescription'];
-	if (!empty($row['HighlightedInfo'])){
-		echo "<span class='highlighted-info'>" . $row['HighlightedInfo'] . "</span>";
-  }
-	if ($row['SimUsers'] == 1){
-		echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous user.</font></strong>";
-  }
-	else if ($row['SimUsers'] > 1){
-		echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous users.</font></strong>";
-  }
-  if (!empty($row['Subjects'])){
-  echo "<span class='subjects'><strong>Subjects:</strong>| ".$row['Subjects']." |</span>";
+    echo "</div>";//close each item
+
 }
-  echo "</div>";
+
 }
 }
 echo "</div><!-- highlight_list -->";
@@ -600,7 +646,8 @@ echo "</div><!-- highlight_list -->";
   <h2 class="welltopperGold" style="font-size: 24px;">
   <i class="icon-star" style="padding-right: .25em;"><span class="hidden"> Check it out</span> </i>Check Out</h2>
   <?php
-  $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases ORDER BY RAND() LIMIT 1";
+  $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
+  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
   $result = mysqli_query($conLuptonDB , $randquery) or die($error);
 
   if (!mysqli_num_rows($result))
@@ -699,5 +746,22 @@ mysqli_close($conLuptonDB);
    echo "</ul>";
  }
 include($_SERVER['DOCUMENT_ROOT']."/includes/foot.php");
+echo "
+<script>$(document).ready(function() {
+  var url = window.location.pathname;
+  var filename = url.substring(url.lastIndexOf('/')+1);
+  $( '.subjects li' ).each(function() {
+    var subject = $( this ).text();
+    if (subject =='New'){
+      //$(this).html('<span class=\"badge badge-success\">NEW !</span>');
+      //$(this).closest('li').addClass('pull-right');
+      $(this).closest('li').hide();
+    }else{
+      if (subject.indexOf('Subject') <= -1){
+    $(this).html('<a href=\"'+ filename + '?subj=' + subject + '".$queryKeyAlpha."\">' + subject + '</a>');
+    }
+}
+  });
+});</script>";
 ?>
 <!-- add any additional footer code here -->
