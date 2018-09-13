@@ -525,6 +525,7 @@ echo "<span id='searchbox'>
       <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span><!--
       <button id='searchbutton' class='btn btn-primary'><i class='icon-search'>
       <span class='hidden'>Search Databases</span></i></button> -->
+      <label for='subject-select' class='hidden'>Subject Select</label>
       <select id='subject-select'>
       <option>Limit by Subject</option>";
   while($row = mysqli_fetch_array($resultSL)){
