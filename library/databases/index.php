@@ -305,13 +305,14 @@ div.dbItem.alert-info{
   background: darkblue;
 }
 .subjects ul.nav{
-  margin:2px 2px 2px -5px;
+  margin:2px 2px 2px 50px;
   padding:3px;
 }
 .dbItem .badge{
   margin-left:5px;
 }
 .dbItem .strong{
+  margin-left:-55px;
   font-size: .85em;
   padding-right: 5px;
   font-weight: bold;
@@ -610,7 +611,8 @@ $currentletter = strtoupper(substr($row['Title'] , 0 , 1));
     }
     if (!empty($row['Subjects'])){
     echo "<span class='subjects'><ul class='nav nav-pills'><li class='strong'>Subject";
-    if (strpos($row['Subjects'], '</li><li>') !== false) {
+    if ((strpos($row['Subjects'], '</li><li>') == false)||(preg_match('/^<li>(.*?)(?!<li>)(.*?)<li>New<\/li>$|^<li>New<\/li>(.*?)(?!<li>)(.*?)<\/li>$/',$row['Subjects']))) {//single item or single item + new
+    }else{
       echo "s";
     }
     echo ": </li>".$row['Subjects']."</ul></span>";
