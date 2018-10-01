@@ -8511,7 +8511,7 @@ html {
 footer.crest {
   margin: 0;
   padding: 4px 30px 40px 30px;
-  background: #E0AA0F url(../img/utc-crest-faciemus.png) center 16px no-repeat;
+  background: #dde6ee;
   border-top: 1px solid #999;
   -webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
           box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
@@ -8534,7 +8534,7 @@ footer.crest .fineprint a {
 footer.achieve-1 {
   margin: 0;
   padding: 4px 30px 40px 30px;
-  background: #E0AA0F url(../img/we-shall-achieve.png) center 122px no-repeat;
+  background: #dde6ee;
   border-top: 1px solid #999;
   -webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
           box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
@@ -8562,7 +8562,7 @@ footer.achieve-1 p.achieve {
 footer.achieve-2 {
   margin: 0;
   padding: 4px 30px 40px 30px;
-  background: #E0AA0F url(../img/we-shall-achieve.png) center 66px no-repeat;
+  background: #dde6ee;
   border-top: 1px solid #999;
   -webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
           box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
@@ -9375,6 +9375,11 @@ table.well-blue-wide {
     left: 0;
   }
 }
+@media (max-width: 1200px) {
+  .menu-hide {
+    display: none;
+  }
+}
 @media (max-width: 1024px) {
   .navbar-search .search-query {
     width: 54px;
@@ -9423,6 +9428,12 @@ table.well-blue-wide {
   }
 }
 @media (max-width: 767px) {
+  .utc-logo-inner .social-logo {
+    text-align: center !important;
+  }
+  .utc-logo-inner .social-links {
+    display: none;
+  }
   footer,
   #secondaryTopNav,
   #featureCarousel,
@@ -9646,6 +9657,7 @@ table.well-blue-wide {
 .affix {
   position: fixed;
 }
+
 
 /* scroll to top button */
 #myBtn {
