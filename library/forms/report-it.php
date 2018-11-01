@@ -21,6 +21,8 @@ $addhead = "<style>
 	width:100%;
 }</style>";
 $addfoot = "";
+//show or hide help button
+$help = "show";
 /*if right column is added set the following variable so that we can adjust the content width
 set to 0 if no right menu
 set to 3 and modify the content of the
@@ -28,7 +30,7 @@ set to 3 and modify the content of the
 $rightmenu=0;
 /* switch leftmenu on or off Y or N*/
 $navmenu="N";
-include ('../includes/head.php');
+include($_SERVER['DOCUMENT_ROOT']."/includes/head.php");
 
 //<!-- Insert content here BEGIN -->
 
@@ -183,6 +185,6 @@ if ((isset($error) && isset($_POST["user"])) || !isset($_POST["user"]))
 </div>
 <?php } ?>
 <!-- Insert content here END -->
-<?php include ('../includes/foot.php'); ?>
+<?php include ($_SERVER['DOCUMENT_ROOT']."/includes/foot.php"); ?>
 <!-- add any additional footer code here -->
 </html>
