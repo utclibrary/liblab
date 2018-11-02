@@ -1,6 +1,6 @@
 <?php
 //turn error reporting off default N
-$errorReporting = "Y";
+$errorReporting = "N";
 //template system to replicate main website look and feel
 $title = "UTC Library Report IT";
 $description = "Report Form for IT Problems of All Kinds";
