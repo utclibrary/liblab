@@ -3,8 +3,8 @@
 error_reporting(0);
 //error_reporting(E_ALL);
 //ini_set('display_errors', '1');
-//get parameters if set
-if((isset($_GET["sub"]))&&(ctype_alpha($_GET["sub"]))){
+//get parameters if set and check that all UC + Underscores only
+if((isset($_GET["sub"]))&&(preg_match("/^[A-Z]{2,6}+(?:_[A-Z]{2}+)*$/",$_GET["sub"]))){
 	$subject = $_GET["sub"];
 }else {
   $subject = "";
