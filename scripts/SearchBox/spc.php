@@ -3,7 +3,7 @@
 	</legend>
 	<section id='tabs'>
 		<div id='searchboxcenter'>
-			<form id='courseReservesSearch' aria-label="researves search form" class='form-search' name='courses' action="https://utc.primo.exlibrisgroup.com/discovery/search" enctype="application/x-www-form-urlencoded; charset=utf-8" onsubmit="searchPrimoR()" method="get"
+			<form id='courseRareBooksSearch' aria-label="rare books search form" class='form-search' name='courses' action="https://utc.primo.exlibrisgroup.com/discovery/search" enctype="application/x-www-form-urlencoded; charset=utf-8" onsubmit="searchPrimoR()" method="get"
 			  target='_blank'>
 				<label for="searchreserves" class="hide">Search Rare Books</label>
 				<span class="text-input-wrapper"><input type='text' id="queryR" aria-label="search input for quick search" placeholder='Enter search term(s)' class='input-xxlarge' name="q" style="font-size: 1.25em;min-height: 2em;margin: .5em 0 .5em 0;" required /><span title="Clear">&times;</span></span>
@@ -32,7 +32,7 @@
 		document.forms["courses"].submit();
 	}
 	(function() {
-		var searchForm = document.getElementById('courseReservesSearch'),
+		var searchForm = document.getElementById('courseRareBooksSearch'),
 			textInput = searchForm.q,
 			clearBtn = textInput.nextSibling;
 		textInput.onkeyup = function() {
