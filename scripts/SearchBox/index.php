@@ -17,7 +17,6 @@ $emergMessage = "<br/><br/><p><font color='red'>The UTC Library catalog will be 
 		We apologize for the inconvenience.</font></p>";
 		*/
 ?>
-<!-- dev v4.01 -->
 <div id="libsearch-override" class="well well-raised">
 	<section id='section-tabs'>
 	<div id='searchboxcenter'>
@@ -281,12 +280,13 @@ $("#databases span.db-legend").remove();
 document.getElementById('descriptions') .innerHTML = description[ind];
 $( "span:contains('Data: ')" ).parent('p').before( "<span class='icon-th icon-large db-legend' title='Data' onclick='showLegendModal();'></span>" );
 $( "span:contains('Ebooks: ')" ).parent('p').before( "<span class='icon-book icon-large db-legend' title='Ebooks' onclick='showLegendModal();'></span>" );
+$( "span:contains('Images: ')" ).parent('p').before( "<span class='icon-picture icon-large db-legend' title='Images' onclick='showLegendModal();'></span> " );
 $( "span:contains('Index: ')" ).parent('p').before( "<span class='icon-list-alt icon-large db-legend' title='Index' onclick='showLegendModal();'></span> " );
 $("span").filter(function() {return $(this).text() == "Fulltext: ";}).parent('p').before( "<span class='icon-file-text icon-large db-legend' title='Fulltext' onclick='showLegendModal();'></span> " );
 $( "span:contains('Partial Fulltext: ')" ).parent('p').before( "<span class='icon-file-alt icon-large db-legend' title='Partial Fulltext' onclick='showLegendModal();'></span> " );
 $( "span:contains('Streaming Video: ')" ).parent('p').before( "<span class='icon-film icon-large db-legend' title='Streaming Video' onclick='showLegendModal();'></span> " );
 $( "span:contains('Streaming Music: ')" ).parent('p').before( "<span class='icon-music icon-large db-legend' title='Streaming Music' onclick='showLegendModal();'></span> " );
-$( "span:contains('Images: ')" ).parent('p').before( "<span class='icon-picture icon-large db-legend' title='Images' onclick='showLegendModal();'></span> " );
+$( "span:contains('Utility: ')" ).parent('p').before( "<span class='icon-briefcase icon-large db-legend' title='Index' onclick='showLegendModal();'></span> " );
 		}
   </script>
 <form class='form-search' name='databases' action='https://liblab.utc.edu/scripts/LGForward.php' method='get' target='_blank'>
@@ -340,6 +340,7 @@ foreach ($dbFormatKey as $key => $i){
 		<li><span class='icon-file-alt icon-large'><span class='hidden'>partial fulltext</span></span>Partial Fulltext</li>
 		<li><span class='icon-music icon-large'><span class='hidden'>streaming music</span></span>Streaming Music</li>
 		<li><span class='icon-film icon-large'><span class='hidden'>streaming videos</span></span>Streaming Video</li>
+		<li><span class='icon-briefcase icon-large'><span class='hidden'>utility</span></span>Utility</li>
 	</ul>
 	</div>
 	</div>
