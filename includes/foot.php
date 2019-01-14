@@ -128,7 +128,7 @@ if ($help === "show"){
     right: 40px;
 }
 --></style>
-<div id='libraryh3lp'><a href='https://www.utc.edu/library/help'><i class='icon-comment' aria-hidden='true'><!-- comment icon --></i> Get Help</a></div>
+<div id='libraryh3lp'><a href='https://www.utc.edu/library/help'><i class='icon-comment' aria-hidden='true'><!-- comment icon --></i> Ask a Librarian</a></div>
 <!-- side menu tweaks -->
 <script type='text/javascript'>// <![CDATA[
 $( document ).ready(function() {
