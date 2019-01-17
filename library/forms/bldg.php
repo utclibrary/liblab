@@ -139,10 +139,10 @@ if(is_array($_POST) && $_POST)
 			}
 			?>
 		</div>
-		<!-- Create fields for the honeypot -->
+		<?php // Create fields for the honeypot ?>
 			<label aria-hidden="true" for="preferred-method" class="hide-robot">Preferred Method</label>
 		<input aria-hidden="true" name="preferred-method" type="text" id="preferred-method" class="hide-robot">
-		<!-- honeypot fields end -->
+		<?php // honeypot fields end ?>
 		<button class="btn btn-default btn-large btn-block" type="submit">Submit</button>
 	</form>
 </div>

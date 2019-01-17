@@ -106,8 +106,7 @@ if(is_array($_POST) && $_POST)
 				"Computer Info : " . $_SERVER['HTTP_USER_AGENT'];
 			mail($recipients,$subject,$body,$headers);
 
-			echo "sent";
-			echo "<h1>The form has been submitted.</h1><p>Return to the <a href='/forms/form-report-it.php'>Library Report IT</a> page ";
+			echo "<h1>The form has been submitted.</h1><p>Return to the <a href='".$_SERVER['PHP_SELF']."'>Library Report IT</a> page ";
 			echo "or the <a href='https://www.utc.edu/library/'>Library Home</a> page ";
 			echo "or the <a href='https://blog.utc.edu/library-alerts/'>Library Alerts</a> page.</p>";
 		}
@@ -176,10 +175,10 @@ if ((isset($error) && isset($_POST["user"])) || !isset($_POST["user"]))
 			?>
 
 		</div>
-		<!-- Create fields for the honeypot -->
+		<?php //Create fields for the honeypot ?>
 			<label aria-hidden="true" for="preferred-method" class="hide-robot">Preferred Method</label>
 		<input aria-hidden="true" name="preferred-method" type="text" id="preferred-method" class="hide-robot">
-		<!-- honeypot fields end -->
+		<?php //honeypot fields end ?>
 		<button class="btn btn-default btn-large btn-block" type="submit">Submit</button>
 	</form>
 </div>
