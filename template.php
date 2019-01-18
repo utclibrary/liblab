@@ -1,24 +1,24 @@
 <?php
-//show errors Y or N - Yes|No
-$errorReporting  = Y;
+//turn error reporting off default N
+$errorReporting = "Y";
 //template system to replicate main website look and feel
-$title = "LibLab template | UTC Library";
-$description = "description goes rychere";
-$keywords = "this, that, & the other keywords";
+$title = "LibLab Template | UTC Library";
+$description = "";
+$keywords = "";
 //do you want to override the folder structure for menu? (default is NO)
-$override_side_menu="NO";
+$override_side_menu="YES";
 //in case you need to add anything in the head or footer
 $addhead = "";
 $addfoot = "";
 //show or hide help button
 $help = "show";
-//show nav menu - left navigation menu Y or N
-$navmenu = "N";
 /*if right column is added set the following variable so that we can adjust the content width
 set to 0 if no right menu
-set to 3 and modify the content of the $rightmenu var
+set to 3 and modify the content of the
 */
-$rightmenu = 3;
+$rightmenu=0;
+/* switch leftmenu on or off Y or N*/
+$navmenu="N";
 include($_SERVER['DOCUMENT_ROOT']."/includes/head.php");
 ?>
 <!-- Insert content here BEGIN -->
