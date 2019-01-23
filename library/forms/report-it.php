@@ -8,19 +8,41 @@ $keywords = "";
 //do you want to override the folder structure for menu? (default is NO)
 $override_side_menu="YES";
 //in case you need to add anything in the head or footer
-$addhead = "<style>
+$addhead = "
+<link href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css' rel='stylesheet' />
+<style>
 .hide-robot{
 	display:none !important;
 }
 #report-it-form label{
 	font-size:1.5em;
 }
-#report-it-form input, #report-it-form textarea, #report-it-form select{
+#report-it-form input, #report-it-form textarea{
 	font-size:1.5em;
 	min-height:2em;
 	width:100%;
-}</style>";
-$addfoot = "";
+}
+#report-it-form select{
+	width: 100%;
+	font-size: 25px;
+	height: 45px;
+}
+[class*='select2']{
+	min-height:30px;
+ font-size:25px;
+ line-height:30px;
+}
+[class*='select2-selection']{
+	padding-top:2px;
+	min-height:40px;
+}
+.select2{
+	margin: 10px 0;
+}
+</style>";
+$addfoot = "
+<script src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js'></script>
+";
 //show or hide help button
 $help = "show";
 /*if right column is added set the following variable so that we can adjust the content width
@@ -33,7 +55,14 @@ $navmenu="N";
 include($_SERVER['DOCUMENT_ROOT']."/includes/head.php");
 
 //<!-- Insert content here BEGIN -->
-
+//check to see if ip is set
+$clientIP = "";
+$clientName = "";
+if( isset($_POST['ip']) )
+{
+     $clientIP = $_POST['ip'];
+     $clientName = gethostbyaddr($clientIP);
+}
 date_default_timezone_set('America/New_York');
 $todaystamp = time();
 $today = date('l, n/j/y, g:ia',$todaystamp);
@@ -101,14 +130,15 @@ if(is_array($_POST) && $_POST)
 				"Problem Summary: " . $_POST['problem'] . "\n\n";
 			if (isset($_POST['description']))
 				$body .= "Description: " . $_POST['description']."\n\n";
-				$body .= "Computer IP: " . $_SERVER['REMOTE_ADDR'] ."\n\n".
-				"Computer Name: " . gethostbyaddr($_SERVER['REMOTE_ADDR']) ."\n\n".
+				//$body .= "Computer IP: " . $_SERVER['REMOTE_ADDR'] ."\n\n".
+				$body .= "Computer IP: ".$clientIP."\n\n" .
+				"Computer Name: " . $clientName ."\n\n".
 				"Computer Info : " . $_SERVER['HTTP_USER_AGENT'];
 			mail($recipients,$subject,$body,$headers);
 
-			echo "<h1>The form has been submitted.</h1><p>Return to the <a href='".$_SERVER['PHP_SELF']."'>Library Report IT</a> page ";
-			echo "or the <a href='https://www.utc.edu/library/'>Library Home</a> page ";
-			echo "or the <a href='https://blog.utc.edu/library-alerts/'>Library Alerts</a> page.</p>";
+			echo "<h1>The form has been submitted.</h1>
+			<p><a class='btn btn-primary btn-large btn-block' href='".$_SERVER['PHP_SELF']."'>Submit another Library Report IT</a></p>
+			<p><a class='btn btn-large btn-block' href='https://blog.utc.edu/library-alerts/'>Return to Library Alerts</a></p>";
 		}
 }
 if ((isset($error) && isset($_POST["user"])) || !isset($_POST["user"]))
@@ -148,7 +178,7 @@ if ((isset($error) && isset($_POST["user"])) || !isset($_POST["user"]))
 		</div>
 		<div class="form-group">
 			<label for="user">Submitted By</label>
-			<select required name='user' id='user' class='form-control'>
+			<select required name='user' id='user' class='select2'>
 			<option value ='' >Select Choice</option>
 				<?php
 
@@ -175,15 +205,44 @@ if ((isset($error) && isset($_POST["user"])) || !isset($_POST["user"]))
 			?>
 
 		</div>
+		<label aria-hidden="true" for="ip" class="hide-robot">ip</label>
+		<input name="ip" type="text" class="hide-robot" id="userIP" />
 		<?php //Create fields for the honeypot ?>
 			<label aria-hidden="true" for="preferred-method" class="hide-robot">Preferred Method</label>
 		<input aria-hidden="true" name="preferred-method" type="text" id="preferred-method" class="hide-robot">
 		<?php //honeypot fields end ?>
-		<button class="btn btn-default btn-large btn-block" type="submit">Submit</button>
+		<p style='margin-top:20px;'>
+		<button class="btn btn-primary btn-large btn-block" type="submit">Submit</button>
+	</p>
 	</form>
 </div>
 <?php } ?>
 <!-- Insert content here END -->
 <?php include ($_SERVER['DOCUMENT_ROOT']."/includes/foot.php"); ?>
 <!-- add any additional footer code here -->
+<script>
+$(document).ready(function ubsrt(){
+  	window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+	var pc = new RTCPeerConnection({iceServers:[]}),
+	noop = function(){};
+
+   	pc.createDataChannel("");
+	pc.createOffer(pc.setLocalDescription.bind(pc), noop);
+    	pc.onicecandidate = function(ice){
+   	if(!ice || !ice.candidate || !ice.candidate.candidate)  return;
+
+        	var myIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+
+	$('#userIP').val(myIP);
+
+        	pc.onicecandidate = noop;
+
+	 };
+	 $('.select2').select2({
+  theme: "classic"
+});
+
+});
+
+</script>
 </html>
