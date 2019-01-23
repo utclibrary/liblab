@@ -49,7 +49,10 @@
 <div class="container">
 <h1>UTC Library</h1>
 <h2>Upload and Email Scans</h2>
-<p><font color="red">Please be aware that files delivered to Gmail accounts (including mocs.utc.edu) are sometimes sent to the spam folder and/or delayed. We apologize for any inconvenience.</font></p>
+<div id="message" class="alert alert-danger fade in">
+  <a href="#" class="close" data-dismiss="alert">×</a>
+  <h3 class="center">Please be aware that files delivered to Gmail accounts (including mocs.utc.edu) are sometimes sent to the spam folder and/or delayed. We apologize for any inconvenience.</h3>
+</div>
 <?php
 //if (in_array($ip, $allowedComps))
 //{
@@ -71,7 +74,7 @@
 						echo "type='file' name='file$i' id='file$i' style='border: 0px' onclick='resetFile$i()'/>";
 					echo "</div><br/>";
 				 }
-			echo "<button type='submit' class='btn btn-default'>Send Files</button>";
+			echo "<button type='submit' class='btn btn-primary'>Send Files</button>";
 		echo "</form>";
 		echo $fileLimits;
 	}
@@ -144,7 +147,7 @@
 				}
 				echo "<h3>" . $helpMessage . "</h3>";
 				//echo "<h3><a href='".$_SERVER['PHP_SELF']."'>Return to Form</a></h3>";
-				echo "<form action='".$_SERVER['PHP_SELF']."'><button type='submit' class='btn btn-default'>Return to Upload and Email Scans Form</button></form>";
+				echo "<form action='".$_SERVER['PHP_SELF']."'><button type='submit' class='btn btn-primary'>Return to Upload and Email Scans Form</button></form>";
 			}
 		}
 		if ($fileAllowed != '')
