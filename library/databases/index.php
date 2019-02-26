@@ -117,7 +117,7 @@ input#search-highlight.x{
     border-radius: 3px;
     transition: background .4s;
 }
-#alpha>.first{
+#alpha>.first{http://192.168.33.10/library/databases/index.php?alpha=ALL
 		border-left: 1px solid black;
 }
 
@@ -627,45 +627,7 @@ echo "</div><!-- highlight_list -->";
 //this is where the content goes for the right menu could also use
  if ($rightmenu==3){?>
  </div> <!-- close content div -->
- <?php
-// only show new on home page
- if (($alpha=== "ALL")&&($subj === "A to Z")){
-?>
-<div class="span3 sidebar" style="float: right;margin-left: 0;">
-  <div class="sidebar well">
-  <h2 class="welltopperGold" style="font-size: 24px;">
-  <i class="icon-star" style="padding-right: .25em;"><span class="hidden"> Check it out</span> </i>Check Out</h2>
-  <?php
-  $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
-  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
-  $result = mysqli_query($conLuptonDB , $randquery) or die($error);
 
-  if (!mysqli_num_rows($result))
-  	echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
-  else{
-  generatelist($result);
-  }
-   ?>
-  </div>
-<div class="sidebar well">
-<h2 class="welltopperBlue" style="font-size: 24px;">
-<i class="icon-bullhorn" style="padding-right: .25em;"><span class="hidden"> New</span> </i>New</h2>
-<?php
-$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'NEW' AND DBRanking.TryTheseFirst = 1 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
-$result = mysqli_query($conLuptonDB , $newquery) or die($error);
-
-if (!mysqli_num_rows($result))
-	echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
-else{
-  generatelist($result);
-}
- ?>
-</div>
-
-<?php
- }
- //show multi on all pages
- ?>
 <div class="sidebar well">
 <h2 class="welltopperGold" style="font-size: 24px;">
 <i class="icon-search" style="padding-right: .25em;"><span class="hidden"> Multi-subject</span> </i>Multi-subject</h2>
@@ -703,11 +665,50 @@ else{
 	}
 		echo "</ul>";*/
 }
-mysqli_close($conLuptonDB);
 ?>
 </div>
+<?php
+// only show new on home page
+if (($alpha=== "ALL")&&($subj === "A to Z")){
+?>
+<div class="span3 sidebar" style="float: right;margin-left: 0;">
+ <div class="sidebar well">
+ <h2 class="welltopperGold" style="font-size: 24px;">
+ <i class="icon-star" style="padding-right: .25em;"><span class="hidden"> Check it out</span> </i>Check Out</h2>
+ <?php
+ $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
+ WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
+ $result = mysqli_query($conLuptonDB , $randquery) or die($error);
+
+ if (!mysqli_num_rows($result))
+   echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
+ else{
+ generatelist($result);
+ }
+  ?>
+ </div>
+<div class="sidebar well">
+<h2 class="welltopperBlue" style="font-size: 24px;">
+<i class="icon-bullhorn" style="padding-right: .25em;"><span class="hidden"> New</span> </i>New</h2>
+<?php
+$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'NEW' AND DBRanking.TryTheseFirst = 1 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+$result = mysqli_query($conLuptonDB , $newquery) or die($error);
+
+if (!mysqli_num_rows($result))
+ echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
+else{
+ generatelist($result);
+}
+?>
+</div>
+
+<?php
+}
+//show multi on all pages
+?>
 </div>
 <?php
+mysqli_close($conLuptonDB);
  }
  function generatelist ($result){
    echo "<ul class='s-lg-link-list'>";
