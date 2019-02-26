@@ -559,7 +559,6 @@ GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectLi
 $result = mysqli_query($conLuptonDB , "set names 'utf8'");
 
 $result = mysqli_query($conLuptonDB , $query) or die($error);
-echo "<div class='highlight_list'>";
 if (!mysqli_num_rows($result)){
 echo "No results";
 }
@@ -573,9 +572,40 @@ while($row = mysqli_fetch_array($result))
   // if subj show Libguide once
   if($i == 0){
     if ((!empty($row['LibGuidesPage']))&&($subj != "A to Z")) {
-      echo "<div class='dbItem alert-info'>
+      echo "<div class='dbItemLG alert-info' style='padding: 10px;'>
     <i class='icon-large icon-compass' style='padding-right: .25em;'><span class='hidden'> ".$subj." Guide</span> </i>
       <strong><a href='https://guides.lib.utc.edu/".$row['LibGuidesPage']."'>".$subj." Subject Guide</a></strong></div>";
+    }
+    if ($subj != "A to Z"){
+      ?>
+      <div class="span12" style="margin: 10px 10px 10px 0px;">
+        <button class="span6" id="alphBnt">Alphabetical</button>
+        <button class="span6 active" id="numBnt">Ranked</button>
+      </div>
+      <div id='subject_list_items' class='highlight_list'>
+      <script>
+      $( document ).ready(function() {
+        var $divs = $("div.dbItem");
+
+  $('#alphBnt').on('click', function () {
+    console.log('alpha click');
+      var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {
+          return $(a).find("a").text() > $(b).find("a").text();
+      });
+      $("#subject_list_items").html(alphabeticallyOrderedDivs);
+  });
+
+  $('#numBnt').on('click', function () {
+    $("#subject_list_items").load(" #subject_list_items > *");
+
+      //$("#subject_list_items").load("#subject_list_items > *");
+  });
+});
+    </script>
+      <?php
+    }
+    else{
+      echo "<div class='highlight_list'>";
     }
     $i++;
   }
