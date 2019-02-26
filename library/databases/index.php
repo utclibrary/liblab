@@ -51,16 +51,12 @@ span.subjects{
 	margin-top: 10px;
 	text-align: center;
 }
-@media (max-width: 768px){
-  input#search-highlight {
-      display: none;
-  }
-}
+/*
 input::placeholder{
   color:whitesmoke;
   opacity:1;
 }
-/*
+
 input::-webkit-input-placeholder{
     color:whitesmoke;
 }
@@ -83,9 +79,9 @@ input:hover:-moz-placeholder{
 */
 input#search-highlight{
   padding-left:.5em;
-  background-color:#00386b;
-  min-width: 1.75em;
-  border:2px solid #e0aa0f;
+  background-color:white;
+  max-width: 95%;
+  border:1px solid grey;
   margin-right: 1em;
   font-size: 1.5em;
   height: 2em;
@@ -93,7 +89,7 @@ input#search-highlight{
   }
 input#search-highlight:hover, input#search-highlight:focus{
     cursor:pointer;
-    border:2px solid #e0aa0f;
+    border:1px solid #e0aa0f;
     background-color:white;
   }
 input#search-highlight.hidden {
@@ -124,14 +120,12 @@ input#search-highlight.x{
 #alpha>.first{
 		border-left: 1px solid black;
 }
-/*
+
 #alpha{
-	font-weight:bold;
-  font-size:1em;
 	width:100%;
 	margin:1em 0;
 }
-*/
+
 #alpha>.itemAlpha{
 	border-right:1px solid black;
 	width:3.3333333%;
@@ -267,18 +261,14 @@ div.dbItem.alert-info{
   color:#781e1e;
 }
 .page-search {
-  width:1.5em;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease;
-    transition: all .5s ease;
-    float: right;
-    font-family: FontAwesome;
-   font-style: normal;
-   font-weight: normal;
-   text-decoration: inherit;
-}
-.page-search:focus {
-    width: 100%;
+  width: 100%;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  transition: all .5s ease;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
 }
 .input-hold{
   width:100%;
@@ -317,6 +307,10 @@ div.dbItem.alert-info{
   padding-right: 5px;
   font-weight: bold;
 }
+/* webkit solution */
+::-webkit-input-placeholder { text-align:right; }
+/* mozilla solution */
+input:-moz-placeholder { text-align:right; }
 </style>";
 $addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
@@ -451,6 +445,45 @@ echo "<h1>".$subj." Databases".$displayAlpha."</h1>
     });
 
 </script>";
+
+// get a list of current subjects for select box
+$querySubjectList = " SELECT DISTINCT SubjectList.Subject,
+IF (SubjectList.NotSubjectList = 0,'true','false') AS NotSubjectList
+FROM LuptonDB.SubjectList
+INNER JOIN LuptonDB.DBRanking
+ON DBRanking.Subject_ID = SubjectList.Subject_ID
+INNER JOIN LuptonDB.Dbases
+ON Dbases.Key_ID = DBRanking.Key_ID
+WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Subject_ID <> 59 ".$queryKey."
+ORDER BY SubjectList.Format , SubjectList.Subject
+";
+$resultSL = mysqli_query($conLuptonDB , "set names 'utf8'");
+$resultSL = mysqli_query($conLuptonDB , $querySubjectList) or die($error);
+  echo "<div class='clearfix'>";
+  //show search box only on full atoz
+  if (($subj === "A to Z")&&($alpha === "ALL")){
+    echo"";
+      }
+      //show subject select box atoz and subject selected
+//if ($alpha === "ALL"){
+echo "<span class='row' id='searchbox'>
+      <label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
+      <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span><!--
+      <button id='searchbutton' class='btn btn-primary'><i class='icon-search'>
+      <span class='hidden'>Search Databases</span></i></button> -->
+      <label for='subject-select' class='hidden'>Subject Select</label>
+      <select id='subject-select'>
+      <option>Limit by Subject</option>";
+  while($row = mysqli_fetch_array($resultSL)){
+    echo "<option";
+    if (strpos($row['Subject'],$subj) === 0) {
+      echo " selected='selected' ";
+    }
+    echo" value=\"".$row['Subject'].$queryKeyAlpha."\">".$row['Subject']."</option>";
+  }
+  echo "</select>";
+//}
+
 //check for alpha in db
 $alphaListFull="";
 // query to generate a to z
@@ -501,44 +534,7 @@ echo "<a href=\"".$currentFile."?alpha=".$column.$urlsubjappend."\"> ".$column."
 echo "
 </ul>
     </div>";
-// get a list of current subjects for select box
-$querySubjectList = " SELECT DISTINCT SubjectList.Subject,
-IF (SubjectList.NotSubjectList = 0,'true','false') AS NotSubjectList
-FROM LuptonDB.SubjectList
-INNER JOIN LuptonDB.DBRanking
-ON DBRanking.Subject_ID = SubjectList.Subject_ID
-INNER JOIN LuptonDB.Dbases
-ON Dbases.Key_ID = DBRanking.Key_ID
-WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Subject_ID <> 59 ".$queryKey."
-ORDER BY SubjectList.Format , SubjectList.Subject
-";
-$resultSL = mysqli_query($conLuptonDB , "set names 'utf8'");
-$resultSL = mysqli_query($conLuptonDB , $querySubjectList) or die($error);
-  echo "<div class='clearfix'>";
-  //show search box only on full atoz
-  if (($subj === "A to Z")&&($alpha === "ALL")){
-    echo"";
-      }
-      //show subject select box atoz and subject selected
-//if ($alpha === "ALL"){
-echo "<span id='searchbox'>
-      <label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
-      <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span><!--
-      <button id='searchbutton' class='btn btn-primary'><i class='icon-search'>
-      <span class='hidden'>Search Databases</span></i></button> -->
-      <label for='subject-select' class='hidden'>Subject Select</label>
-      <select id='subject-select'>
-      <option>Limit by Subject</option>";
-  while($row = mysqli_fetch_array($resultSL)){
-    echo "<option";
-    if (strpos($row['Subject'],$subj) === 0) {
-      echo " selected='selected' ";
-    }
-    echo" value=\"".$row['Subject'].$queryKeyAlpha."\">".$row['Subject']."</option>";
-  }
-  echo "</select>";
-//}
-echo"</div>";
+    echo"</div>";
 // main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,
 GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
