@@ -395,6 +395,16 @@ if (strpos($subj, 'Limit') !== false){
   $subj = "A to Z";
   $orderby = "Dbases.Title";
 }else{
+  echo"
+  <script>
+  $(document).ready(function() {
+    $('a.alpha').css('cursor', 'default');
+    $('a.alpha').click(function(e){
+       e.preventDefault();
+     });
+  });
+  </script>
+  ";
 // sanitize
 $subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
 // set query variables for subjects used in main $query
@@ -402,7 +412,7 @@ $queryKeySubj="AND (SubjectList.Subject LIKE '".$subject."' OR SubjectList.Subje
 //this is used in alpha query to show letters available in this subject
 $queryKeySubjAtoZ="AND SubjectList.Subject LIKE '".$subject."'";
 // create append for alpha clicks within subject
-$urlsubjappend = "&subj=".$subj;
+//$urlsubjappend = "&subj=".$subj;
 
 // hide alpha badges on subject pages
 echo "<style>h2.badge,span.subjects{display:none;}</style>";
@@ -479,7 +489,7 @@ echo "<span class='row' id='searchbox'>
     if (strpos($row['Subject'],$subj) === 0) {
       echo " selected='selected' ";
     }
-    echo" value=\"".$row['Subject'].$queryKeyAlpha."\">".$row['Subject']."</option>";
+    echo" value=\"".$row['Subject']."\">".$row['Subject']."</option>";
   }
   echo "</select>";
 //}
@@ -503,7 +513,7 @@ while($row = mysqli_fetch_array($alphaList))
 	$alphaListFull .= $row['letter'];
 }
 echo " <div id='alpha' class='fluid-row'>
-<ul id='alphlist' class='nav nav-pills'>";
+<ul id='alphalist' class='nav nav-pills'>";
 if (($alpha === "ALL")&&($subj === "A to Z")){
 	echo "<li>";
 }
@@ -529,7 +539,7 @@ else{
   // if letter not in query change class to grey it out
  echo "<li class='emptyAlpha'>";
 }
-echo "<a href=\"".$currentFile."?alpha=".$column.$urlsubjappend."\"> ".$column." </a></li>";
+echo "<a class='alpha' href=\"".$currentFile."?alpha=".$column.$urlsubjappend."\"> ".$column." </a></li>";
 }
 echo "
 </ul>
