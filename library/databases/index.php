@@ -465,7 +465,13 @@ if (mysqli_num_rows($resultSLA)!=0) {
 
 //echo $outputSLA;
 }//close letter set
-
+// this changes dynamcially based on subject paramater - jquery updates the page title
+echo "<h1>".$subj." Databases".$displayAlpha."</h1>
+<script type='text/javascript'>
+    $(document).ready(function() {
+        document.title = \"".$subj." Databases".$displayAlpha." | UTC Library\";
+    });
+</script>";
 // get a list of current subjects for select box
 $querySubjectList = "SELECT DISTINCT SubjectList.Subject,
 IF (SubjectList.NotSubjectList = 0,'true','false') AS NotSubjectList
