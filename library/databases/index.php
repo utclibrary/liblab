@@ -456,11 +456,11 @@ ORDER BY SubjectList.Subject
 $resultSLA = mysqli_query($conLuptonDB , "set names 'utf8'");
 $resultSLA = mysqli_query($conLuptonDB , $querySubjectListAlpha) or die($error);
 if (mysqli_num_rows($resultSLA)!=0) {
-  $outputSLA .= "<h2>Subjects</h2><ul>";
+  $outputSLA .= "<div id='outputSLA'><h2>Subjects</h2><ul>";
     while($row = mysqli_fetch_array($resultSLA)){
       $outputSLA .= "<li><a href='".$currentFile."?subj=".$row['Subject']."'>".$row['Subject']."</a></li>";
     }
-    $outputSLA .= "</ul>";
+    $outputSLA .= "</ul></div>";
 }
 
 //echo $outputSLA;
@@ -588,10 +588,9 @@ while($row = mysqli_fetch_array($result)){
     }
     if ($subj != "A to Z"){
       ?>
-      <div class="span12" style="margin: 10px 10px 10px 0px;">
-<button class="span6 active" id="numBnt">Ranked Sort</button>
+      <div id="alphaRankedSortBtn" class="span12" style="margin: 10px 10px 10px 0px;">
+        <button class="span6 active" id="numBnt">Ranked Sort</button>
         <button class="span6" id="alphBnt">Alphabetical Sort</button>
-
       </div>
       <div id='subject_list_items' class='highlight_list'>
       <script>
