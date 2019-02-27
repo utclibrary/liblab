@@ -811,7 +811,7 @@ echo "
       $(this).closest('li').hide();
     }else{
       if (subject.indexOf('Subject') <= -1){
-    $(this).html('<a href=\"'+ filename + '?subj=' + subject + '".$queryKeyAlpha."\">' + subject + '</a>');
+    $(this).html('<a href=\"'+ filename + '?subj=' + subject + '\">' + subject + '</a>');
     }
 }
   });
