@@ -386,6 +386,7 @@ $queryKey = "";
 $queryKeySubj = "";
 $urlsubjappend="";
 $queryKeySubjAtoZ="";
+$outputSLA = "";
 // get subject param if set
 if(isset($_GET["subj"])){
 $subj = htmlentities($_GET["subj"]);
@@ -442,22 +443,31 @@ elseif ($alpha === "ALL"){
 	$queryKey = "";
   $displayAlpha = "";
 }
-else{
+else{//letter selected
   $queryKeyAlpha = "&alpha=".$alpha;
 	$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
+  $querySubjectListAlpha = " SELECT DISTINCT SubjectList.Subject,
+IF (SubjectList.NotSubjectList = 0,'true','false') AS NotSubjectList
+FROM LuptonDB.SubjectList
+WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Subject_ID <> 59 AND SubjectList.Subject LIKE '".$alpha."%'
+ORDER BY SubjectList.Subject
+  ";
+//generate subject list when alpha selected
+$resultSLA = mysqli_query($conLuptonDB , "set names 'utf8'");
+$resultSLA = mysqli_query($conLuptonDB , $querySubjectListAlpha) or die($error);
+if (mysqli_num_rows($resultSLA)!=0) {
+  $outputSLA .= "<h2>Subjects</h2><ul>";
+    while($row = mysqli_fetch_array($resultSLA)){
+      $outputSLA .= "<li><a href='".$currentFile."?subj=".$row['Subject']."'>".$row['Subject']."</a></li>";
+    }
+    $outputSLA .= "</ul>";
 }
-// this changes dynamcially based on subject paramater - jquery updates the page title
-echo "<h1>".$subj." Databases".$displayAlpha."</h1>
-<script type='text/javascript'>
 
-    $(document).ready(function() {
-        document.title = \"".$subj." Databases".$displayAlpha." | UTC Library\";
-    });
-
-</script>";
+//echo $outputSLA;
+}//close letter set
 
 // get a list of current subjects for select box
-$querySubjectList = " SELECT DISTINCT SubjectList.Subject,
+$querySubjectList = "SELECT DISTINCT SubjectList.Subject,
 IF (SubjectList.NotSubjectList = 0,'true','false') AS NotSubjectList
 FROM LuptonDB.SubjectList
 INNER JOIN LuptonDB.DBRanking
@@ -545,6 +555,8 @@ echo "
 </ul>
     </div>";
     echo"</div>";
+// show subjects by alpha
+echo $outputSLA;
 // main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,
 GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
@@ -557,7 +569,6 @@ GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectLi
           GROUP BY Title
           ORDER by ".$orderby;
 $result = mysqli_query($conLuptonDB , "set names 'utf8'");
-
 $result = mysqli_query($conLuptonDB , $query) or die($error);
 if (!mysqli_num_rows($result)){
 echo "No results";
@@ -566,8 +577,7 @@ else
 {
     $i = 0;
 // loop through results
-while($row = mysqli_fetch_array($result))
-{
+while($row = mysqli_fetch_array($result)){
   if ((strpos($row['Subjects'], $subj) !== false)||($subj==="A to Z")){
   // if subj show Libguide once
   if($i == 0){
