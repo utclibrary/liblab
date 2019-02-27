@@ -579,23 +579,30 @@ while($row = mysqli_fetch_array($result))
     if ($subj != "A to Z"){
       ?>
       <div class="span12" style="margin: 10px 10px 10px 0px;">
-        <button class="span6" id="alphBnt">Alphabetical</button>
-        <button class="span6 active" id="numBnt">Ranked</button>
+<button class="span6 active" id="numBnt">Ranked Sort</button>
+        <button class="span6" id="alphBnt">Alphabetical Sort</button>
+
       </div>
       <div id='subject_list_items' class='highlight_list'>
       <script>
       $( document ).ready(function() {
         var $divs = $("div.dbItem");
+        $('#numBnt').attr("disabled", "disabled");
 
   $('#alphBnt').on('click', function () {
     console.log('alpha click');
+    $('#numBnt').removeAttr('disabled');
+    $(this).attr("disabled", "disabled");
       var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {
-          return $(a).find("a").text() > $(b).find("a").text();
+          //return $(a).find("a").text() > $(b).find("a").text();
+          return $(a).find("a").text() > $(b).find("a").text()  ? 1 : -1;
       });
       $("#subject_list_items").html(alphabeticallyOrderedDivs);
   });
 
   $('#numBnt').on('click', function () {
+    $('#alphBnt').removeAttr('disabled');
+    $(this).attr("disabled", "disabled");
     $("#subject_list_items").load(" #subject_list_items > *");
 
       //$("#subject_list_items").load("#subject_list_items > *");
