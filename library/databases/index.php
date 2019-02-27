@@ -425,6 +425,13 @@ if (strpos($subj, 'Limit') !== false){
   <script>
   $(document).ready(function() {
     $('a.alpha').css('cursor', 'default');
+    $('a.alpha').hover(function() {
+    $(this).css('background-color', '#e9e9e9');
+    $(this).css('color','#00386b');
+}, function() {
+    $(this).css('background-color', '#e9e9e9');
+    $(this).css('color','#00386b');
+});
     $('a.alpha').click(function(e){
        e.preventDefault();
      });
