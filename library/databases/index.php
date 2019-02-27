@@ -311,6 +311,31 @@ div.dbItem.alert-info{
 ::-webkit-input-placeholder { text-align:right; }
 /* mozilla solution */
 input:-moz-placeholder { text-align:right; }
+#alphaRankedSortBtn{
+  margin: 10px 10px 10px 0px;
+}
+.dbItemLG{
+  padding: 10px;
+}
+.dbItemLG i.icon-compass{
+  padding-right: .25em;
+}
+.sidebar h2.welltopperGold{
+  font-size: 24px;
+}
+.sidebar h2.welltopperGold i.icon-search{
+  padding-right: .25em;
+}
+#checkItOut{
+  float: right;
+  margin-left: 0;
+}
+#checkItOut h2.welltopperGold i.icon-star{
+  padding-right: .25em;
+}
+#newDBs h2.welltopperBlue i.icon-bullhorn{
+  padding-right: .25em;
+}
 </style>";
 $addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
@@ -588,13 +613,13 @@ while($row = mysqli_fetch_array($result)){
   // if subj show Libguide once
   if($i == 0){
     if ((!empty($row['LibGuidesPage']))&&($subj != "A to Z")) {
-      echo "<div class='dbItemLG alert-info' style='padding: 10px;'>
-    <i class='icon-large icon-compass' style='padding-right: .25em;'><span class='hidden'> ".$subj." Guide</span> </i>
+      echo "<div class='dbItemLG'>
+    <i class='icon-large icon-compass'><span class='hidden'> ".$subj." Guide</span> </i>
       <strong><a href='https://guides.lib.utc.edu/".$row['LibGuidesPage']."'>".$subj." Subject Guide</a></strong></div>";
     }
     if ($subj != "A to Z"){
       ?>
-      <div id="alphaRankedSortBtn" class="span12" style="margin: 10px 10px 10px 0px;">
+      <div id="alphaRankedSortBtn" class="span12">
         <button class="span6 active" id="numBnt">Ranked Sort</button>
         <button class="span6" id="alphBnt">Alphabetical Sort</button>
       </div>
@@ -691,8 +716,8 @@ echo "</div><!-- highlight_list -->";
  </div> <!-- close content div -->
 
 <div class="sidebar well">
-<h2 class="welltopperGold" style="font-size: 24px;">
-<i class="icon-search" style="padding-right: .25em;"><span class="hidden"> Multi-subject</span> </i>Multi-subject</h2>
+<h2 class="welltopperGold">
+<i class="icon-search"><span class="hidden"> Multi-subject</span> </i>Multi-subject</h2>
 <?php
 $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
 $result = mysqli_query($conLuptonDB , $multiquery) or die($error);
@@ -733,10 +758,10 @@ else{
 // only show new on home page
 if (($alpha=== "ALL")&&($subj === "A to Z")){
 ?>
-<div class="span3 sidebar" style="float: right;margin-left: 0;">
+<div id="checkItOut" class="span3 sidebar">
  <div class="sidebar well">
- <h2 class="welltopperGold" style="font-size: 24px;">
- <i class="icon-star" style="padding-right: .25em;"><span class="hidden"> Check it out</span> </i>Check Out</h2>
+ <h2 class="welltopperGold">
+ <i class="icon-star"><span class="hidden"> Check it out</span> </i>Check Out</h2>
  <?php
  $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
@@ -749,9 +774,9 @@ if (($alpha=== "ALL")&&($subj === "A to Z")){
  }
   ?>
  </div>
-<div class="sidebar well">
-<h2 class="welltopperBlue" style="font-size: 24px;">
-<i class="icon-bullhorn" style="padding-right: .25em;"><span class="hidden"> New</span> </i>New</h2>
+<div id="newDBs" class="sidebar well">
+<h2 class="welltopperBlue">
+<i class="icon-bullhorn"><span class="hidden"> New</span> </i>New</h2>
 <?php
 $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'NEW' AND DBRanking.TryTheseFirst = 1 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
 $result = mysqli_query($conLuptonDB , $newquery) or die($error);
