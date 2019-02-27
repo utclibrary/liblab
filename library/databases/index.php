@@ -483,7 +483,7 @@ $resultSLA = mysqli_query($conLuptonDB , $querySubjectListAlpha) or die($error);
 if (mysqli_num_rows($resultSLA)!=0) {
   $outputSLA .= "<div id='outputSLA'><h2>Subjects</h2><ul>";
     while($row = mysqli_fetch_array($resultSLA)){
-      $outputSLA .= "<li><a href='".$currentFile."?subj=".$row['Subject']."'>".$row['Subject']."</a></li>";
+      $outputSLA .= "<li><a href=\"".$currentFile."?subj=".$row['Subject']."\">".$row['Subject']."</a></li>";
     }
     $outputSLA .= "</ul></div>";
 }
