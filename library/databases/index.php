@@ -536,13 +536,13 @@ if (isset($_GET["alpha"])) {
 // check to see if alpha is num, empty or letter to change query used in $query*(s)
 if ($alpha === "num") {
     $queryKey = " AND Dbases.Title REGEXP '^[0-9]'";
-    //$queryKeyAlpha = "&alpha=num";
+    $queryKeyAlpha = "&alpha=num";
 } elseif ($alpha === "ALL") {
     $queryKey = "";
     $displayAlpha = "";
 } else {//letter selected
     //$queryKeyAlpha = "&alpha=".$alpha;
-    //$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
+    $queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
     // added to generate subject list on alpha click
     // query subjects by alpha
     $querySubjectListAlpha = " SELECT DISTINCT SubjectList.Subject,
@@ -555,6 +555,7 @@ ORDER BY SubjectList.Format , SubjectList.Subject
     //generate subject list when alpha selected
     $resultSLA = mysqli_query($conLuptonDB, "set names 'utf8'");
     $resultSLA = mysqli_query($conLuptonDB, $querySubjectListAlpha) or die($error);
+    $totalRows = mysqli_num_rows($resultSL);
     if (mysqli_num_rows($resultSLA)!=0) {
         // need to apply styling for this section
         $outputSLA .= "<div id='outputSLA'><h2 class='badge badge-info'>Subject";
@@ -579,7 +580,7 @@ echo "<h1>".$h1Prepend." Databases".$displayAlpha."</h1>
     });
 </script>";
 // get a list of current subjects for select box exclude
-$querySubjectList = reuseSubjQuery(0, $queryKey);
+$querySubjectList = reuseSubjQuery(0, "");
 
 $resultSL = mysqli_query($conLuptonDB, "set names 'utf8'");
 $resultSL = mysqli_query($conLuptonDB, $querySubjectList) or die($error);
@@ -610,10 +611,11 @@ echo "<span class='row' id='searchbox'>
 //}
 //select by type
 // get a list of current subjects for select box
-$queryTypeList = reuseSubjQuery(1, $queryKey);
+$queryTypeList = reuseSubjQuery(1, "");
 
 $resultTL = mysqli_query($conLuptonDB, "set names 'utf8'");
 $resultTL = mysqli_query($conLuptonDB, $queryTypeList) or die($error);
+$totalRows = mysqli_num_rows($resultTL);
 if (!mysqli_num_rows($resultTL)) {//if no results disable select box
     $resultTLdisabled = "disabled";
 } else {
@@ -711,6 +713,8 @@ $result = mysqli_query($conLuptonDB, $query) or die($error);
 if (!mysqli_num_rows($result)) {
     echo "No results";
 } else {
+  $totalRows = mysqli_num_rows($result);
+  echo "<p id='totalResults'>Total results: " . $totalRows . "</p>";
     $i = 0;
     // loop through results
     while ($row = mysqli_fetch_array($result)) {
