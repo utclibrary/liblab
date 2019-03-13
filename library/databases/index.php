@@ -2,8 +2,8 @@
 //error reporting - default N off
 $errorReporting = "N";
 //template system to replicate main website look and feel
-$title = "A to Z Databases | UTC Library";
-$description = "Full A to Z list of databases available at the UTC Library.";
+$title = "Databases | UTC Library";
+$description = "Databases available at the UTC Library.";
 $keywords = "databases";
 //do you want to override the folder structure for menu? (default is NO)
 $override_side_menu="NO";
@@ -72,12 +72,12 @@ input#search-highlight:-moz-placeholder {
     color:whitesmoke;
     opacity:1;
 }
-*/
+
 input#search-highlight:hover::placeholder{
     color:#781e1e;
     opacity:1;
 }
-/*
+
 input#search-highlight:hover::-webkit-input-placeholder{
     color:#781e1e;
 }
@@ -316,9 +316,13 @@ div.dbItemLG.alert-info{
   font-weight: bold;
 }
 /* webkit solution */
+/*
 input#search-highlight::-webkit-input-placeholder { text-align:right; }
+*/
 /* mozilla solution */
+/*
 input#search-highlight:-moz-placeholder { text-align:right; }
+*/
 #alphaRankedSortBtn{
   margin: 10px 10px 10px 0px;
 }
@@ -366,7 +370,10 @@ input#search-highlight:-moz-placeholder { text-align:right; }
 #outputSLA li.type{
   text-align:right;
 }
-
+span.db-title{
+  display:block;
+  font-style:bold;
+}
 </style>
 ";
 $addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
@@ -452,7 +459,7 @@ $queryKeySubj = "";
 $urlsubjappend="";
 $queryKeySubjAtoZ="";
 $outputSLA = "";
-$h1Prepend = "A to Z";
+$h1Prepend = "";
 //try adding by filter by contentType
 $contentType = "";
 $queryContentType = "";
@@ -529,13 +536,13 @@ if (isset($_GET["alpha"])) {
 // check to see if alpha is num, empty or letter to change query used in $query*(s)
 if ($alpha === "num") {
     $queryKey = " AND Dbases.Title REGEXP '^[0-9]'";
-    $queryKeyAlpha = "&alpha=num";
+    //$queryKeyAlpha = "&alpha=num";
 } elseif ($alpha === "ALL") {
     $queryKey = "";
     $displayAlpha = "";
 } else {//letter selected
-    $queryKeyAlpha = "&alpha=".$alpha;
-    $queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
+    //$queryKeyAlpha = "&alpha=".$alpha;
+    //$queryKey = "AND Dbases.Title LIKE '".$alpha."%'";
     // added to generate subject list on alpha click
     // query subjects by alpha
     $querySubjectListAlpha = " SELECT DISTINCT SubjectList.Subject,
@@ -565,6 +572,7 @@ ORDER BY SubjectList.Format , SubjectList.Subject
 }//close letter set
 // this changes dynamcially based on subject paramater - jquery updates the page title
 echo "<h1>".$h1Prepend." Databases".$displayAlpha."</h1>
+<h2>Filtering Options</h2>
 <script type='text/javascript'>
     $(document).ready(function() {
         document.title = \"".$h1Prepend." Databases".$displayAlpha." | UTC Library\";
@@ -584,7 +592,7 @@ $resultSL = mysqli_query($conLuptonDB, $querySubjectList) or die($error);
 //if ($alpha === "ALL"){
 echo "<span class='row' id='searchbox'>
       <label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
-      <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder=' &#xF002;' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span><!--
+      <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder='Search by name or description' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span><!--
       <button id='searchbutton' class='btn btn-primary'><i class='icon-search'>
 
       <span class='hidden'>Search Databases</span></i></button> -->
@@ -630,7 +638,7 @@ echo"
   }
   echo "</select>";
   if (($alpha === "ALL")&&($subj === "A to Z")&&($vendor === "")&&($contentType === "")) {
-      echo "<a id='atoz-reset-btn-disabled' class='active btn btn-large'>RESET</a>";
+      //echo "<a id='atoz-reset-btn-disabled' class='active btn btn-large'>RESET</a>";
   } else {
       echo "<a id='atoz-reset-btn' class='active btn btn-large btn-danger' href='".$currentFile."?alpha=ALL'>RESET</a>";
   }
@@ -712,7 +720,7 @@ if (!mysqli_num_rows($result)) {
                 if ((!empty($row['LibGuidesPage']))&&($subj != "A to Z")) {
                     echo "<div class='dbItemLG alert-info'>
     <i class='icon-large icon-compass'><span class='hidden'> ".$subj." Guide</span> </i>
-      <strong><a href='https://guides.lib.utc.edu/".$row['LibGuidesPage']."'>".$subj." Subject Guide</a></strong></div>";
+      <span class='libguidename'><a href='https://guides.lib.utc.edu/".$row['LibGuidesPage']."'>".$subj." Subject Guide</a></span></div>";
                 }
                 //if this is a subject list show alpha rank buttons
                 if ($subj != "A to Z") {
@@ -767,27 +775,27 @@ if (!mysqli_num_rows($result)) {
                 if (strpos($row['Subjects'], '<li>New</li>') !== false) {
                     echo "<span class='badge badge-warning pull-right'> NEW </span>";
                 }
-                echo "<strong><a href='";
+                echo "<span class='db-title'><a href='";
                 if (!empty($row['ShortURL'])) {
                     echo "https://www.utc.edu/" . $row['ShortURL'];
                 } else {
                     echo "/scripts/LGForward.php?db=". $row['Key_ID'];
                 }
-                echo"' target='_blank'>" . $row['Title'] . "</a></strong><br />";
+                echo"' target='_blank'>" . $row['Title'] . "</a></span>";
                 if (!empty($row['ContentType'])) {
-                    echo "<strong> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "</a></strong>: ";
+                    echo "<span class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "</a></span>: ";
                 }
-                echo $row['ShortDescription'];
+                echo "<span class='shortDescription'>" . $row['ShortDescription'] . "</span>";
                 if (!empty($row['HighlightedInfo'])) {
                     echo "<span class='highlighted-info'> " . $row['HighlightedInfo'] . "</span>";
                 }
                 if ($row['SimUsers'] == 1) {
-                    echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous user.</font></strong>";
+                    echo "<span class='limitTo'> Limited to " . $row['SimUsers'] . " simultaneous user.</span>";
                 } elseif ($row['SimUsers'] > 1) {
-                    echo "<strong><font color='red'>  Limited to " . $row['SimUsers'] . " simultaneous users.</font></strong>";
+                    echo "<spah class='limitTo'> Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
                 }
                 if (!empty($row['VendorName'])) {
-                    echo "<span class='vendor'><strong>Vendor</strong>: <a class='alpha' href=\"".$currentFile."?vendor=".$row['VendorName']."\"> ".$row['VendorName']." </a></span>";
+                    echo "<span class='vendor'>Vendor: <a class='alpha' href=\"".$currentFile."?vendor=".$row['VendorName']."\"> ".$row['VendorName']." </a></span>";
                 }
                 if (!empty($row['Subjects'])) {
                     echo "<span class='subjects'><ul class='nav nav-pills'><li class='strong'>Subject";
@@ -817,7 +825,7 @@ $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbas
      $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
 
      if (!mysqli_num_rows($resultMulti)) {
-         echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
+         echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
      } else {
          generatelist($resultMulti);
      } ?>
@@ -835,7 +843,7 @@ if (($alpha=== "ALL")&&($subj === "A to Z")) {
     $result = mysqli_query($conLuptonDB, $randquery) or die($error);
 
     if (!mysqli_num_rows($result)) {
-        echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
+        echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
     } else {
         generatelist($result);
     } ?>
@@ -848,7 +856,7 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
     $result = mysqli_query($conLuptonDB, $newquery) or die($error);
 
     if (!mysqli_num_rows($result)) {
-        echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
+        echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
     } else {
         generatelist($result);
     } ?>
@@ -886,7 +894,7 @@ mysqli_close($conLuptonDB);
          }
          echo"' target='_blank'>" . $row['Title'] . "</a>";
          if (!empty($row['ContentType'])) {
-             echo "<div class='s-lg-link-desc'><span class='contentType'><strong>" . $row['ContentType'] . ": </strong></span>";
+             echo "<div class='s-lg-link-desc'><span class='contentType'><span class='strong'>" . $row['ContentType'] . ": </span></span>";
          }
          echo $row['ShortDescription'];
          if (!empty($row['HighlightedInfo'])) {
