@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 //error reporting - default N offx
 $errorReporting = "Y";
 //template system to replicate main website look and feel
@@ -141,15 +139,13 @@ input#search-highlight.x{
     border-radius: 3px;
     transition: background .4s;
 }
-#alpha>.first{http://192.168.33.10/library/databases/index.php?alpha=ALL
+#alpha>.first{
 		border-left: 1px solid black;
 }
-
 #alpha{
 	width:100%;
 	margin:1em 0;
 }
-
 #alpha>.itemAlpha{
 	border-right:1px solid black;
 	width:3.3333333%;
@@ -410,7 +406,7 @@ $(document).ready(function() {
       }
       else{
         var totalResults = $('.dbItem:visible').length;
-          $('#totalResults').html('Total Results: ' + totalResults);
+          $('#totalResults').html('Total results: ' + totalResults);
       }
   });
   $('[data-toggle=\"tooltip\"]').tooltip();
@@ -590,8 +586,8 @@ ORDER BY SubjectList.Format , SubjectList.Subject
     if (mysqli_num_rows($resultSLA)!=0) {
         // need to apply styling for this section
         $outputSLA .= "<div id='outputSLA'><h2 class='badge badge-info'>Subject";
-        if (mysqli_num_rows($resultSLA)> 1){
-          $outputSLA .= "s";
+        if (mysqli_num_rows($resultSLA)> 1) {
+            $outputSLA .= "s";
         }
         $outputSLA .= "</h2><ul class='nav nav-list'>";
         while ($row = mysqli_fetch_array($resultSLA)) {
@@ -743,10 +739,10 @@ $result = mysqli_query($conLuptonDB, $query) or die($error);
 if (!mysqli_num_rows($result)) {
     echo "No results";
 } else {
-  $totalRows = mysqli_num_rows($result);
-  echo "<p id='totalResults'>Total results: " . $totalRows . "</p>";
-  // show subjects by alpha
-  echo $outputSLA;
+    $totalRows = mysqli_num_rows($result);
+    echo "<p id='totalResults'>Total results: " . $totalRows . "</p>";
+    // show subjects by alpha
+    echo $outputSLA;
     $i = 0;
     // loop through results
     while ($row = mysqli_fetch_array($result)) {
@@ -900,7 +896,7 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
 
 <?php
 }
-     //show multi on all pages ?>
+     //show multi on all pages?>
 </div>
 <?php
 mysqli_close($conLuptonDB);
@@ -919,7 +915,8 @@ mysqli_close($conLuptonDB);
    ORDER BY SubjectList.Subject
    ";
  }
- function generatelist($result){
+ function generatelist($result)
+ {
      echo "<ul class='s-lg-link-list'>";
      while ($row = mysqli_fetch_array($result)) {
          echo "<li><a href='";
