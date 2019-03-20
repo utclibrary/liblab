@@ -1,6 +1,8 @@
 <?php
-//error reporting - default N off
-$errorReporting = "N";
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+//error reporting - default N offx
+$errorReporting = "Y";
 //template system to replicate main website look and feel
 $title = "Databases | UTC Library";
 $description = "Databases available at the UTC Library.";
@@ -59,6 +61,20 @@ span.subjects, span.vendor{
 	margin-top: 10px;
 	text-align: center;
 }
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
 /*
 input#search-highlight::placeholder{
   color:whitesmoke;
@@ -386,12 +402,26 @@ $addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min
 		nodata: 'No results found'
 	});
 $(document).ready(function() {
+  /* get content of totalCount */
+  var cloneTotalResults = $('#totalResults').text();
+  $('#search-highlight').keyup(function() {
+      if ($(this).val() == '') { // check if value changed
+        $('#totalResults').html(cloneTotalResults);
+      }
+      else{
+        var totalResults = $('.dbItem:visible').length;
+          $('#totalResults').html('Total Results: ' + totalResults);
+      }
+  });
   $('[data-toggle=\"tooltip\"]').tooltip();
   $('h2#Letter1').text('#');
 /* jquery for clearable fields */
+
+console.log(cloneTotalResults);
 // CLEARABLE INPUT
 function tog(v){return v?'addClass':'removeClass';}
 $(document).on('input', '.clearable', function(){
+
     $(this).addClass('input-hold');
     $('.clearable')[tog(this.value)]('x');
 }).on('mousemove', '.x', function( e ){
@@ -399,6 +429,7 @@ $(document).on('input', '.clearable', function(){
 }).on('touchstart click', '.onX', function( ev ){  $(this).removeClass('input-hold');
     ev.preventDefault();
     $('.clearable').removeClass('x onX').val('').change();
+    $('#totalResults').html(cloneTotalResults);
 	resetsearch();
 });
 });
@@ -555,7 +586,7 @@ ORDER BY SubjectList.Format , SubjectList.Subject
     //generate subject list when alpha selected
     $resultSLA = mysqli_query($conLuptonDB, "set names 'utf8'");
     $resultSLA = mysqli_query($conLuptonDB, $querySubjectListAlpha) or die($error);
-    $totalRows = mysqli_num_rows($resultSL);
+    $totalRows = mysqli_num_rows($resultSLA);
     if (mysqli_num_rows($resultSLA)!=0) {
         // need to apply styling for this section
         $outputSLA .= "<div id='outputSLA'><h2 class='badge badge-info'>Subject";
@@ -593,7 +624,7 @@ $resultSL = mysqli_query($conLuptonDB, $querySubjectList) or die($error);
 //if ($alpha === "ALL"){
 echo "<span class='row' id='searchbox'>
       <label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
-      <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder='Search by name or description' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH'></span><!--
+      <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder='Search by name or description' data-list='.highlight_list'></span><!--
       <button id='searchbutton' class='btn btn-primary'><i class='icon-search'>
 
       <span class='hidden'>Search Databases</span></i></button> -->
@@ -692,8 +723,7 @@ echo "
 </ul>
     </div>";
     echo"</div>";
-// show subjects by alpha
-echo $outputSLA;
+
 // main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,VendorName,
 GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
@@ -715,6 +745,8 @@ if (!mysqli_num_rows($result)) {
 } else {
   $totalRows = mysqli_num_rows($result);
   echo "<p id='totalResults'>Total results: " . $totalRows . "</p>";
+  // show subjects by alpha
+  echo $outputSLA;
     $i = 0;
     // loop through results
     while ($row = mysqli_fetch_array($result)) {
