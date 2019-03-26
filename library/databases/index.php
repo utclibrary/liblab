@@ -386,6 +386,9 @@ span.db-title{
   display:block;
   font-style:bold;
 }
+.lock,.unlock{
+  padding:0 5px;
+}
 </style>
 ";
 $addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
@@ -400,6 +403,7 @@ $addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min
 $(document).ready(function() {
   /* get content of totalCount */
   var cloneTotalResults = $('#totalResults').text();
+  /* on keyup modify total results or reset to orig */
   $('#search-highlight').keyup(function() {
       if ($(this).val() == '') { // check if value changed
         $('#totalResults').html(cloneTotalResults);
@@ -467,6 +471,7 @@ $rightmenu=3;
 /* switch leftmenu on or off Y or N*/
 $navmenu="N";
 include($_SERVER['DOCUMENT_ROOT']."/includes/head.php");
+include($_SERVER['DOCUMENT_ROOT']."/includes/functions.inc");
 ?>
 <!-- Insert content here BEGIN -->
 <?php
@@ -721,7 +726,7 @@ echo "
     echo"</div>";
 
 // main query to generate lists of dbs
-$query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,VendorName,
+$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,VendorName,
 GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
           FROM LuptonDB.Dbases
           LEFT JOIN LuptonDB.Vendor
@@ -801,6 +806,11 @@ if (!mysqli_num_rows($result)) {
             // set condition for new but not subjects
             if (((strpos($row['Subjects'], $subj) !== false)&&($subj != "A to Z"))||($subj==='A to Z')) {
                 echo "<div class='dbItem'>";
+                if (($row['NotProxy']) === '1') {
+                    echo "<span class='unlock pull-right' data-toggle='tooltip' data-original-title='Freely Available'><i class='icon-unlock'><span class='hidden'>Freely Available</span></i></span>";
+                }else{
+                  echo "<span class='lock pull-right' data-toggle='tooltip' data-original-title='Requires Login'><i class='icon-lock'><span class='hidden'>Requires Login</span></i></span>";
+                }
                 if ((($row['TryTheseFirst']) === '1')&&($subj != "A to Z")) {
                     echo "<span class='badge badge-primary pull-right'>Try First</span>";
                 }
@@ -900,49 +910,6 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
 </div>
 <?php
 mysqli_close($conLuptonDB);
- }
- // reusable function to query subject splitting out content types (zero or one)
- function reuseSubjQuery($num, $queryKey)
- {
-     return "SELECT DISTINCT SubjectList.Subject,
-   IF (SubjectList.NotSubjectList = 0,'true','false') AS NotSubjectList
-   FROM LuptonDB.SubjectList
-   INNER JOIN LuptonDB.DBRanking
-   ON DBRanking.Subject_ID = SubjectList.Subject_ID
-   INNER JOIN LuptonDB.Dbases
-   ON Dbases.Key_ID = DBRanking.Key_ID
-   WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Subject_ID <> 59 AND SubjectList.Format=".$num." ".$queryKey."
-   ORDER BY SubjectList.Subject
-   ";
- }
- function generatelist($result)
- {
-     echo "<ul class='s-lg-link-list'>";
-     while ($row = mysqli_fetch_array($result)) {
-         echo "<li><a href='";
-         if (!empty($row['ShortURL'])) {
-             echo "https://www.utc.edu/" . $row['ShortURL'];
-         } else {
-             echo "/scripts/LGForward.php?db=" . $row['Key_ID']  ;
-         }
-         echo"' target='_blank'>" . $row['Title'] . "</a>";
-         if (!empty($row['ContentType'])) {
-             echo "<div class='s-lg-link-desc'><span class='contentType'><span class='strong'>" . $row['ContentType'] . ": </span></span>";
-         }
-         echo $row['ShortDescription'];
-         if (!empty($row['HighlightedInfo'])) {
-             echo "<span class='highlightedInfo'>  " . $row['HighlightedInfo'] . "</span>";
-         }
-         if (!empty($row['SimUsers'])) {
-             if ($row['SimUsers'] == 1) {
-                 echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous user.</span>";
-             } elseif ($row['SimUsers'] > 1) {
-                 echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
-             }
-         }
-         echo "</div></li>";
-     }
-     echo "</ul>";
  }
 include($_SERVER['DOCUMENT_ROOT']."/includes/foot.php");
 echo "
