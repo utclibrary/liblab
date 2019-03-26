@@ -19,7 +19,13 @@ $addhead = "<style>
 	font-size:1.5em;
 	min-height:2em;
 	width:100%;
-}</style>";
+}
+#report-bldg-form select {
+    width: 100%;
+    font-size: 25px;
+    height: 45px;
+}
+</style>";
 $addfoot = "";
 //show or hide help button
 $help = "show";
@@ -86,9 +92,9 @@ if(is_array($_POST) && $_POST)
 
 			$recipients = $set_email;
 			mail($recipients, "UTC Library Building Walkthrough: ".$ok,$body,$headers);
-			echo "<h1>The form has been submitted.</h1><p>Return to the <a href='".$_SERVER['PHP_SELF']."'>Library Walkthrough</a> page ";
-			echo "or the <a href='https://www.utc.edu/library/'>Library Home</a> page ";
-			echo "or the <a href='https://blog.utc.edu/library-alerts/'>Library Alerts</a> page.</p>";
+			echo "<h1>The form has been submitted.</h1>
+			<p><a class='btn btn-block btn-primary btn-large' href='".$_SERVER['PHP_SELF']."'>Submit Another Library Walkthrough Report</a></p>
+			<p><a class='btn btn-block btn-large btn-default' href='https://blog.utc.edu/library-alerts/'>Return to Library Alerts</a></p>";
 		}
 	}
 	if ((isset($error) && isset($_POST["user"])) || !isset($_POST["user"]))
@@ -109,7 +115,7 @@ if(is_array($_POST) && $_POST)
 				{
 					if (isset ($_POST['user']) && $row['idUser'] == $_POST['user'])
 						echo "<option selected = 'selected' value ='" . $row['idUser'] . "'>" . $row['fName'] . " " . $row['lName'] . "</option>";
-					else echo "<option value ='" . $row['idUser'] . "'>" . $row['fName'] . " " . $row['lName'] . "</option>";
+					else echo "<option value ='" . $row['fName'] . " " . $row['lName'] . "'>" . $row['fName'] . " " . $row['lName'] . "</option>";
 				}
 				mysqli_free_result($resultLogin);
 				mysqli_close($conLoginLogin); ?>
@@ -143,7 +149,7 @@ if(is_array($_POST) && $_POST)
 			<label aria-hidden="true" for="preferred-method" class="hide-robot">Preferred Method</label>
 		<input aria-hidden="true" name="preferred-method" type="text" id="preferred-method" class="hide-robot">
 		<?php // honeypot fields end ?>
-		<button class="btn btn-default btn-large btn-block" type="submit">Submit</button>
+		<button class="btn btn-primary btn-large btn-block" type="submit">Submit</button>
 	</form>
 </div>
 <?php } ?>

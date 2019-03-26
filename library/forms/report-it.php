@@ -78,7 +78,7 @@ $categories = array
 		),
 		2 => array(
 			'category' => 'Classroom Tech',
-					'email' => 'libtech@utc.edu, libinstruction@utc.edu'
+			'email' => 'libtech@utc.edu, libinstruction@utc.edu'
 		),
 		3 => array(
 			'category' => 'E-Resources',
