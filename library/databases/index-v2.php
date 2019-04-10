@@ -103,6 +103,8 @@ $error = "";
 // connect to database
 require_once $_SERVER['DOCUMENT_ROOT'].'/includes/dbconnect.php';
 //  set variables in case paramater is not passed
+$typeExists = 0;
+$subjectExists = 0;
 $alpha = "ALL";
 $queryKey = "";
 $queryKeySubj = "";
@@ -209,7 +211,6 @@ ORDER BY SubjectList.Format , SubjectList.Subject
     $totalRows = mysqli_num_rows($resultSLA);
     if (mysqli_num_rows($resultSLA)!=0) {
         // need to apply styling for this section
-				$typeExists = 0;$subjectExists = 0;
         $outputSLA .= "<div id='outputSLA' class='featureBox'>
 				<h3 id='subjectList' class='featureTitle'><span class='fa fa-cat'></span>&nbsp;Subject";
         $outputSLA .= "</h3><hr class='featureHR'/><ul>";
@@ -597,6 +598,7 @@ echo "
     }
 }
 });";
+echo "\n";
 if ($outputLG != ""){
 	echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'><span class='fa fa-compass'></span>&nbsp;Subject Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul></div>\");";
 }
