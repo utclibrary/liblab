@@ -537,3 +537,7 @@ footer.achieve-2 {
 #backToTopBtn:hover {
     background-color: #00386B;
 }
+/* lg card */
+.lgCard{
+  background-color: #dde6ee;
+  }

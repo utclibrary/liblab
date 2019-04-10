@@ -109,6 +109,7 @@ $queryKeySubj = "";
 $urlsubjappend="";
 $queryKeySubjAtoZ="";
 $outputSLA = "";
+$outputLG = "";
 $h1Prepend = "";
 //try adding by filter by contentType
 $contentType = "";
@@ -419,9 +420,7 @@ if (!mysqli_num_rows($result)) {
             // if subj show Libguide once
             if ($i == 0) {
                 if ((!empty($row['LibGuidesPage']))&&($subj != "A to Z")) {
-                    echo "<div class='dbCardLG alert-info'>
-    <i class='icon-large icon-compass'><span class='hidden'> ".$subj." Guide</span> </i>
-      <span class='libguidename'><a href='https://guides.lib.utc.edu/".$row['LibGuidesPage']."'>".$subj." Subject Guide</a></span></div>";
+                    $outputLG = $row['LibGuidesPage'];
                 }
                 //if this is a subject list show alpha rank buttons
                 if ($subj != "A to Z") {
@@ -598,6 +597,9 @@ echo "
     }
 }
 });";
+if ($outputLG != ""){
+	echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'><span class='fa fa-compass'></span>&nbsp;Subject Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul></div>\");";
+}
 if ($typeExists > 1){
 	echo "$('#typeList').append('s');";
 }
