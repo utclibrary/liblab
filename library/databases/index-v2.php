@@ -579,7 +579,7 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
 mysqli_close($conLuptonDB);
  }
 include($_SERVER['DOCUMENT_ROOT']."/includes/foot-v2.php");
-?>
+echo "
 <script>$(document).ready(function() {
 	$('html, body').animate({
         scrollTop: $('.filters').offset().top
@@ -597,14 +597,14 @@ include($_SERVER['DOCUMENT_ROOT']."/includes/foot-v2.php");
     $(this).html('<a href=\"'+ filename + '?subj=' + subject + '\">' + subject + '</a>');
     }
 }
-  });
-<?php
+});";
 if ($typeExists > 1){
 	echo "$('#typeList').append('s');";
 }
 if ($subjectExists > 1){
 	echo "$('#subjectList').append('s');";
 }
- ?>
+echo"
 });</script>";
+?>
 <!-- add any additional footer code here -->
