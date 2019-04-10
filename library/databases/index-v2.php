@@ -9,7 +9,6 @@ $keywords = "databases";
 #$override_side_menu="NO";
 //in case you need to add anything in the head or footer
 $addhead = "";
-
 $addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 		  <!-- hide search jquery plugin-->
       		<script>
@@ -209,13 +208,17 @@ ORDER BY SubjectList.Format , SubjectList.Subject
     $totalRows = mysqli_num_rows($resultSLA);
     if (mysqli_num_rows($resultSLA)!=0) {
         // need to apply styling for this section
-        $outputSLA .= "<div id='outputSLA'><h2 class='badge badge-info'>Subject";
-        if (mysqli_num_rows($resultSLA)> 1) {
-            $outputSLA .= "s";
-        }
-        $outputSLA .= "</h2><ul class='nav nav-list'>";
+				$typeExists = 0;$subjectExists = 0;
+        $outputSLA .= "<div id='outputSLA' class='featureBox'>
+				<h3 id='subjectList' class='featureTitle'><span class='fa fa-cat'></span>&nbsp;Subject";
+        $outputSLA .= "</h3><hr class='featureHR'/><ul>";
         while ($row = mysqli_fetch_array($resultSLA)) {
+					if (($row['Format'] === "type")&&($typeExists === 0)){
+						$outputSLA .= "</ul><h3 id='typeList' class='featureTitle'><span class='fa fa-dog'></span>&nbsp;Type</h3><hr class='featureHR'><ul>";
+					}
             $outputSLA .= "<li class='".$row['Format']."'><a href=\"".$currentFile."?subj=".$row['Subject']."\">".$row['Subject']."</a></li>";
+						if ($row['Format'] === "type"){$typeExists++;}
+						if ($row['Format'] === "subject"){$subjectExists++;}
         }
         $outputSLA .= "</ul></div>";
     }
@@ -360,9 +363,10 @@ echo"
 //}
 // END select by type
 
-    echo"</div></div>";
+    echo"</div></div>
+		<div class='col-lg-4 topMargin'>";
+		if ($outputSLA === ""){
 ?>
-		<div class="col-lg-4 topMargin">
 		            <div class="featureBox">
 		              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
 		              <hr class="featureHR">
@@ -377,8 +381,12 @@ echo"
 								         generatelist($result);
 								     } ?>
 		            </div><!-- close feature box -->
-		          </div>
-  <?php  echo "</div></div><!-- close .filters .col & .row -->
+  <?php
+}else{
+	// show subjects by alpha
+	echo $outputSLA;
+}
+	echo "</div></div></div><!-- close .filters .col & .row -->
 		";
 
 // main query to generate lists of dbs
@@ -403,8 +411,7 @@ if (!mysqli_num_rows($result)) {
     $totalRows = mysqli_num_rows($result);
     echo "
     <p id='totalResults'>Total results: " . $totalRows . "</p>";
-    // show subjects by alpha
-    echo $outputSLA;
+
     $i = 0;
     // loop through results
     while ($row = mysqli_fetch_array($result)) {
@@ -572,8 +579,11 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
 mysqli_close($conLuptonDB);
  }
 include($_SERVER['DOCUMENT_ROOT']."/includes/foot-v2.php");
-echo "
+?>
 <script>$(document).ready(function() {
+	$('html, body').animate({
+        scrollTop: $('.filters').offset().top
+    }, 500);
   var url = window.location.pathname;
   var filename = url.substring(url.lastIndexOf('/')+1);
   $( '.subjects li' ).each(function() {
@@ -588,6 +598,13 @@ echo "
     }
 }
   });
+<?php
+if ($typeExists > 1){
+	echo "$('#typeList').append('s');";
+}
+if ($subjectExists > 1){
+	echo "$('#subjectList').append('s');";
+}
+ ?>
 });</script>";
-?>
 <!-- add any additional footer code here -->

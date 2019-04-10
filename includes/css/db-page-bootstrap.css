@@ -496,10 +496,11 @@ float: right;
 cursor: default;
 color: darkgrey;
 }
-
+/*
 #outputSLA li.type{
 text-align:right;
 }
+*/
 /* footer */
 footer.achieve-2 h*{
   text-align: center;

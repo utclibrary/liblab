@@ -1,12 +1,11 @@
 <?php
 //check to see if error reporting is OFF N or Y ON
-if ($errorReporting == "N"){
-	// Turn off all error reporting
-error_reporting(0);
-}
-else{
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+if ($errorReporting === "Y"){
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
+}else{
+  error_reporting(0);
 }
 ?>
 <!doctype html><!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-gb"> <![endif]-->
