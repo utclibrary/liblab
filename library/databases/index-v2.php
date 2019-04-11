@@ -1,107 +1,26 @@
 <?php
+// updates for v2 bootstrap 4 only
 //error reporting - default N offx
 $errorReporting = "Y";
 //template system to replicate main website look and feel
 $title = "Databases | UTC Library";
 $description = "Databases available at the UTC Library.";
 $keywords = "databases";
-//do you want to override the folder structure for menu? (default is NO)
-#$override_side_menu="NO";
 //in case you need to add anything in the head or footer
 $addhead = "";
-$addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
-		  <!-- hide search jquery plugin-->
-      		<script>
-          //<![CDATA[
-	$('#search-highlight').hideseek({
-      min_chars: 3,
-  		highlight: true,
-		nodata: 'No results found'
-	});
-$(document).ready(function() {
-  /* get content of totalCount */
-  var cloneTotalResults = $('#totalResults').text();
-  /* on keyup modify total results or reset to orig */
-  $('#search-highlight').keyup(function() {
-      if ($(this).val() == '') { // check if value changed
-        $('#totalResults').html(cloneTotalResults);
-      }
-      else{
-        var totalResults = $('.dbCard:visible').length;
-          $('#totalResults').html('Total results: ' + totalResults);
-      }
-  });
-  $('[data-toggle=\"tooltip\"]').tooltip();
-  $('h2#Letter1').text('#');
-/* jquery for clearable fields */
-
-console.log(cloneTotalResults);
-// CLEARABLE INPUT
-function tog(v){return v?'addClass':'removeClass';}
-$(document).on('input', '.clearable', function(){
-
-    $(this).addClass('input-hold');
-    $('.clearable')[tog(this.value)]('x');
-}).on('mousemove', '.x', function( e ){
-    $('.clearable')[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');  $(this).removeClass('input-hold');
-}).on('touchstart click', '.onX', function( ev ){  $(this).removeClass('input-hold');
-    ev.preventDefault();
-    $('.clearable').removeClass('x onX').val('').change();
-    $('#totalResults').html(cloneTotalResults);
-	resetsearch();
-});
-});
-function resetsearch() {
-    $('#search-highlight').val('').trigger('keyup').focus();
-    var press = jQuery.Event('keypress');
-    press.bubbles = true;
-    press.cancelable = true;
-    press.charCode = 8;
-    press.currentTarget = $('#search')[0];
-    press.eventPhase = 2;
-    press.keyCode = 8;
-    press.returnValue = true;
-    press.srcElement = $('#search')[0];
-    press.target = $('#search')[0];
-    press.type = 'keyup';
-    press.view = Window;
-    press.which = 8;
-    $('#search-highlight').trigger(press);
-}
-/* reload page on subject select */
-$( '#subjectSelect' ).change(function() {
-  window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#subjectSelect').val();
- });
- /* reload page on type select */
- $( '#typeSelect' ).change(function() {
-   window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#typeSelect').val();
-  });
-//]]>
-</script>
-";
+$addfoot = "";
 //show or hide help button
 $help = "show";
-/*if right column is added set the following variable so that we can adjust the content width
-set to 0 if no right menu
-set to 3 and modify the content of the
-*/
-#$rightmenu=0;
-/* switch leftmenu on or off Y or N*/
-#$navmenu="N";
+// include new head and php functions for db display - reused for lg lists
 include($_SERVER['DOCUMENT_ROOT']."/includes/head-v2.php");
 include($_SERVER['DOCUMENT_ROOT']."/includes/functions.inc");
-?>
-<!-- Insert content here BEGIN -->
-<?php
-// include functions
-//include($_SERVER['DOCUMENT_ROOT']."/includes/functions.inc");
 // Get current file name and directory to use in links
 $currentFile = $_SERVER['PHP_SELF'];
-// declare variables
-$lastletter = "";
-$error = "";
 // connect to database
 require_once $_SERVER['DOCUMENT_ROOT'].'/includes/dbconnect.php';
+// declare variables
+$lastLetter = "";$currentLetter = "";//used with $currentletter to track and insert alpha for each group in list
+$error = "An error has occurded";//set database error message
 //  set variables in case paramater is not passed
 $typeExists = 0;
 $subjectExists = 0;
@@ -212,11 +131,11 @@ ORDER BY SubjectList.Format , SubjectList.Subject
     if (mysqli_num_rows($resultSLA)!=0) {
         // need to apply styling for this section
         $outputSLA .= "<div id='outputSLA' class='featureBox'>
-				<h3 id='subjectList' class='featureTitle'><span class='fa fa-cat'></span>&nbsp;Subject";
+				<h3 id='subjectList' class='featureTitle'>Subject";
         $outputSLA .= "</h3><hr class='featureHR'/><ul>";
         while ($row = mysqli_fetch_array($resultSLA)) {
 					if (($row['Format'] === "type")&&($typeExists === 0)){
-						$outputSLA .= "</ul><h3 id='typeList' class='featureTitle'><span class='fa fa-dog'></span>&nbsp;Type</h3><hr class='featureHR'><ul>";
+						$outputSLA .= "</ul><h3 id='typeList' class='featureTitle'>Type</h3><hr class='featureHR'><ul>";
 					}
             $outputSLA .= "<li class='".$row['Format']."'><a href=\"".$currentFile."?subj=".$row['Subject']."\">".$row['Subject']."</a></li>";
 						if ($row['Format'] === "type"){$typeExists++;}
@@ -427,34 +346,12 @@ if (!mysqli_num_rows($result)) {
                 if ($subj != "A to Z") {
                     ?>
       <div id="alphaRankedSortBtn" class="row">
-        <button class="col active" id="numBtn"><span class='fa fa-sort-amount-down'></span> Ranked Sort</button>
-        <button class="col" id="alphBtn"><span class='fa fa-sort-alpha-down'></span> Alphabetical Sort</button>
+        <button type="button" class="btn col btn-secondary active" id="numBtn">Ranked Sort</button>
+        <button type="button" class="btn btn-secondary col" id="alphBtn">Alphabetical Sort</button>
       </div>
-      <div id='subject_list_items' class='highlight_list'>
-      <script>
-      $( document ).ready(function() {
-        var $divs = $("div.dbCard");
-        $('#numBtn').attr("disabled", "disabled");
 
-  $('#alphBtn').on('click', function () {
-    $('#numBtn').removeAttr('disabled');
-    $(this).attr("disabled", "disabled");
-      var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {
-          //return $(a).find("a").text() > $(b).find("a").text();
-          return $(a).find("a").text() > $(b).find("a").text()  ? 1 : -1;
-      });
-      $("#subject_list_items").html(alphabeticallyOrderedDivs);
-  });
+		<div id='subject_list_items' class='highlight_list'>
 
-  $('#numBtn').on('click', function () {
-    $('#alphBtn').removeAttr('disabled');
-    $(this).attr("disabled", "disabled");
-    $("#subject_list_items").load(" #subject_list_items > *");
-
-      //$("#subject_list_items").load("#subject_list_items > *");
-  });
-});
-    </script>
       <?php
                 } else {
                     echo "<div class='highlight_list'>";
@@ -463,9 +360,9 @@ if (!mysqli_num_rows($result)) {
             }
             // create styled letter SEPARATOR
             $currentletter = strtoupper(substr($row['Title'], 0, 1));
-            if (($lastletter != $currentletter)&&(preg_match("/[A-Z]|1/i", $currentletter))) {
+            if (($lastLetter != $currentletter)&&(preg_match("/[A-Z]|1/i", $currentletter))) {
                 echo '<h2 id="Letter' . $currentletter .  '">' . $currentletter . '</h2>';
-                $lastletter = $currentletter;
+                $lastLetter = $currentletter;
             }
             // set condition for new but not subjects
             if (((strpos($row['Subjects'], $subj) !== false)&&($subj != "A to Z"))||($subj==='A to Z')) {
@@ -580,7 +477,14 @@ mysqli_close($conLuptonDB);
  }
 include($_SERVER['DOCUMENT_ROOT']."/includes/foot-v2.php");
 echo "
-<script>$(document).ready(function() {
+<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
+<script>
+$('#search-highlight').hideseek({
+		min_chars: 3,
+		highlight: true,
+	nodata: 'No results found'
+});
+$(document).ready(function() {
 	$('html, body').animate({
         scrollTop: $('.filters').offset().top
     }, 500);
@@ -600,7 +504,7 @@ echo "
 });";
 echo "\n";
 if ($outputLG != ""){
-	echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'><span class='fa fa-compass'></span>&nbsp;Subject Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul></div>\");";
+	echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Subject Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul></div>\");";
 }
 if ($typeExists > 1){
 	echo "$('#typeList').append('s');";
@@ -609,6 +513,83 @@ if ($subjectExists > 1){
 	echo "$('#subjectList').append('s');";
 }
 echo"
-});</script>";
+/* get content of totalCount */
+var cloneTotalResults = $('#totalResults').text();
+/* on keyup modify total results or reset to orig */
+$('#search-highlight').keyup(function() {
+		if ($(this).val() == '') { // check if value changed
+			$('#totalResults').html(cloneTotalResults);
+        $('#alphaRankedSortBtn').show();
+		}
+		else{
+			var totalResults = $('.dbCard:visible').length;
+				$('#totalResults').html('Total results: ' + totalResults);
+		}
+});
+$('[data-toggle=\"tooltip\"]').tooltip();
+$('h2#Letter1').text('#');
+/* jquery for clearable fields */
+
+// CLEARABLE INPUT
+function tog(v){return v?'addClass':'removeClass';}
+$(document).on('input', '.clearable', function(){
+  $('#alphaRankedSortBtn').hide();
+	$(this).addClass('input-hold');
+	$('.clearable')[tog(this.value)]('x');
+}).on('mousemove', '.x', function( e ){
+	$('.clearable')[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');  $(this).removeClass('input-hold');
+}).on('touchstart click', '.onX', function( ev ){
+  $(this).removeClass('input-hold');
+	ev.preventDefault();
+	$('.clearable').removeClass('x onX').val('').change();
+	$('#totalResults').html(cloneTotalResults);
+resetsearch();
+});
+var divContent = $('div.dbCard');
+$('#numBtn').attr('disabled', 'disabled');
+
+$('#alphBtn').on('click', function () {
+$('#numBtn').removeAttr('disabled');
+$(this).attr('disabled', 'disabled');
+var alphabeticallyOrderedDivs = divContent.sort(function (a, b) {
+  //return $(a).find('a').text() > $(b).find('a').text();
+  return $(a).find('a').text() > $(b).find('a').text()  ? 1 : -1;
+});
+$('#subject_list_items').html(alphabeticallyOrderedDivs);
+});
+
+$('#numBtn').on('click', function () {
+$('#alphBtn').removeAttr('disabled');
+$(this).attr('disabled', 'disabled');
+$('#subject_list_items').load(' #subject_list_items > * ');
+});
+});/* close doc ready */
+function resetsearch() {
+    $('#alphaRankedSortBtn').show();
+    $('#search-highlight').val('').trigger('keyup').focus();
+    var press = jQuery.Event('keypress');
+    press.bubbles = true;
+    press.cancelable = true;
+    press.charCode = 8;
+    press.currentTarget = $('#search')[0];
+    press.eventPhase = 2;
+    press.keyCode = 8;
+    press.returnValue = true;
+    press.srcElement = $('#search')[0];
+    press.target = $('#search')[0];
+    press.type = 'keyup';
+    press.view = Window;
+    press.which = 8;
+    $('#search-highlight').trigger(press);
+}
+/* reload page on subject select */
+$( '#subjectSelect' ).change(function() {
+  window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#subjectSelect').val();
+ });
+ /* reload page on type select */
+ $( '#typeSelect' ).change(function() {
+   window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#typeSelect').val();
+  });
+
+</script>";
 ?>
-<!-- add any additional footer code here -->

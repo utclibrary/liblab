@@ -541,3 +541,25 @@ footer.achieve-2 {
 .lgCard{
   background-color: #dde6ee;
   }
+/* fontawesome icons. */
+#subjectList:before{
+  color:#dde6ee;
+  padding-right:5px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  content: "\f1ea";
+}
+#typeList:before{
+  color:#dde6ee;
+  padding-right:5px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  content: "\f02b";
+}
+.lgCard h3:before{
+  color: #00386b;
+  padding-right:5px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  content: "\f14e";
+}
