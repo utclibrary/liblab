@@ -20,8 +20,11 @@ if ($errorReporting === "Y"){
       <meta name="Description" content="<?php echo $description; ?>">
 
       <meta name="Keywords" content="<?php echo $keywords; ?>">
-
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes"><!-- Prompt IE 6/7/8 users to install Chrome Frame.
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<!--
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+-->
+      <!-- Prompt IE 6/7/8 users to install Chrome Frame.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 9]><div class="chromeframe alert alert-error alert-floating"></div>
   <div class="alert alert-info alert-floating" data-original-title="alert alert-info alert-floating"> <button type="button" class="close" data-dismiss="alert">×</button> <strong>Welcome to the website of the University of Tennessee at Chattanooga.</strong> <p>Your web browser is outdated. For the best experience on this site,&nbsp; <a href="http://browsehappy.com/">upgrade to a modern browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>.</p> </div><![endif]-->
@@ -78,75 +81,118 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <div id="dev-environment" class="alert alert-info" role="alert" style="padding: .25em;text-align: center;margin-bottom: 0px;">
             | <strong>STAGING</strong> environment | </div>
-      <div id="skip"><a class="btn btn-success btn-large btn-block" tabindex="1" href="#content">Skip to Main Content</a></div>
+            <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
       <div id="sf-wrapper">
          <!-- stickyfooter wrapper -->
          <!-- Top Menus & Logotype
 ================================================== -->
          <!-- Main Top Navigation, Scrolls with window
     ================================================== -->
-         <div id="mainTopNav" class="navbar navbar-static-top navbar-inverse frontpage" role="navigation">
-            <div class="navbar-inner"><a class="btn btn-navbar" data-toggle="collapse" data-target="#mainTopNav .nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a href="#" class="brand" data-toggle="collapse" data-target="#mainTopNav .nav-collapse">UTC.edu</a><div class="nav-collapse collapse">
-<ul class="nav">
-<li><a id="constituency-nav-students" href="//www.utc.edu/about/student-resources.php">Students</a></li>
-<li><a id="constituency-nav-facultystaff" href="//www.utc.edu/about/faculty-staff-resources.php">Faculty&nbsp;&amp;&nbsp;Staff</a></li>
-<li><a id="constituency-nav-alumni" href="//www.utc.edu/about/alumni-friends.php">Alumni</a></li>
-<li><a id="constituency-nav-parents" href="//www.utc.edu/admissions/parents.php">Parents</a></li>
-</ul>
-                  <!-- Search form
-                ================================================== -->
-<!-- GSA Search Box Begins -->
-<form class="form-search navbar-search" action="//www.utc.edu/search.php" method="post">
-	<div class="input-append">
-		<label for="q" class="hidden">Search:</label><input name="q" id="q" type="text" class="input span2 search-query" placeholder="Search&hellip;"><button type="submit" value="Go Search" aria-label="Go Search" class="btn btn-inverse"><i class="icon-search"><!-- icon --></i></button>
-	</div>
-</form>
-                  <!-- Extreme right top menu items, priority
-                ================================================== -->
-<ul class="nav pull-right">
-<li><a id="top-nav-schedule" href="https://ssb.utc.edu/cbanpr/zzckschd.p_disp_dyn_sched/" target="ssb">Class Schedule&nbsp;<i class="icon-small icon-external-link"><!-- External Link --></i></a></li>
-<li><a id="top-nav-my" href="//www.utc.edu/my/index.php" target="myMocsNet">My MocsNet&nbsp;<i class="icon-small icon-external-link"><!-- External Link --></i></a></li>
-<li><a id="top-nav-utconline" href="//www.utc.edu/learn/">UTC Learn&nbsp;<i class="icon-globe icon-large"><!-- globe --></i></a></li>
-</ul>
-<!-- Middle right top menu items, hidden mid/small
-================================================== -->
-<ul class="nav pull-right superfluous">
-<li aria-label="UTC Home Page"><a id="top-nav-home" title="UTC Home Page" alt="UTC Home Page" href="//www.utc.edu/"><i class="icon-home icon-large"><span class="hidden">UTC Home</span></i></a></li>
-<li><a id="top-nav-apply" href="//www.utc.edu/apply/">Apply</a></li>
-</ul>
-               </div>
-            </div>
-         </div>
-         <!-- Logotype, .header-image gets inline style for background image, uploaded by user
-    ================================================== -->
-         <div class="utc-logo row">
-            <div class="utc-logo-inner">
+    <nav class="navbar navbar-expand-lg navbarUtc">
+      <a class="navbar-brand" href="#">UTC.edu</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarUTC" aria-controls="navbarUTC" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-                  <div id="header-text" class="pull-left">
-                     <h1><a href="//www.utc.edu/">
-					 <img src="/includes/img/utc-lettertype-logo-small.png" alt="UTC wordmark"></a></h1>
-                     <h2><a href="//www.utc.edu/library/">UTC Library</a></h2>
-                  </div>
-               </div>
+      <div class="collapse navbar-collapse" id="navbarUTC">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/about/student-resources.php">Students</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/about/faculty-staff-resources.php">Faculty&nbsp;&amp;&nbsp;Staff</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/about/alumni-friends.php">Alumni</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/admissions/parents.php">Parents</a>
+          </li>
+        </ul>
+        <form class="form-inline ouSearch my-lg-0" action="https://www.utc.edu/search.php" method="post">
+          <div class="input-group" role="search" aria-label="Search Form">
+            <label for="q" class="hidden sr-only" aria-label="Search">Search:</label>
+            <input name="q" id="q" type="text" class="form-control input search-query" placeholder="Search&hellip;" aria-label="Search Input">
+            <div class="input-group-append">
+              <button class="btn btnUtcSearch" type="submit" value="Go Search" aria-label="Go Search"><span class="fas fa-search">
+                  <!-- icon --></span><span class="sr-only">&nbsp;Search</span></button>
             </div>
-         </div>
-         <!-- Secondary Navigation
-    ================================================== -->
-         <div id="secondaryTopNav" role="navigation" class="navbar frontpage department">
-            <div class="navbar-inner">
-               <div class="squeezer container"><a class="btn btn-navbar" data-toggle="collapse" data-target="#secondaryTopNav .nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a href="#" class="brand" data-toggle="collapse" data-target="#secondaryTopNav .nav-collapse">Menu</a><div class="nav-collapse collapse">
-                     <ul class="nav">
-                       <li><a href="//www.utc.edu/library/index.php">Library Home</a></li>
-                       <li><a id="lib-menu-collections" href="//www.utc.edu/library/collections/">Collections</a></li>
-                       <li><a id="lib-menu-help" href="//www.utc.edu/library/help/" >Research Help</a></li>
-                       <li><a id="lib-menu-services" href="//www.utc.edu/library/services/">Services</a></li>
-                       <li><a id="lib-menu-about" href="//www.utc.edu/library/about/">About</a></li>
-                     </ul>
-<?php
-include($_SERVER['DOCUMENT_ROOT']."/scripts/hours.php");
-?>
-                  </div>
-               </div>
-            </div>
-         </div>
-<div class="container">
+          </div>
+        </form>
+        <ul class="navbar-nav ml-auto flex-column-reverse flex-lg-row">
+          <li class="nav-item utcHome">
+            <a class="nav-link" href="https://www.utc.edu/"><span class="fas fa-home"><span class="sr-only">UTC Home</span></span></a>
+          </li>
+          <li class="nav-item">
+            <a id="top-nav-apply" class="nav-link" href="https://www.utc.edu/apply/">Apply</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/records/registration-information/class-schedule.php"><span class="menu-hide">Class </span>Schedule&nbsp;<span class="fas fa-external-link-alt fa-xs" aria-hidden="true">
+                <!-- External Link --></span><span class="sr-only">Link opens in new window</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/my/index.php target=" _blank"" target="_blank"><span class="menu-hide">My </span>MocsNet&nbsp;<span class="fas fa-external-link-alt fa-xs"></span><span class="sr-only">Link opens in new
+                window</span><!-- External Link --></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/learn/"><span class="menu-hide">UTC </span>Learn&nbsp;<span class="fas fa-globe-americas" aria-hidden="true">
+                <!-- globe --></span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col blueHeader">
+
+          <a href="https://utc.edu/">
+            <img src="https://utc.edu/_resources/img/web-wordmark-retina.png" alt="UTC wordmark">
+          </a>
+          <h1><a href="https://www.utc.edu/library/">UTC Library</a></h1>
+        </div>
+      </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbarLib">
+      <a class="navbar-brand" href="#">Menu</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav navbarLibMain">
+          <li class="nav-item ml-lg-4">
+            <a class="nav-link" href="https://www.utc.edu/library">Library Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/library/collections">Collections</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/library/help">Research Help</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/library/collections">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/library/collections">About</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item order-lg-1">
+            <a class="nav-link account" href="https://www.utc.edu/library/services/accounts.php" title="Library Accounts">
+              <span class="fas fa-user-circle"></span>
+              <span class="d-lg-none">&nbsp;Library Accounts</span>
+            </a>
+          </li>
+          <li id="libHours" class="nav-item order-lg-0">
+            <a class="nav-link" href="https://www.utc.edu/library/about/hours.php"><span class="fas fa-clock"></span>&nbsp;Today's Hours:
+              <?php
+            include($_SERVER['DOCUMENT_ROOT']."/scripts/hours-v2.php");
+            ?>
+          </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+<div id="content" class="container">
