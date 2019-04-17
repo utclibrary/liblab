@@ -178,7 +178,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item order-lg-1">
-            <a class="nav-link account" href="https://www.utc.edu/library/services/accounts.php" title="Library Accounts">
+            <a class="nav-link account" href="https://www.utc.edu/library/services/accounts.php" data-toggle="tooltip" data-placement="right" title="Library Accounts">
               <span class="fas fa-user-circle"></span>
               <span class="d-lg-none">&nbsp;Library Accounts</span>
             </a>
