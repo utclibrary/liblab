@@ -48,7 +48,7 @@ if (isset($_GET["vendor"])) {
     $queryVendor = "AND VendorName = '" .$vendor. "'";
 }
 // get subject param if set
-if (isset($_GET["subj"])) {
+if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
     $subj = htmlentities($_GET["subj"]);
     $h1Prepend = $subj;
     // ignore limit by subject selection
