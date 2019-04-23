@@ -88,9 +88,14 @@ padding: 10px 12px;
 display: block;
 margin:2px;
 }
-#alpha .nav > li.active{
-  background-color: #781e1e;
+#alpha .nav > li.active > a{
+  background-color: #00386b;
+  color: #fff;
 }
+#alpha .nav > li.active > a:hover{
+  cursor: default !important;
+}
+
 #alpha .nav > li > a:hover{
 color: white;
 background-color: #00386b;
@@ -156,12 +161,12 @@ background-color:white;
 cursor: pointer;
 }
 .clearable.x {
-background-position: right 5px center;
+background-position: right 6px center;
 }
 .clearable {
 background: url(//i.stack.imgur.com/mJotv.gif) right -10px center no-repeat #fff;
-/*border: 1px solid #999;*/
-padding: 3px 18px 3px 4px;
+border: 1px solid #999;
+padding: 3px 18px 3px 6px;
 border-radius: 3px;
 transition: background .4s;
 }
@@ -176,16 +181,19 @@ transition: background .4s;
 
 .featureTitle {
   font-size: 20px;
-  margin: 15px 0px 5px 0px;
+  padding-top: 10px;
 }
 
 .featureHR {
   margin: 10px 0px 0px 0px;
 }
+/* lg card */
+.lgCard{
+  background-color: none;
+  }
 
 ul.s-lg-link-list li a{
 font-weight:bold;
-text-transform: uppercase;
 color: #00386b;
 }
 
@@ -202,6 +210,59 @@ list-style:none;
 .s-lg-link-desc {
   margin-top: 8px;
 }
+
+#outputSLA ul {
+  padding: .5em 0 0 0;
+  margin-left: 2px;
+  margin-bottom: 4px;
+
+}
+
+li.subject {
+  list-style:none;
+  line-height: 20px;
+  padding-top: 10px;
+}
+
+li.subject:before{
+  padding-right:5px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  content: "\f07b";
+}
+
+li.subject:first-child:nth-last-child(n + 3),
+li.subject:first-child:nth-last-child(n + 3) ~ li {
+  display: inline-flex;
+  column: 2;
+  padding: 5px 8px;
+  margin: 0px;
+}
+
+li.type {
+  list-style:none;
+}
+
+li.type:before{
+  padding-right:5px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  content: "\f02b";
+}
+li.subject a {
+  list-style:none;
+  font-weight:bold;
+  color: #00386b;
+}
+
+li.type a {
+  list-style:none;
+  font-weight:bold;
+  color: #00386b;
+}
+
+/*Sort Buttons*/
+
 
 /*Results headers*/
 .resultsList > h2{
@@ -230,7 +291,7 @@ font-size: 20px;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.25em;
   line-height: 1.7em;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: .05em;
 }
 
@@ -326,7 +387,6 @@ ul.subjectTags li{
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  min-width: 64px;
   height: 100%;
   border: none;
   outline: none;
@@ -334,13 +394,13 @@ ul.subjectTags li{
   overflow: hidden;
   vertical-align: middle;
   list-style: none;
-  margin: 2px 1px;
+  margin: 2px 2px;
 }
 
 ul.subjectTags li:first-child {
   color: #454644;
   background: none;
-  padding:0px;
+  padding:0px 5px 0px 0px;
   margin: 0px !important;
 }
 ul.subjectTags li:first-child:hover {
@@ -391,29 +451,6 @@ ul.subjectTags li:hover {
 .dbItem:hover,.dbItemLG:hover{
 background-color: white;
 box-shadow: 0 0 5px 5px white;
-}
-
-[data-md-tooltip] {
- position: relative;
-}
-[data-md-tooltip]:before {
-   content: attr(data-md-tooltip);
-   position: absolute;
-   bottom: -30px;
-   left: 50%;
-   padding: 8px;
-   transform: translateX(-50%) scale(0);
-   transition: transform 0.3s ease-in-out;
-   transform-origin: top;
-   background: 	#00386b;
-   color: white;
-   border-radius: 2px;
-   font-size: 12px;
-   font-family: Roboto,sans-serif;
-   font-weight: 400;
-}
-[data-md-tooltip]:hover:before {
- transform: translateX(-70%) scale(1);
 }
 
 #alphaRankedSortBtn{
@@ -477,6 +514,9 @@ margin-left: 0;
 #atoz-reset-btn{
 margin:0 10px;
 float:right;
+background-color: #781e1e;
+border-radius: 0px;
+border: none;
 }
 
 #atoz-reset-btn a{
@@ -537,31 +577,27 @@ footer.achieve-2 {
 #backToTopBtn:hover {
     background-color: #00386B;
 }
-/* lg card */
-.lgCard{
-  background-color: #dde6ee;
-  }
+
 /* fontawesome icons. */
-#subjectList:before{
-  color:#dde6ee;
-  padding-right:5px;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 400;
-  content: "\f1ea";
-}
+/*
 #typeList:before{
-  color:#dde6ee;
   padding-right:5px;
   font-family: "Font Awesome 5 Free";
   font-weight: 400;
   content: "\f02b";
-}
+}*/
 .lgCard h3:before{
-  color: #00386b;
   padding-right:5px;
   font-family: "Font Awesome 5 Free";
   font-weight: 400;
   content: "\f14e";
+}
+#atoz-reset-btn:before{
+  color: #fff;
+  padding-right:5px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  content: "\f0e2";
 }
 /*UTC Top Navigation*/
 .navbarUtc {
@@ -676,8 +712,6 @@ footer.achieve-2 {
   *background-color: #c8980d;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-  border: 1px solid #ccc;
-  border-bottom-color: #b3b3b3;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2), inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 2px rgba(0, 0, 0, .05);
   box-shadow: 0 1px 2px rgba(0, 0, 0, .2), inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 2px rgba(0, 0, 0, .05);
   border-radius: 0 14px 14px 0 !important;
@@ -794,7 +828,9 @@ a:hover.btnUtcSearch {
 .navbarLib .nav-link {
   color: whitesmoke;
   font-weight: bold;
-  padding: 12px !important;
+  display: flex !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
 }
 
 .navbarLib .nav-link:focus,
@@ -806,7 +842,9 @@ a:hover.btnUtcSearch {
 .navbarLib .fa-user-circle {
   font-size: 1.5em;
 }
-
+.navbarLib .fa-clock {
+  margin-top: 3px;
+}
 #libHours a {
   font-weight: 400 !important;
   vertical-align: middle;
@@ -897,6 +935,10 @@ a:hover.btnUtcSearch {
 
   .navbarLib .fa-user-circle {
     display: none;
+  }
+
+  .navbarLib .fa-clock {
+    margin-top: 3px !important;
   }
 
   #libHours {

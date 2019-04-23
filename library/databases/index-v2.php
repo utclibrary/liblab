@@ -218,7 +218,7 @@ $querySubjectList = reuseSubjQuery(0, "");
 $resultSL = mysqli_query($conLuptonDB, "set names 'utf8'");
 $resultSL = mysqli_query($conLuptonDB, $querySubjectList) or die($error);
   echo "<div class='row topMargin'>
-	<div class='col-lg-8'>
+	<div class='col-lg-7'>
 ";
   //show search box only on full atoz
   if (($subj === "A to Z")&&($alpha === "ALL")) {
@@ -285,7 +285,7 @@ echo"
 // END select by type
 
     echo"</div></div>
-		<div class='col-lg-4 topMargin'>";
+		<div class='col-lg-5 topMargin'>";
 		if ($outputSLA === ""){
 ?>
 		            <div class="featureBox">
