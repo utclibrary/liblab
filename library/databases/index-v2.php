@@ -505,7 +505,7 @@ $(document).ready(function() {
 });";
 echo "\n";
 if ($outputLG != ""){
-	echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul></div>\");";
+	echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul><div class='subjectGuideDesc'>Looking for more? Check out our research guide for books, websites, and other suggested resources curated by UTC Librarians.</div></div>\");";
 }
 if ($typeExists > 1){
 	echo "$('#typeList').append('s');";
