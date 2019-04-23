@@ -61,17 +61,17 @@ if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
   <script>
   $(document).ready(function() {
     //remove hand cursor from alpha
-    $('a.alpha').css('cursor', 'default');
+    $('ul#alphalist > li > a.alpha').css('cursor', 'default');
     //override hover functions
     $('a.alpha').hover(function() {
-    $(this).css('background-color', '#e9e9e9');
+    $(this).css('background-color', '#dde6ee');
     $(this).css('color','#00386b');
 }, function() {
-    $(this).css('background-color', '#e9e9e9');
+    $(this).css('background-color', '#dde6ee');
     $(this).css('color','#00386b');
 });
 //prevent click function
-    $('a.alpha').click(function(e){
+    $('ul#alphalist > li > a.alpha').click(function(e){
        e.preventDefault();
      });
   });
@@ -399,7 +399,7 @@ if (!mysqli_num_rows($result)) {
                 }
 								echo "</p>";
                 if (!empty($row['VendorName'])) {
-                    echo "<p class='vendor'>Vendor: <a class='alpha' href=\"".$currentFile."?vendor=".$row['VendorName']."\"> ".$row['VendorName']." </a></p>";
+                    echo "<p class='vendor'>Vendor: <a href=\"".$currentFile."?vendor=".$row['VendorName']."\"> ".$row['VendorName']." </a></p>";
                 }
                 if (!empty($row['Subjects'])) {
                     echo "<div class='subjects'><ul class='subjectTags'><li>Subject";
@@ -505,7 +505,7 @@ $(document).ready(function() {
 });";
 echo "\n";
 if ($outputLG != ""){
-	echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Subject Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul></div>\");";
+	echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul></div>\");";
 }
 if ($typeExists > 1){
 	echo "$('#typeList').append('s');";
