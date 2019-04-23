@@ -50,7 +50,7 @@ if (isset($_GET["vendor"])) {
 // get subject param if set
 if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
     $subj = htmlentities($_GET["subj"]);
-    $h1Prepend = $subj;
+    $h1Prepend = str_replace('Databases','',$subj);
     // ignore limit by subject selection
     if (strpos($subj, 'Limit') !== false) {
         // if no subject change var and query used in $query
