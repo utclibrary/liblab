@@ -45,8 +45,10 @@
 <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="icon-large icon-double-angle-up"><span class="hidden"> Back to top of page</span> </i></button>
       </footer>
       </body>
-      <!-- document close -->
+      <!-- document close
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+-->
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
 <!-- Common Bootstrap Scripts for all pages -->
 <script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 <!-- Fit Text plugin for big hero-unit

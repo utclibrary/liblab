@@ -89,7 +89,8 @@ echo $head_img_plus_attrib_array[$section][1];
     </footer>
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+
     <script>
 $(document).ready(function() {
       $("span:contains('https://www.google.com/maps/d/edit?mid=zOu4AK4RRr84.kKmAEy6BqIU0&usp=sharing')").hide();
