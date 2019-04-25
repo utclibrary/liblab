@@ -159,7 +159,6 @@ echo "
 			echo "<a id='atoz-reset-btn' class='active btn btn-large btn-danger' href='".$currentFile."?alpha=ALL'>RESET</a>";
 	}
 echo "<h1>".$h1Prepend." Databases".$displayAlpha."</h1>
-<h2>Filtering Options</h2>
 <script type='text/javascript'>
     $(document).ready(function() {
         document.title = \"".$h1Prepend." Databases".$displayAlpha." | UTC Library\";
@@ -193,7 +192,7 @@ echo "
 //echo "<li class='active'>";
 //}
 //else{
-    echo "<li>";
+    //echo "<li>";
 //}
 //echo "<a href='".$currentFile."?alpha=num'>#</a></li>";
 // loop through A to Z highight if selected
@@ -331,8 +330,10 @@ if (!mysqli_num_rows($result)) {
 } else {
     $totalRows = mysqli_num_rows($result);
     echo "
-    <p id='totalResults'>Total results: " . $totalRows . "</p>";
-
+    <div class='row align-items-end'>
+    <div class='col-md-4'>
+    <p id='totalResults'>Total results: " . $totalRows . "</p>
+    </div>";
     $i = 0;
     // loop through results
     while ($row = mysqli_fetch_array($result)) {
@@ -345,16 +346,21 @@ if (!mysqli_num_rows($result)) {
                 //if this is a subject list show alpha rank buttons
                 if ($subj != "A to Z") {
                     ?>
+    <div class="col-md-4 offset-md-4">
       <div id="alphaRankedSortBtn" class="row">
+        <div id="alphaRankedSortBtn" class="btn-group" role="group" aria-label="Sorting options">
         <button type="button" class="btn col btn-secondary active" id="numBtn">Ranked Sort</button>
         <button type="button" class="btn btn-secondary col" id="alphBtn">Alphabetical Sort</button>
       </div>
+      </div>
+    </div>
 
+</div>
 		<div id='subject_list_items' class='highlight_list'>
 
       <?php
                 } else {
-                    echo "<div class='highlight_list'>";
+                    echo "</div><div class='highlight_list'>";
                 }
                 $i++;
             }
@@ -378,6 +384,9 @@ if (!mysqli_num_rows($result)) {
                 if (strpos($row['Subjects'], '<li>New</li>') !== false) {
                     echo "<span class='badge badge-warning float-right'> NEW </span>";
                 }
+                if (!empty($row['ContentType'])) {
+                    echo "<p class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "</a>";
+                }
                 echo "<h3 class='dbTitle'><a href='";
                 if (!empty($row['ShortURL'])) {
                     echo "https://www.utc.edu/" . $row['ShortURL'];
@@ -385,9 +394,7 @@ if (!mysqli_num_rows($result)) {
                     echo "/scripts/LGForward.php?db=". $row['Key_ID'];
                 }
                 echo"' target='_blank'>" . $row['Title'] . "</a></h3>";
-                if (!empty($row['ContentType'])) {
-                    echo "<p class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "</a>";
-                }
+
                 echo "<p>" . $row['ShortDescription'];
                 if (!empty($row['HighlightedInfo'])) {
                     echo "<span class='highlighted-info'> " . $row['HighlightedInfo'] . "</span>";
