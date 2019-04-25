@@ -331,7 +331,7 @@ if (!mysqli_num_rows($result)) {
     $totalRows = mysqli_num_rows($result);
     echo "
     <div class='row align-items-end'>
-    <div class='col-md-4'>
+    <div class='col-lg-6'>
     <p id='totalResults'>Total results: " . $totalRows . "</p>
     </div>";
     $i = 0;
@@ -346,11 +346,11 @@ if (!mysqli_num_rows($result)) {
                 //if this is a subject list show alpha rank buttons
                 if ($subj != "A to Z") {
                     ?>
-    <div class="col-md-4 offset-md-4">
+    <div class="col-lg-6">
       <div id="alphaRankedSortBtn" class="row">
         <div id="alphaRankedSortBtn" class="btn-group" role="group" aria-label="Sorting options">
-        <button type="button" class="btn col btn-secondary active" id="numBtn">Ranked Sort</button>
-        <button type="button" class="btn btn-secondary col" id="alphBtn">Alphabetical Sort</button>
+        <button type="button" class="btn btn-secondary active" id="numBtn">Ranked Sort</button>
+        <button type="button" class="btn btn-secondary" id="alphBtn">Alphabetical Sort</button>
       </div>
       </div>
     </div>
