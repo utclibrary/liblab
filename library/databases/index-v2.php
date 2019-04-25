@@ -561,7 +561,7 @@ $('#numBtn').removeAttr('disabled');
 $(this).attr('disabled', 'disabled');
 var alphabeticallyOrderedDivs = divContent.sort(function (a, b) {
   //return $(a).find('a').text() > $(b).find('a').text();
-  return $(a).find('a').text() > $(b).find('a').text()  ? 1 : -1;
+  return $(a).find('h3.dbTitle > a').text() > $(b).find('h3.dbTitle a').text()  ? 1 : -1;
 });
 $('#subject_list_items').html(alphabeticallyOrderedDivs);
 restartTooltip();
