@@ -637,6 +637,7 @@ $( '#subjectSelect' ).change(function() {
         }
     });
 });
+Popper.Defaults.modifiers.computeStyle.gpuAcceleration = !(window.devicePixelRatio < 1.5 && /Win/.test(navigator.platform));
 $('body').on('click', function (e) {
         //did not click a popover toggle, or icon in popover toggle, or popover
         if ($(e.target).data('toggle') !== 'popover'
