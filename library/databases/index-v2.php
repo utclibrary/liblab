@@ -153,17 +153,28 @@ echo "
 <div class='filters'>
   <div id='alpha' class='row'>
 	<div class='col'>";
-	if (($alpha === "ALL")&&($subj === "A to Z")&&($vendor === "")&&($contentType === "")) {
-			//echo "<a id='atoz-reset-btn-disabled' class='active btn btn-large'>RESET</a>";
-	} else {
-			echo "<a id='atoz-reset-btn' class='active btn btn-large btn-danger' href='".$currentFile."?alpha=ALL'>RESET</a>";
-	}
+  ?>
+  <button class="btn fas fa-info-circle pageInfoPopper" data-toggle="popover" a="" href="#" data-popover-content="#pageInfo" data-original-title="" title="" aria-describedby="popover276455"></button>
+  <?php
 echo "<h1>".$h1Prepend." Databases".$displayAlpha."</h1>
 <script type='text/javascript'>
     $(document).ready(function() {
         document.title = \"".$h1Prepend." Databases".$displayAlpha." | UTC Library\";
     });
 </script>";
+?>
+<div id="pageInfo" class="hidden">
+   <div class="popover-heading"><span class="infoHeading">What is this page?</span></div>
+   <div class="popover-body"><p>Databases contain searchable collections of published resources, including articles, ebooks, images, and more! Use this page to select the database that best meets your information needs.</p>
+   <div class="popoverQL"><h3>Related Resources</h3>
+   <ul>
+   <li><a href="https://utc.primo.exlibrisgroup.com/discovery/search?vid=01UTC_INST:01UTC&lang=en" target="_blank"> Quick Search</a><p>Search the library's physical resources, and many electronic resources, in a single search.</li>
+   <li><a href="https://www.utc.edu/library/help/tutorials/reseach-basics.php" target="_blank">Research Basics</a><p>Need help getting started? Begin with the basics!</p></li>
+   <li><a href="https://www.utc.edu/library/about/electronic-resource-use.php" target="_blank">Electronic Resource Use Policy</a><p>Guidelines for using the library’s online resources.</li>
+   </div>
+   </div>
+   </div>
+<?php
 //check for alpha in db
 $alphaListFull="";
 // query to generate a to z
@@ -283,7 +294,17 @@ echo"
 //}
 // END select by type
 
-    echo"</div></div>
+    echo"</div>";
+    if (($alpha === "ALL")&&($subj === "A to Z")&&($vendor === "")&&($contentType === "")) {
+        //echo "<a id='atoz-reset-btn-disabled' class='active btn btn-large'>RESET</a>";
+    } else {
+        echo "<div class='row topMargin'>
+                <div class='col'>
+                               <a id='atoz-reset-btn' class='active btn btn-large btn-danger' href='".$currentFile."?alpha=ALL'>RESET</a>
+                </div>
+              </div>";
+    }
+    echo"</div><!-- close col-lg-7 -->
 		<div class='col-lg-5 topMargin'>";
 		if ($outputSLA === ""){
 ?>
@@ -603,5 +624,26 @@ $( '#subjectSelect' ).change(function() {
   function restartTooltip(){
     $('[data-toggle=\"tooltip\"]').tooltip();
   }
+  $(function(){
+    $('[data-toggle=popover]').popover({
+        html : true,
+        content: function() {
+          var content = $(this).attr('data-popover-content');
+          return $(content).children('.popover-body').html();
+        },
+        title: function() {
+          var title = $(this).attr('data-popover-content');
+          return $(title).children('.popover-heading').html();
+        }
+    });
+});
+$('body').on('click', function (e) {
+        //did not click a popover toggle, or icon in popover toggle, or popover
+        if ($(e.target).data('toggle') !== 'popover'
+            && $(e.target).parents('[data-toggle=\"popover\"]').length === 0
+            && $(e.target).parents('.popover.in').length === 0) {
+            $('[data-toggle=\"popover\"]').popover('hide');
+        }
+    });
 </script>";
 ?>
