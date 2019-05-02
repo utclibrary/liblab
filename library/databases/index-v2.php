@@ -168,7 +168,7 @@ echo "<h1>".$h1Prepend." Databases".$displayAlpha."</h1>
    <div class="popover-body"><p>Databases contain searchable collections of published resources, including articles, ebooks, images, and more! Use this page to select the database that best meets your information needs.</p>
    <div class="popoverQL"><h3>Related Resources</h3>
    <ul>
-   <li><a href="https://utc.primo.exlibrisgroup.com/discovery/search?vid=01UTC_INST:01UTC&lang=en" target="_blank"> Quick Search</a><p>Search the library's physical resources, and many electronic resources, in a single search.</li>
+   <li><a href="https://utc.primo.exlibrisgroup.com/discovery/search?vid=01UTC_INST:01UTC&lang=en" target="_blank">Quick Search</a><p>Search the library's physical resources, and many electronic resources, in a single search.</li>
    <li><a href="https://www.utc.edu/library/help/tutorials/reseach-basics.php" target="_blank">Research Basics</a><p>Need help getting started? Begin with the basics!</p></li>
    <li><a href="https://www.utc.edu/library/about/electronic-resource-use.php" target="_blank">Electronic Resource Use Policy</a><p>Guidelines for using the library’s online resources.</li>
    </div>
