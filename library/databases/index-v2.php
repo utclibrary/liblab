@@ -397,7 +397,7 @@ if (!mysqli_num_rows($result)) {
                 if (($row['NotProxy']) === '1') {
                     echo "<span class='fa fa-unlock float-right' data-toggle='tooltip' title='Freely Available'></span>";
                 }else{
-                  echo "<span class='fa fa-lock float-right' data-toggle='tooltip' title='Requires Login'></span>";
+                  echo "<span class='fa fa-lock float-right' data-toggle='tooltip' title='Requires UTC ID'></span>";
                 }
                 if ((($row['TryTheseFirst']) === '1')&&($subj != "A to Z")) {
                     echo "<span class='badge badge-primary float-right'>Try First</span>";
