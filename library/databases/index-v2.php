@@ -60,20 +60,24 @@ if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
         echo"
   <script>
   $(document).ready(function() {
-    //remove hand cursor from alpha
-    $('ul#alphalist > li > a.alpha').css('cursor', 'default');
-    //override hover functions
-    $('a.alpha').hover(function() {
-    $(this).css('background-color', '#dde6ee');
-    $(this).css('color','#00386b');
-}, function() {
-    $(this).css('background-color', '#dde6ee');
-    $(this).css('color','#00386b');
-});
-//prevent click function
-    $('ul#alphalist > li > a.alpha').click(function(e){
-       e.preventDefault();
-     });
+    console.log(\"63 triggered\");
+    $('ul#alphalist > li').each(function(){
+      $(this).addClass('emptyAlpha');
+    });
+ //     //remove hand cursor from alpha
+ //     $('ul#alphalist > li > a.alpha').css('cursor', 'default');
+ //     //override hover functions
+ //     $('a.alpha').hover(function() {
+ //     $(this).css('background-color', '#dde6ee');
+ //     $(this).css('color','#00386b');
+ // }, function() {
+ //     $(this).css('background-color', '#dde6ee');
+ //     $(this).css('color','#00386b');
+ // });
+ // //prevent click function
+ //     $('ul#alphalist > li > a.alpha').click(function(e){
+ //        e.preventDefault();
+ //      });
   });
   </script>
   ";
