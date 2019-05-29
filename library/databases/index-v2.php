@@ -405,9 +405,9 @@ if (!mysqli_num_rows($result)) {
                 if (strpos($row['Subjects'], '<li>New</li>') !== false) {
                     echo "<span class='badge badge-warning float-right'> NEW </span>";
                 }
-                if (!empty($row['ContentType'])) {
-                    echo "<p class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "\n</a>";
-                }
+                //if (!empty($row['ContentType'])) {
+                  //  echo "<p class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "\n</a>";
+                //}
                 echo "<h3 class='dbTitle'><a href='";
                 if (!empty($row['ShortURL'])) {
                     echo "https://www.utc.edu/" . $row['ShortURL'];
@@ -426,9 +426,9 @@ if (!mysqli_num_rows($result)) {
                     echo "<span class='limitTo'> Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
                 }
 								echo "</p>";
-                if (!empty($row['VendorName'])) {
-                    echo "<p class='vendor'>Vendor: <a href=\"".$currentFile."?vendor=".$row['VendorName']."\"> ".$row['VendorName']." </a></p>";
-                }
+                //if (!empty($row['VendorName'])) {
+                  //  echo "<p class='vendor'>Vendor: <a href=\"".$currentFile."?vendor=".$row['VendorName']."\"> ".$row['VendorName']." </a></p>";
+                //}
                 if (!empty($row['Subjects'])) {
                     echo "<div class='subjects'><ul class='subjectTags'><li>Subject";
                     if ((strpos($row['Subjects'], '</li><li>') == false)||(preg_match('/^<li>(.*?)(?!<li>)(.*?)<li>New<\/li>$|^<li>New<\/li>(.*?)(?!<li>)(.*?)<\/li>$/', $row['Subjects']))) {//single item or single item + new
