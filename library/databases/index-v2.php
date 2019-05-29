@@ -406,7 +406,7 @@ if (!mysqli_num_rows($result)) {
                     echo "<span class='badge badge-warning float-right'> NEW </span>";
                 }
                 if (!empty($row['ContentType'])) {
-                    echo "<p class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "</a>";
+                    echo "<p class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "\n</a>";
                 }
                 echo "<h3 class='dbTitle'><a href='";
                 if (!empty($row['ShortURL'])) {
@@ -414,7 +414,7 @@ if (!mysqli_num_rows($result)) {
                 } else {
                     echo "/scripts/LGForward.php?db=". $row['Key_ID'];
                 }
-                echo"' target='_blank'>" . $row['Title'] . "</a></h3>";
+                echo"' target='_blank'>" . $row['Title'] . "\n</a></h3>";
 
                 echo "<p>" . $row['ShortDescription'];
                 if (!empty($row['HighlightedInfo'])) {
