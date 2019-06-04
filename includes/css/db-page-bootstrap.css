@@ -23,6 +23,12 @@ h6 {
 .topMargin {
   margin-top: 10px;
 }
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
 
 /*top filter row*/
 .filters {
@@ -307,15 +313,71 @@ input#search-highlight.x {
   padding: 13px;
 }
 
-.featureTitle {
-  font-size: 20px;
-  padding-top: 10px;
-}
-
 .featureHR {
   margin: 10px 0px 0px 0px;
 }
 
+h3.helpTitle {
+    margin: -15px 0px 0px -19px;
+    padding: 15px 15px 0px 15px;
+    font-size: 20px;
+}
+
+.linkHelp {
+  border-radius: 0;
+  color: #112e51;
+  background-color: transparent;
+  background-image: none;
+  border: 0;
+  box-shadow: none;
+  text-shadow: none;
+  font-weight:600;
+  line-height: 1.5em;
+  font-size: 16px;
+  margin-top: 12px;
+  width: 75%;
+  display: block;
+}
+
+.linkHelp:hover {
+  border-radius: 0;
+  color: #c8980d !important;
+}
+
+
+hr.helpHR {
+  margin-top: 12px;
+}
+/*landing page promos*/
+.promoCard1 {
+  border-radius: 0;
+  background-color: #fff;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
+  margin-bottom: 20px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e0e0e0;
+  padding: 15px;
+  margin-right: -5px;
+}
+
+.promoCard2 {
+  border-radius: 0;
+  background-color: #fff;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e0e0e0;
+  padding: 15px;
+  margin-bottom: 20px;
+  margin-left: -5px;
+
+}
+h3.promoTitle {
+  background-color: #fff5d6;
+  margin: -15px -15px 8px;
+  padding: 15px 15px 10px 15px;
+}
 /* lg card */
 .lgCard {
   background-color: none;

@@ -301,8 +301,7 @@ echo"
 
     echo"</div>";
     if (($alpha === "ALL")&&($subj === "A to Z")&&($vendor === "")&&($contentType === "")) {
-      echo "<div class='row topMargin'>
-                  <div class='col'><a class='fa fa-2x fa-question-circle float-right' href='javascript:void(0);' data-toggle='tooltip' title='' data-original-title='Show me how to use this page'onclick='javascript:introJs().start();'></a></div></div>";
+      //echo "<div class='row topMargin'><div class='col'><a class='fa fa-2x fa-question-circle float-right' href='javascript:void(0);' data-toggle='tooltip' title='' data-original-title='Show me how to use this page'onclick='javascript:introJs().start();'></a></div></div>";
         //echo "<a id='atoz-reset-btn-disabled' class='active btn btn-large'>RESET</a>";
     } else {
         echo "<div class='row topMargin'>
@@ -315,19 +314,31 @@ echo"
 		<div class='col-lg-5 topMargin'>";
 		if ($outputSLA === ""){
 ?>
+<div class="featureBox">
+<h3 class="helpTitle">&nbsp;Help</h3>
+<hr class="helpHR">
+<a href="javascript:void(0);" data-toggle="tooltip" title="" data-original-title="Show me how to use this page" onclick="javascript:introJs().start();" class="linkHelp">
+<span class="fas fa-info-circle"></span>
+<strong> Tour this Page</strong>
+</a>
+<a href="https://www.utc.edu/library/help/" target="_blank" class="linkHelp">
+<span class="fas fa-question-circle"></span><strong> Ask a Librarian</strong></a>
+<!-- hide this for now
 		            <div class="featureBox">
 		              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
 		              <hr class="featureHR">
-									<?php
-								  $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
-								  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
-								     $result = mysqli_query($conLuptonDB, $randquery) or die($error);
+-->
+                  <?php
+							//	  $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
+							//	  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
+							//	     $result = mysqli_query($conLuptonDB, $randquery) or die($error);
 
-								     if (!mysqli_num_rows($result)) {
-								         echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
-								     } else {
-								         generatelist($result);
-								     } ?>
+							//	     if (!mysqli_num_rows($result)) {
+							//	         echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+							//	     } else {
+							//	         generatelist($result);
+							//	     }
+              ?>
 		            </div><!-- close feature box -->
   <?php
 }else{
@@ -336,6 +347,44 @@ echo"
 }
 	echo "</div></div></div><!-- close .filters .col & .row -->
 		";
+    // wrap in conditional to check for default page
+    if (($subj === "A to Z")&&($alpha === "ALL")){
+?>
+<div id="promos" class="row">
+<div class="col-lg-8 row-eq-height">
+    <div class="promoCard1">
+    <h3 class="promoTitle">
+<span class="fa fa-star"></span>&nbsp;Multisubject Databases</h3>
+<?php
+$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+     $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
+
+     if (!mysqli_num_rows($resultMulti)) {
+         echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+     } else {
+         generatelist($resultMulti);
+     } ?>
+       </div>
+    </div>
+    <div class="col-lg-4 row-eq-height">
+    <div class="promoCard2">
+    <h3 class="promoTitle">
+<span class="fas fa-bullhorn"></span>&nbsp;New Databases</h3>
+<?php
+$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'NEW' AND DBRanking.TryTheseFirst = 1 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+    $result = mysqli_query($conLuptonDB, $newquery) or die($error);
+
+    if (!mysqli_num_rows($result)) {
+        echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+    } else {
+        generatelist($result);
+    } ?>
+      </div>
+    </div>
+
+    </div>
+<?php
+}//end check to show promo content on default page
 
 // main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,VendorName,
@@ -556,6 +605,7 @@ $('#search-highlight').keyup(function() {
 		if ($(this).val() == '') { // check if value changed
 			$('#totalResults').html(cloneTotalResults);
         $('#alphaRankedSortBtn').show();
+        $('#promos').slideDown();
 		}
 		else{
       $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://www.utc.edu/library\" target=\"_blank\">Quick Search</a>.</p>');
@@ -571,6 +621,7 @@ $('h2#Letter1').text('#');
 function tog(v){return v?'addClass':'removeClass';}
 $(document).on('input', '.clearable', function(){
   $('#alphaRankedSortBtn').hide();
+  $('#promos').slideUp();
 	$(this).addClass('input-hold');
 	$('.clearable')[tog(this.value)]('x');
 }).on('mousemove', '.x', function( e ){
