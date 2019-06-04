@@ -257,6 +257,24 @@ input#search-highlight.hidden {
   color: #aaa;
 }
 
+
+.no-results {
+      font-family: "Open Sans", san-serif;
+      font-size: 1.15em;
+      margin-bottom: 1.5em;
+      font-weight: 500;
+      background-color: #fff;
+      text-align: center;
+      padding: 25px;
+      border-radius: 5p;
+  }
+
+.no-results p {
+  margin: 5px;
+}
+
+
+
 /* clears search*/
 input#search-highlight.x {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -474,8 +492,8 @@ li.type a {
 
 .dbTitle {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 1.25em;
-  line-height: 1.7em;
+  font-size: 1.05em;
+  line-height: 1.2em;
   font-weight: 650;
   letter-spacing: .05em;
 }
@@ -488,6 +506,10 @@ li.type a {
   color: #337ab7;
 }
 
+.dbCard p {
+    font-size: .9em;
+    margin-bottom: .5em;
+}
 /*New Tag*/
 .badge-warning {
   margin-left: auto;
@@ -557,7 +579,8 @@ li.type a {
 }
 
 .highlighted-info {
-  color: #781e1e;
+  color: #c92727;
+font-weight: 600;
 }
 
 .vendor {
@@ -597,7 +620,7 @@ ul.subjectTags li {
   background-color: #dde6ee;
   color: #000;
   border-radius: 0;
-  font-size: .825em;
+  font-size: .75em;
   font-weight: 600;
   letter-spacing: .0892857143em;
   text-decoration: none;

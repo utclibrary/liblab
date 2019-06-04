@@ -555,7 +555,7 @@ $('#search-highlight').keyup(function() {
         $('#alphaRankedSortBtn').show();
 		}
 		else{
-      $('h2.no-results').html('We didn\'t find any databases with that description or name! Please try again. If you\'d like to search by topic, use the library <a href=\"https://www.utc.edu/library\" target=\"_blank\">Quick Search</a>.');
+      $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://www.utc.edu/library\" target=\"_blank\">Quick Search</a>.</p>');
 			var totalResults = $('.dbCard:visible').length;
 				$('#totalResults').html('Total results: ' + totalResults);
 		}
