@@ -7,8 +7,8 @@ $title = "Databases | UTC Library";
 $description = "Databases available at the UTC Library.";
 $keywords = "databases";
 //in case you need to add anything in the head or footer
-$addhead = "<link rel='stylesheet' type='text/css' href='/includes/css/introjs.min.css' media='all'>";
-$addfoot = "<script type='text/javascript' src='/includes/js/intro.min.js'></script>";
+$addhead = "<link rel='stylesheet' type='text/css' href='/includes/css/introjs.css' media='all'>";
+$addfoot = "<script type='text/javascript' src='/includes/js/intro.js'></script>";
 //show or hide help button
 $help = "show";
 // include new head and php functions for db display - reused for lg lists
@@ -158,10 +158,10 @@ echo "
   <div id='alpha' class='row'>
 	<div class='col'>";
   ?>
-  <button data-step='5' data-intro='Click here for more information.' class="btn fas fa-info-circle pageInfoPopper" data-toggle="popover" a="" href="#" data-popover-content="#pageInfo" data-original-title="" title="" aria-describedby="popover276455"></button>
+  <button class="btn fas fa-info-circle pageInfoPopper" data-toggle="popover" a="" href="#" data-popover-content="#pageInfo" data-original-title="" title="" aria-describedby="popover276455"></button>
 
   <?php
-echo "<h1 data-step='1' data-intro='Welcome to our new databases page!'>".$h1Prepend." Databases".$displayAlpha."</h1>
+echo "<h1>".$h1Prepend." Databases".$displayAlpha."</h1>
 <script type='text/javascript'>
     $(document).ready(function() {
         document.title = \"".$h1Prepend." Databases".$displayAlpha." | UTC Library\";
@@ -202,7 +202,7 @@ while ($row = mysqli_fetch_array($alphaList)) {
 }
 echo "
 
-<ul data-step='2' data-intro='Select a letter to filter databases, topics, and types by letter ...' id='alphalist' class='nav nav-fill'>";
+<ul id='alphalist' class='nav nav-fill'>";
 
 //if ($alpha === "num"){
 //echo "<li class='active'>";
@@ -247,11 +247,11 @@ echo "
 		<div class='form-group'>
 			<label for='search-highlight'>Search</label>
 				<span class='fa fa-search search-icon'></span>
-					<input data-step='3' data-intro='or search by database name or description ...' id='search-highlight' class='form-control clearable' autocomplete='off' name='search-highlight' type='text' placeholder='Databases by name or description' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH' />
+					<input id='search-highlight' class='form-control clearable' autocomplete='off' name='search-highlight' type='text' placeholder='Databases by name or description' data-list='.highlight_list'/>
 		</div><!-- .form-group -->
   </div><!-- .col -->
 </div><!-- .row -->
-<div data-step='4' data-intro='or limit by topic or type.' class='row'>
+<div id='limitByGroup' class='row'>
 	<div class='col-md topMargin'>
       <label for='subjectSelect'>Limit by Subject</label>
       <select class='form-control' id='subjectSelect'>
@@ -312,32 +312,38 @@ echo"
     }
     echo"</div><!-- close col-lg-7 -->
 		<div class='col-lg-5 topMargin'>";
-		if ($outputSLA === ""){
+		if (($outputSLA === "")&&($alpha === "ALL")){
 ?>
 <div class="featureBox">
-<h3 class="helpTitle">&nbsp;Help</h3>
-<hr class="helpHR">
-<a href="javascript:void(0);" data-toggle="tooltip" title="" data-original-title="Show me how to use this page" onclick="javascript:introJs().start();" class="linkHelp">
+<p><strong>New Here?</strong></p> <p>Take a moment to learn about this page.</p>
+
+<a href="javascript:void(0);" onclick="showIntro();" class="btn btnFeature">
 <span class="fas fa-info-circle"></span>
-<strong> Tour this Page</strong>
+    <strong> Start Tour</strong>
 </a>
-<a href="https://www.utc.edu/library/help/" target="_blank" class="linkHelp">
-<span class="fas fa-question-circle"></span><strong> Ask a Librarian</strong></a>
+</div>
 <!-- hide this for now
+                                            <div class="featureBox">
+                                              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
+                                              <hr class="featureHR">
+-->
+<?php
+}
+	elseif (($outputSLA === "")&&($alpha !== "ALL")){
+    ?>
 		            <div class="featureBox">
 		              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
 		              <hr class="featureHR">
--->
                   <?php
-							//	  $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
-							//	  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
-							//	     $result = mysqli_query($conLuptonDB, $randquery) or die($error);
+			$randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
+							  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
+								     $result = mysqli_query($conLuptonDB, $randquery) or die($error);
 
-							//	     if (!mysqli_num_rows($result)) {
-							//	         echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
-							//	     } else {
-							//	         generatelist($result);
-							//	     }
+								     if (!mysqli_num_rows($result)) {
+								         echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+								     } else {
+								         generatelist($result);
+								     }
               ?>
 		            </div><!-- close feature box -->
   <?php
@@ -606,6 +612,7 @@ $('#search-highlight').keyup(function() {
 			$('#totalResults').html(cloneTotalResults);
         $('#alphaRankedSortBtn').show();
         $('#promos').slideDown();
+        $('.featureBox').slideDown();
 		}
 		else{
       $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://www.utc.edu/library\" target=\"_blank\">Quick Search</a>.</p>');
@@ -622,6 +629,7 @@ function tog(v){return v?'addClass':'removeClass';}
 $(document).on('input', '.clearable', function(){
   $('#alphaRankedSortBtn').hide();
   $('#promos').slideUp();
+  $('.featureBox').slideUp();
 	$(this).addClass('input-hold');
 	$('.clearable')[tog(this.value)]('x');
 }).on('mousemove', '.x', function( e ){
@@ -706,5 +714,46 @@ $('body').on('click', function (e) {
             $('[data-toggle=\"popover\"]').popover('hide');
         }
     });
+
+    function showIntro(){
+    $('#libraryh3lp').css('position', 'absolute');
+    var intro = introJs().setOptions({
+      steps: [
+        {
+          element: document.querySelector('#content h1'),
+          intro: 'Welcome to our new databases page! This page can help you find the UTC Library database that best meets your information needs.'
+        },
+        {
+          element: document.querySelector('#alphalist'),
+          intro: 'Filter using the first letter of the database name, subject area, or resource type.'
+        },
+        {
+          element: document.querySelector('#search-highlight'),
+          intro: 'Search for databases by name or description.'
+        },
+        {
+          element: document.querySelector('#limitByGroup'),
+          intro: 'Filter databases by subject area or resource type.'
+        },
+        {
+          element: document.querySelector('.fa-info-circle'),
+          intro: 'Learn more about databases and related resources.'
+        },
+        {
+          element: document.querySelector('.promoCard1'),
+          intro: 'Muti-subject databases are a great place to start your research.'
+        },
+        {
+          element: document.querySelector('#libraryh3lp'),
+          intro: 'Need help selecting a database or with your research? Ask a Librarian!'
+        }
+      ]
+    }).start();
+
+    intro.onexit( function(){
+      $('#libraryh3lp').css('position', 'fixed');
+    });
+
+}
 </script>";
 ?>
