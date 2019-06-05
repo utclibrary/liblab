@@ -3,11 +3,13 @@ include('variables.php');
 include($_SERVER['DOCUMENT_ROOT'].'/includes/head-v2.php');
 include("instructions.php");
 ?>
+
 <style>
 #push{
 	height:calc(25vh + 1em);
 }
 </style>
+
 <h1>The Assignment Calculator</h1>
 <div class="fields hero clearfix">
 <form action="date.php" autocomplete="off">
