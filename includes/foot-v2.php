@@ -44,7 +44,7 @@
 </div>
 </div>
 </div>
-<button onclick="topFunction()" id="backToTopBtn" data-toggle="tooltip" title="Go to top"><span class="fa fa-large fa-angle-double-up"></span></button>
+<button onclick="topFunction()" id="backToTopBtn" aria-label="back to top" data-toggle="tooltip" title="Go to top"><span class="fa fa-large fa-angle-double-up"></span></button>
       </footer>
       </body>
       <!-- document close -->
