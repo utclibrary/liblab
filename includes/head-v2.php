@@ -170,10 +170,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <a class="nav-link" href="https://www.utc.edu/library/help">Research Help</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://www.utc.edu/library/collections">Services</a>
+            <a class="nav-link" href="https://www.utc.edu/library/services">Services</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://www.utc.edu/library/collections">About</a>
+            <a class="nav-link" href="https://www.utc.edu/library/about">About</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
