@@ -146,7 +146,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="col blueHeader">
 
           <a href="https://utc.edu/">
-            <img src="https://utc.edu/_resources/img/web-wordmark-retina.png" alt="UTC wordmark">
+            <img src="/includes/img/web-wordmark-retina.png" alt="UTC wordmark">
           </a>
           <h1><a href="https://www.utc.edu/library/">UTC Library</a></h1>
         </div>
