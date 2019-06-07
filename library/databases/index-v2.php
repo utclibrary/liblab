@@ -7,8 +7,8 @@ $title = "Databases | UTC Library";
 $description = "Databases available at the UTC Library.";
 $keywords = "databases";
 //in case you need to add anything in the head or footer
-$addhead = "";
-$addfoot = "";
+$addhead = "<link rel='stylesheet' type='text/css' href='/includes/css/introjs.css' media='all'>";
+$addfoot = "<script type='text/javascript' src='/includes/js/intro.js'></script>";
 //show or hide help button
 $help = "show";
 // include new head and php functions for db display - reused for lg lists
@@ -159,6 +159,7 @@ echo "
 	<div class='col'>";
   ?>
   <button class="btn fas fa-info-circle pageInfoPopper" data-toggle="popover" a="" href="#" data-popover-content="#pageInfo" data-original-title="" title="" aria-describedby="popover276455"></button>
+
   <?php
 echo "<h1>".$h1Prepend." Databases".$displayAlpha."</h1>
 <script type='text/javascript'>
@@ -170,7 +171,7 @@ echo "<h1>".$h1Prepend." Databases".$displayAlpha."</h1>
 <div id="pageInfo" class="hidden">
    <div class="popover-heading"><span class="infoHeading">What is this page?</span></div>
    <div class="popover-body"><p>Databases contain searchable collections of published resources, including articles, ebooks, images, and more! Use this page to select the database that best meets your information needs.</p>
-   <div class="popoverQL"><h3>Related Resources</h3>
+   <div class="popoverQL"><h2>Related Resources</h2>
    <ul>
    <li><a href="https://utc.primo.exlibrisgroup.com/discovery/search?vid=01UTC_INST:01UTC&lang=en" target="_blank">Quick Search</a><p>Search the library's physical resources, and many electronic resources, in a single search.</li>
    <li><a href="https://www.utc.edu/library/help/tutorials/reseach-basics.php" target="_blank">Research Basics</a><p>Need help getting started? Begin with the basics!</p></li>
@@ -246,11 +247,11 @@ echo "
 		<div class='form-group'>
 			<label for='search-highlight'>Search</label>
 				<span class='fa fa-search search-icon'></span>
-					<input id='search-highlight' class='form-control clearable' autocomplete='off' name='search-highlight' type='text' placeholder='Databases by name or description' data-list='.highlight_list' data-toggle='tooltip' title='SEARCH' />
+					<input id='search-highlight' class='form-control clearable' autocomplete='off' name='search-highlight' type='text' placeholder='Databases by name or description' data-list='.highlight_list'/>
 		</div><!-- .form-group -->
   </div><!-- .col -->
 </div><!-- .row -->
-<div class='row'>
+<div id='limitByGroup' class='row'>
 	<div class='col-md topMargin'>
       <label for='subjectSelect'>Limit by Subject</label>
       <select class='form-control' id='subjectSelect'>
@@ -300,6 +301,7 @@ echo"
 
     echo"</div>";
     if (($alpha === "ALL")&&($subj === "A to Z")&&($vendor === "")&&($contentType === "")) {
+      //echo "<div class='row topMargin'><div class='col'><a class='fa fa-2x fa-question-circle float-right' href='javascript:void(0);' data-toggle='tooltip' title='' data-original-title='Show me how to use this page'onclick='javascript:introJs().start();'></a></div></div>";
         //echo "<a id='atoz-reset-btn-disabled' class='active btn btn-large'>RESET</a>";
     } else {
         echo "<div class='row topMargin'>
@@ -310,32 +312,39 @@ echo"
     }
     echo"</div><!-- close col-lg-7 -->
 		<div class='col-lg-5 topMargin'>";
-		if ($outputSLA === ""){
+		if (($outputSLA === "")&&($alpha === "ALL")){
 ?>
 <div class="featureBox">
-<h3 class="helpTitle">&nbsp;Help</h3>
-<hr class="helpHR">
-<a href="https://www.utc.edu/library/help/" target="_blank" class="linkHelp">
+<p><strong>New Here?</strong></p> <p>Take a moment to learn about this page.</p>
+
+<a href="javascript:void(0);" onclick="showIntro();" class="btn btnFeature">
 <span class="fas fa-info-circle"></span>
-<strong> Tour this Page</strong>
+    <strong> Start Tour</strong>
 </a>
-<a href="https://www.utc.edu/library/help/" target="_blank" class="linkHelp">
-<span class="fas fa-question-circle"></span><strong> Ask a Librarian</strong></a>
- <!-- old hide for now
+</div>
+<!-- hide this for now
+                                            <div class="featureBox">
+                                              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
+                                              <hr class="featureHR">
+-->
+<?php
+}
+	elseif (($outputSLA === "")&&($alpha !== "ALL")){
+    ?>
 		            <div class="featureBox">
 		              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
 		              <hr class="featureHR">
-                -->
-									<?php
-								  //$randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
-								  //WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
-								    // $result = mysqli_query($conLuptonDB, $randquery) or die($error);
+                  <?php
+			$randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
+							  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
+								     $result = mysqli_query($conLuptonDB, $randquery) or die($error);
 
-								     //if (!mysqli_num_rows($result)) {
-								     //    echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
-								     //} else {
-								       //  generatelist($result);
-								     //} ?>
+								     if (!mysqli_num_rows($result)) {
+								         echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+								     } else {
+								         generatelist($result);
+								     }
+              ?>
 		            </div><!-- close feature box -->
   <?php
 }else{
@@ -344,45 +353,45 @@ echo"
 }
 	echo "</div></div></div><!-- close .filters .col & .row -->
 		";
-// wrap in conditional to check for default page
-if (($subj === "A to Z")&&($alpha === "ALL")){
-    ?>
-    <div id="promos" class="row">
-    <div class="col-lg-8 row-eq-height">
-        <div class="promoCard1">
-        <h3 class="promoTitle">
-    <span class="fa fa-star"></span>&nbsp;Multisubject Databases</h3>
-    <?php
-    $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
-         $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
+    // wrap in conditional to check for default page
+    if (($subj === "A to Z")&&($alpha === "ALL")){
+?>
+<div id="promos" class="row">
+<div class="col-lg-8 row-eq-height">
+    <div class="promoCard1">
+    <h2 class="promoTitle">
+<span class="fa fa-star"></span>&nbsp;Multisubject Databases</h2>
+<?php
+$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+     $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
 
-         if (!mysqli_num_rows($resultMulti)) {
-             echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
-         } else {
-             generatelist($resultMulti);
-         } ?>
-               </div>
-        </div>
-        <div class="col-lg-4 row-eq-height">
-        <div class="promoCard2">
-        <h3 class="promoTitle">
-    <span class="fas fa-bullhorn"></span>&nbsp;New Databases</h3>
-    <?php
-    $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'NEW' AND DBRanking.TryTheseFirst = 1 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
-        $result = mysqli_query($conLuptonDB, $newquery) or die($error);
+     if (!mysqli_num_rows($resultMulti)) {
+         echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+     } else {
+         generatelist($resultMulti);
+     } ?>
+       </div>
+    </div>
+    <div class="col-lg-4 row-eq-height">
+    <div class="promoCard2">
+    <h2 class="promoTitle">
+<span class="fas fa-bullhorn"></span>&nbsp;New Databases</h2>
+<?php
+$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'NEW' AND DBRanking.TryTheseFirst = 1 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+    $result = mysqli_query($conLuptonDB, $newquery) or die($error);
 
-        if (!mysqli_num_rows($result)) {
-            echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
-        } else {
-            generatelist($result);
-        } ?>
-              </div>
-        </div>
+    if (!mysqli_num_rows($result)) {
+        echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+    } else {
+        generatelist($result);
+    } ?>
+      </div>
+    </div>
 
-        </div>
-    <?php
-
+    </div>
+<?php
 }//end check to show promo content on default page
+
 // main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,VendorName,
 GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
@@ -603,6 +612,7 @@ $('#search-highlight').keyup(function() {
 			$('#totalResults').html(cloneTotalResults);
         $('#alphaRankedSortBtn').show();
         $('#promos').slideDown();
+        $('.featureBox').slideDown();
 		}
 		else{
       $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://www.utc.edu/library\" target=\"_blank\">Quick Search</a>.</p>');
@@ -619,6 +629,7 @@ function tog(v){return v?'addClass':'removeClass';}
 $(document).on('input', '.clearable', function(){
   $('#alphaRankedSortBtn').hide();
   $('#promos').slideUp();
+  $('.featureBox').slideUp();
 	$(this).addClass('input-hold');
 	$('.clearable')[tog(this.value)]('x');
 }).on('mousemove', '.x', function( e ){
@@ -703,5 +714,46 @@ $('body').on('click', function (e) {
             $('[data-toggle=\"popover\"]').popover('hide');
         }
     });
+
+    function showIntro(){
+    $('#libraryh3lp').css('position', 'absolute');
+    var intro = introJs().setOptions({
+      steps: [
+        {
+          element: document.querySelector('#content h1'),
+          intro: 'Welcome to our new databases page! This page can help you find the UTC Library database that best meets your information needs.'
+        },
+        {
+          element: document.querySelector('#alphalist'),
+          intro: 'Filter using the first letter of the database name, subject area, or resource type.'
+        },
+        {
+          element: document.querySelector('#search-highlight'),
+          intro: 'Search for databases by name or description.'
+        },
+        {
+          element: document.querySelector('#limitByGroup'),
+          intro: 'Filter databases by subject area or resource type.'
+        },
+        {
+          element: document.querySelector('.fa-info-circle'),
+          intro: 'Learn more about databases and related resources.'
+        },
+        {
+          element: document.querySelector('.promoCard1'),
+          intro: 'Muti-subject databases are a great place to start your research.'
+        },
+        {
+          element: document.querySelector('#libraryh3lp'),
+          intro: 'Need help selecting a database or with your research? Ask a Librarian!'
+        }
+      ]
+    }).start();
+
+    intro.onexit( function(){
+      $('#libraryh3lp').css('position', 'fixed');
+    });
+
+}
 </script>";
 ?>
