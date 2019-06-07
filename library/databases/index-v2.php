@@ -60,7 +60,6 @@ if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
         echo"
   <script>
   $(document).ready(function() {
-    //console.log(\"63 triggered\");
     $('ul#alphalist > li').each(function(){
       $(this).addClass('emptyAlpha');
     });
@@ -585,9 +584,6 @@ $('#search-highlight').hideseek({
 });
 $(document).ready(function() {
   restartTooltip();
-  console.log('about to load');
-
-console.log('loaded');
   var url = window.location.pathname;
   var filename = url.substring(url.lastIndexOf('/')+1);
   $( '.subjects li' ).each(function() {
