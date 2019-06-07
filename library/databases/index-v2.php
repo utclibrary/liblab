@@ -60,7 +60,7 @@ if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
         echo"
   <script>
   $(document).ready(function() {
-    console.log(\"63 triggered\");
+    //console.log(\"63 triggered\");
     $('ul#alphalist > li').each(function(){
       $(this).addClass('emptyAlpha');
     });
@@ -280,7 +280,15 @@ if (!mysqli_num_rows($resultTL)) {//if no results disable select box
 }
   //show search box only on full atoz
   if (($subj === "A to Z")&&($alpha === "ALL")) {
-      echo"";
+      //echo"";
+  }else{
+    //only scroll after selecting action
+    echo "
+    <script type='text/javascript'>
+        $(document).ready(function() {
+          scrollToBox();
+        });
+    </script>";
   }
       //show subject select box atoz and subject selected
 //if ($alpha === "ALL"){
@@ -560,7 +568,8 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
 
 <?php
 }
-     //show multi on all pages?>
+     //show multi on all pages
+?>
 </div>
 <?php
 mysqli_close($conLuptonDB);
@@ -576,9 +585,9 @@ $('#search-highlight').hideseek({
 });
 $(document).ready(function() {
   restartTooltip();
-	$('html, body').animate({
-        scrollTop: $('.filters').offset().top
-    }, 500);
+  console.log('about to load');
+
+console.log('loaded');
   var url = window.location.pathname;
   var filename = url.substring(url.lastIndexOf('/')+1);
   $( '.subjects li' ).each(function() {
@@ -755,5 +764,10 @@ $('body').on('click', function (e) {
     });
 
 }
+function scrollToBox(){
+  $('html, body').animate({
+        scrollTop: $('.filters').offset().top
+    }, 500);
+};
 </script>";
 ?>
