@@ -727,6 +727,7 @@ $('body').on('click', function (e) {
     function showIntro(){
     $('#libraryh3lp').css('position', 'absolute');
     var intro = introJs().setOptions({
+      scrollTo: 'tooltip',
       steps: [
         {
           element: document.querySelector('#content h1'),
