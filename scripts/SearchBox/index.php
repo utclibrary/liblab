@@ -42,14 +42,14 @@ $emergMessage = "<br/><br/><p><font color='red'>The UTC Library catalog will be 
  END select -->
 <div id='myTabContent' class='tab-content'>
 	<div class='tab-pane active' id='everything'>
-			<form aria-label="quick search form" class='form-search' name='everything' action="https://utc.primo.exlibrisgroup.com/discovery/search" enctype="application/x-www-form-urlencoded; charset=utf-8" onsubmit="searchPrimo()" method="get" target='_blank'>
+			<form aria-label="quick search form" class='form-search' name='everything' action="https://utc.primo.exlibrisgroup.com/discovery/search" enctype="application/x-www-form-urlencoded; charset=utf-8" onsubmit="searchPrimo()" method="get" target='_blank' rel='noopener noreferrer'>
 				<label for="searchAll" class="hide">Search Books, Articles, Movies, and More...</label>
 				<input type='text' id="searchAll" aria-label="search input for quick search" placeholder='Search Books, Articles, Movies, and More...' class='input-xxlarge clearable' style="font-size: 1.25em;min-height: 2em;margin: .5em 0 .5em 0;" required />
 				<input type="hidden" name="query" id="primoQuery">
-				<input type="hidden" name="vid" value="01UTC_INST:01UTC">
 				<input type="hidden" name="tab" value="Everything">
 				<input type="hidden" name="search_scope" value="MyInst_and_CI">
-				<button id="Everything" onclick="searchPrimo()"  type='submit' class='btn search-btn btn-primary' style="margin: 0 .5em 0 .5em;min-height: 3em;">Search</button>
+				<input type="hidden" name="vid" value="01UTC_INST:01UTC">
+				<button id="Everything" type='submit' class='btn search-btn btn-primary' style="margin: 0 .5em 0 .5em;min-height: 3em;">Search</button>
 				<div class="spacer"></div>
 <!--
 				<label for="everythingformat" aria-label="limit quick search results to">Limit results to:</label>
@@ -77,7 +77,7 @@ $emergMessage = "<br/><br/><p><font color='red'>The UTC Library catalog will be 
 
 <div class='tab-pane' id='journals'>
 
-	<form class='form-search' name='journals' action='https://utc.primo.exlibrisgroup.com/discovery/jsearch' enctype="application/x-www-form-urlencoded; charset=utf-8" method='get' target='_blank'>
+	<form class='form-search' name='journals' action='https://utc.primo.exlibrisgroup.com/discovery/jsearch' enctype="application/x-www-form-urlencoded; charset=utf-8" method='get' target='_blank'  rel='noopener noreferrer'>
 	<label for="query-search-UTCL-home" class="hide" aria-label="journals search input">Search Journal</label>
 
 	<input id="primoQueryJ" name="query" type="hidden" />
@@ -86,7 +86,7 @@ $emergMessage = "<br/><br/><p><font color='red'>The UTC Library catalog will be 
 		<input name="offset" type="hidden" value="0" />
 	 <input id="primoQueryjournals" name="journals" type="hidden" />
 	<input  id="query-search-UTCL-home" type='text' placeholder='Enter Journal Title or ISSN' class='input-xxlarge clearable' name='jtitle' style="font-size: 1.25em;min-height: 2em;margin: .5em 0 .5em 0;" required />
-	<button id="Journals" type='submit' class='btn search-btn btn-primary' onclick="searchPrimoJ()" style="margin: 0 .5em 0 .5em;min-height: 3em;">Search</button>
+	<button id="Journals" type='submit' class='btn search-btn btn-primary' style="margin: 0 .5em 0 .5em;min-height: 3em;">Search</button>
 	<div class="spacer"></div>
 	<!--
 		<label for="journalsscope" aria-label="limit journals results to">Search type:</label>
@@ -441,14 +441,14 @@ You can now access Subject Guides from the Databases tab!</p>
 </div>
 <div class='tab-pane' id='courses'>
 
-	<form aria-label="researves search form" class='form-search' name='courses' action="https://utc.primo.exlibrisgroup.com/discovery/search" enctype="application/x-www-form-urlencoded; charset=utf-8" onsubmit="searchPrimoR()" method="get" target='_blank'>
+	<form aria-label="researves search form" class='form-search' name='courses' action="https://utc.primo.exlibrisgroup.com/discovery/search" enctype="application/x-www-form-urlencoded; charset=utf-8" onsubmit="searchPrimoR()" method="get" target='_blank' rel='noopener noreferrer'>
 		<label for="searchreserves" class="hide">Search Course, Instructor, or Item</label>
-		<input type='text' id="queryR" aria-label="search input for quick search" placeholder='Search Course, Instructor, or Item' class='input-xxlarge clearable' style="font-size: 1.25em;min-height: 2em;margin: .5em 0 .5em 0;" required />
 		<input type="hidden" name="query" id="primoQueryR">
-		<input type="hidden" name="vid" value="01UTC_INST:01UTC">
 		<input type="hidden" name="tab" value="CustomCourseReserves">
+		<input type="hidden" name="vid" value="01UTC_INST:01UTC">
 		<input type="hidden" name="pcAvailability" value="false">
-		<button id="Reserves" onclick="searchPrimoR()"  type='submit' class='btn search-btn btn-primary' style="margin: 0 .5em 0 .5em;min-height: 3em;">Search</button>
+				<input type='text' id="queryR" aria-label="search input for quick search" placeholder='Search Course, Instructor, or Item' class='input-xxlarge clearable' style="font-size: 1.25em;min-height: 2em;margin: .5em 0 .5em 0;" required />
+		<button id="Reserves" type='submit' class='btn search-btn btn-primary' style="margin: 0 .5em 0 .5em;min-height: 3em;">Search</button>
 		<div class="spacer"></div>
 
 
