@@ -164,7 +164,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <a class="nav-link" href="https://www.utc.edu/library">Library Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://www.utc.edu/library/collections">Collections</a>
+            <a class="nav-link" href="https://www.utc.edu/library/find-resources.php">Find Resources</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="https://www.utc.edu/library/help">Research Help</a>
