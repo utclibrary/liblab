@@ -1,496 +1,36 @@
 <?php
+// updates for v2 bootstrap 4 only
 //error reporting - default N offx
 $errorReporting = "Y";
 //template system to replicate main website look and feel
 $title = "Databases | UTC Library";
 $description = "Databases available at the UTC Library.";
 $keywords = "databases";
-//do you want to override the folder structure for menu? (default is NO)
-$override_side_menu="NO";
 //in case you need to add anything in the head or footer
-$addhead = "
-<style>
-span.vendor{
-  //padding-top: 0.25em;
-}
-span.subjects, span.vendor{
-  display: block;
-  color: #00386b;
-}
-#alpha .nav-pills > .active > a, #alpha .nav-pills > .active > a:hover {
-  color:#00386b;
-  background-color: whitesmoke;
-  font-weight: bold;
-  border-top: 2px solid #00386b;
-  border-left: 2px solid #00386b;
-  border-right: 2px solid #00386b;
-  border-bottom: transparent !important;
-}
-#alpha .nav-pills > li > a, #alpha .nav-pills > li > a {
-    background-color: #e9e9e9;
-    border: 1px solid #00386b;
-    color: #00386b;
-}
-/*
-#alpha .nav-pills > li {
-  margin: 0 .125em -2px .125em;
-}
-*/
-#alpha .nav-pills > .active > a, #alpha .nav-pills > .active > a:hover{
-  color:white;
-  background-color: #00386b;
-  text-decoration: none;
-}
-#alpha .nav-pills > li > a:hover {
-  color: white;
-  background-color: #00386b;
-  text-decoration: none;
-/*  border-bottom: 1px solid #EFD487;*/
-}
-.highlight_list > h2.badge{
-	font-size: 40px;
-}
-#outputSLA > h2.badge{
-  font-size: 20px;
-}
-.highlight_list > h2.badge, #outputSLA > h2.badge{
-	min-width: 25px;
-	padding: 15px;
-	margin-top: 10px;
-	text-align: center;
-}
-
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-::-moz-placeholder { /* Firefox 19+ */
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-:-ms-input-placeholder { /* IE 10+ */
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-:-moz-placeholder { /* Firefox 18- */
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-/*
-input#search-highlight::placeholder{
-  color:whitesmoke;
-  opacity:1;
-}
-
-input#search-highlight::-webkit-input-placeholder{
-    color:whitesmoke;
-}
-input#search-highlight:-moz-placeholder {
-    color:whitesmoke;
-    opacity:1;
-}
-
-input#search-highlight:hover::placeholder{
-    color:#781e1e;
-    opacity:1;
-}
-
-input#search-highlight:hover::-webkit-input-placeholder{
-    color:#781e1e;
-}
-input#search-highlight:hover:-moz-placeholder{
-    color:#781e1e;
-}
-*/
-input#search-highlight{
-  padding-left:.5em;
-  background-color:white;
-  max-width: 97%;
-  border:1px solid grey;
-  margin-right: 1em;
-  font-size: 1.5em;
-  height: 2em;
-  line-height: 2em;
-  }
-input#search-highlight:hover, input#search-highlight:focus{
-    cursor:pointer;
-    border:1px solid #e0aa0f;
-    background-color:white;
-  }
-input#search-highlight.hidden {
-      display: none;
-  }
-#search-highlight::-ms-clear {
-    display: none;
-}
-input#search-highlight.x{
-  font-size:1.5em;
-  font-family: \"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;
-  width:100%;
-  background-color:white;
-}
-.clearable.onX {
-    cursor: pointer;
-}
-.clearable.x {
-    background-position: right 5px center;
-}
-.clearable {
-    background: url(//i.stack.imgur.com/mJotv.gif) right -10px center no-repeat #fff;
-    /*border: 1px solid #999;*/
-    padding: 3px 18px 3px 4px;
-    border-radius: 3px;
-    transition: background .4s;
-}
-#alpha>.first{
-		border-left: 1px solid black;
-}
-#alpha{
-	width:100%;
-	margin:1em 0;
-}
-#alpha>.itemAlpha{
-	border-right:1px solid black;
-	width:3.3333333%;
-	text-align:center;
-	display:inline-block;
-}
-/*
-#alpha a:hover{
-	background:	#00386b;
-	color:white;
-}
-#alpha a, #alpha a:visited{
-	display:inline-block;
-  width:100%;
-  height:100%;
-	text-decoration: none;
-}
-.form-dropdown::-ms-expand {
-  display: none;
-}
-.selected{
-	border-right:1px solid black;
-	background:#e0aa0f;
-}
-*/
-.dbItem{
-	padding:1em;
-	border-bottom:1px solid #adafaa;
-}
-#alpha .nav-pills > li.emptyAlpha > a{
-  border: 1px solid lightgrey;
-	pointer-events: none;
- cursor: default;
-	color:#adafaa;
-}
-/* for new db list */
-/* fix ul */
-ul.s-lg-link-list li a{
-   font-weight:bold;
-   border-bottom: none !important;
-}
-ul.s-lg-link-list li a:hover{
-   background-color: transparent;
-}
-ul.s-lg-link-list{
-  margin-bottom: -10px;
-  padding: .5em 0 0 0;
-  margin-left: 0px;
-}
-ul.s-lg-link-list li{
- margin-bottom:1em;
- padding-bottom:.5em;
- border-bottom:1px solid #adafaa;
-  list-style:none;
-}
-ul.s-lg-link-list li:hover{
-  background-color: whitesmoke;
-  box-shadow: 0 0 5px 5px whitesmoke;
-}
-.dbItem:hover,.dbItemLG:hover{
-  background-color: white;
-  box-shadow: 0 0 5px 5px white;
-}
-/*
-#subject-select{
-  font-size:1.5em;
-  height:auto;
-  width:auto;
-}*/
-#subject-select, #type-select{
-  /* styling */
-  height: auto;
-    font-size: 1.125em;
-    width: auto;
-  background-color: white;
-  border: thin solid blue;
-  border-radius: 4px;
-  display: inline-block;
-  line-height: 1.5em;
-  padding: 0.5em 3.5em 0.5em 1em;
-
-  /* reset */
-
-  margin: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  background-image:
-    linear-gradient(45deg, transparent 50%, gray 50%),
-    linear-gradient(135deg, gray 50%, transparent 50%),
-    linear-gradient(to right, #ccc, #ccc);
-  background-position:
-    calc(100% - 20px) calc(1em + 2px),
-    calc(100% - 15px) calc(1em + 2px),
-    calc(100% - 2.5em) 0.5em;
-  background-size:
-    5px 5px,
-    5px 5px,
-    1px 1.5em;
-  background-repeat: no-repeat;
-}
-
-#subject-select:focus {
-  background-image:
-    linear-gradient(45deg, green 50%, transparent 50%),
-    linear-gradient(135deg, transparent 50%, green 50%),
-    linear-gradient(to right, #ccc, #ccc);
-  background-position:
-    calc(100% - 15px) 1em,
-    calc(100% - 20px) 1em,
-    calc(100% - 2.5em) 0.5em;
-  background-size:
-    5px 5px,
-    5px 5px,
-    1px 1.5em;
-  background-repeat: no-repeat;
-  border-color: green;
-  outline: 0;
-}
-#subject-select:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #000;
-}
-div.dbItemLG.alert-info{
-  margin: 0.75em 0;
-  border-bottom: 0px;
-  border-radius: 10px;
-}
-.highlighted-info{
-  color:#781e1e;
-}
-.page-search {
-  width: 100%;
-  -webkit-transition: all .5s ease;
-  -moz-transition: all .5s ease;
-  transition: all .5s ease;
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  text-decoration: inherit;
-}
-.input-hold{
-  width:100%;
-}
-#alpha .nav-pills > .red-btn > a{
-  background-color: #781e1e;
-}
-.subjects .badge{
-  margin:6px 10px 5px 5px;
-}
-.subjects .nav-pills > li:nth-of-type(2) > a{
-  border-left:1px solid black;
-}
-.subjects .nav-pills > li > a,.subjects .nav-pills > li > a:hover{
-  font-size:.85em;
-  border-right: 1px solid black;
-  border-bottom:0px;
-  padding:0 5px;
-  text-decoration:none;
-  border-radius:0px;
-}
-.subjects .nav-pills > li > a:hover{
-  color: white;
-  background: darkblue;
-}
-.subjects ul.nav{
-  margin:2px 2px 2px 50px;
-  padding:3px;
-}
-.dbItem .badge{
-  margin-left:5px;
-}
-.dbItem .strong{
-  margin-left:-55px;
-  font-size: .85em;
-  padding-right: 5px;
-  font-weight: bold;
-}
-/* webkit solution */
-/*
-input#search-highlight::-webkit-input-placeholder { text-align:right; }
-*/
-/* mozilla solution */
-/*
-input#search-highlight:-moz-placeholder { text-align:right; }
-*/
-#alphaRankedSortBtn{
-  margin: 10px 10px 10px 0px;
-}
-.dbItemLG{
-  padding: 10px;
-}
-.dbItemLG i.icon-compass{
-  padding-right: .25em;
-}
-.sidebar h2.welltopperGold{
-  font-size: 24px;
-}
-.sidebar h2.welltopperGold i.icon-search{
-  padding-right: .25em;
-}
-#multiSubject{
-  float: right;
-  margin-left: 0;
-}
-#checkItOut h2.welltopperGold i.icon-star{
-  padding-right: .25em;
-}
-#newDBs h2.welltopperBlue i.icon-bullhorn{
-  padding-right: .25em;
-}
-#atoz-reset-btn{
-  margin:0 10px;
-  float:right;
-}
-#atoz-reset-btn a{
-  color:white;
-}
-#atoz-reset-btn a:hover{
-  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
-  text-decoration: none;
-  background: transparent;
-  color:white;
-}
-#atoz-reset-btn-disabled{
-    margin:0 10px;
-  float: right;
-  cursor: default;
-  color: darkgrey;
-}
-#outputSLA li.type{
-  text-align:right;
-}
-span.db-title{
-  display:block;
-  font-style:bold;
-}
-.lock,.unlock{
-  padding:0 5px;
-}
-</style>
-";
-$addfoot = "<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
-		  <!-- hide search jquery plugin-->
-      		<script>
-          //<![CDATA[
-	$('#search-highlight').hideseek({
-      min_chars: 3,
-  		highlight: true,
-		nodata: 'No results found'
-	});
-$(document).ready(function() {
-  /* get content of totalCount */
-  var cloneTotalResults = $('#totalResults').text();
-  /* on keyup modify total results or reset to orig */
-  $('#search-highlight').keyup(function() {
-      if ($(this).val() == '') { // check if value changed
-        $('#totalResults').html(cloneTotalResults);
-      }
-      else{
-        var totalResults = $('.dbItem:visible').length;
-          $('#totalResults').html('Total results: ' + totalResults);
-      }
-  });
-  $('[data-toggle=\"tooltip\"]').tooltip();
-  $('h2#Letter1').text('#');
-/* jquery for clearable fields */
-
-console.log(cloneTotalResults);
-// CLEARABLE INPUT
-function tog(v){return v?'addClass':'removeClass';}
-$(document).on('input', '.clearable', function(){
-
-    $(this).addClass('input-hold');
-    $('.clearable')[tog(this.value)]('x');
-}).on('mousemove', '.x', function( e ){
-    $('.clearable')[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');  $(this).removeClass('input-hold');
-}).on('touchstart click', '.onX', function( ev ){  $(this).removeClass('input-hold');
-    ev.preventDefault();
-    $('.clearable').removeClass('x onX').val('').change();
-    $('#totalResults').html(cloneTotalResults);
-	resetsearch();
-});
-});
-function resetsearch() {
-    $('#search-highlight').val('').trigger('keyup').focus();
-    var press = jQuery.Event('keypress');
-    press.bubbles = true;
-    press.cancelable = true;
-    press.charCode = 8;
-    press.currentTarget = $('#search')[0];
-    press.eventPhase = 2;
-    press.keyCode = 8;
-    press.returnValue = true;
-    press.srcElement = $('#search')[0];
-    press.target = $('#search')[0];
-    press.type = 'keyup';
-    press.view = Window;
-    press.which = 8;
-    $('#search-highlight').trigger(press);
-}
-/* reload page on subject select */
-$( '#subject-select' ).change(function() {
-  window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#subject-select').val();
- });
- /* reload page on type select */
- $( '#type-select' ).change(function() {
-   window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#type-select').val();
-  });
-//]]>
-</script>
-";
+$addhead = "<link rel='stylesheet' type='text/css' href='/includes/css/introjs.css' media='all'>";
+$addfoot = "<script type='text/javascript' src='/includes/js/intro.js'></script>";
 //show or hide help button
 $help = "show";
-/*if right column is added set the following variable so that we can adjust the content width
-set to 0 if no right menu
-set to 3 and modify the content of the
-*/
-$rightmenu=3;
-/* switch leftmenu on or off Y or N*/
-$navmenu="N";
-include($_SERVER['DOCUMENT_ROOT']."/includes/head.php");
+// include new head and php functions for db display - reused for lg lists
+include($_SERVER['DOCUMENT_ROOT']."/includes/head-v2.php");
 include($_SERVER['DOCUMENT_ROOT']."/includes/functions.inc");
-?>
-<!-- Insert content here BEGIN -->
-<?php
-// include functions
-//include($_SERVER['DOCUMENT_ROOT']."/includes/functions.inc");
 // Get current file name and directory to use in links
 $currentFile = $_SERVER['PHP_SELF'];
-// declare variables
-$lastletter = "";
-$error = "";
 // connect to database
 require_once $_SERVER['DOCUMENT_ROOT'].'/includes/dbconnect.php';
+// declare variables
+$lastLetter = "";$currentLetter = "";//used with $currentletter to track and insert alpha for each group in list
+$error = "An error has occurded";//set database error message
 //  set variables in case paramater is not passed
+$typeExists = 0;
+$subjectExists = 0;
 $alpha = "ALL";
 $queryKey = "";
 $queryKeySubj = "";
 $urlsubjappend="";
 $queryKeySubjAtoZ="";
 $outputSLA = "";
+$outputLG = "";
 $h1Prepend = "";
 //try adding by filter by contentType
 $contentType = "";
@@ -508,9 +48,9 @@ if (isset($_GET["vendor"])) {
     $queryVendor = "AND VendorName = '" .$vendor. "'";
 }
 // get subject param if set
-if (isset($_GET["subj"])) {
+if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
     $subj = htmlentities($_GET["subj"]);
-    $h1Prepend = $subj;
+    $h1Prepend = str_replace('Databases','',$subj);
     // ignore limit by subject selection
     if (strpos($subj, 'Limit') !== false) {
         // if no subject change var and query used in $query
@@ -520,20 +60,23 @@ if (isset($_GET["subj"])) {
         echo"
   <script>
   $(document).ready(function() {
-    //remove hand cursor from alpha
-    $('a.alpha').css('cursor', 'default');
-    //override hover functions
-    $('a.alpha').hover(function() {
-    $(this).css('background-color', '#e9e9e9');
-    $(this).css('color','#00386b');
-}, function() {
-    $(this).css('background-color', '#e9e9e9');
-    $(this).css('color','#00386b');
-});
-//prevent click function
-    $('a.alpha').click(function(e){
-       e.preventDefault();
-     });
+    $('ul#alphalist > li').each(function(){
+      $(this).addClass('emptyAlpha');
+    });
+ //     //remove hand cursor from alpha
+ //     $('ul#alphalist > li > a.alpha').css('cursor', 'default');
+ //     //override hover functions
+ //     $('a.alpha').hover(function() {
+ //     $(this).css('background-color', '#dde6ee');
+ //     $(this).css('color','#00386b');
+ // }, function() {
+ //     $(this).css('background-color', '#dde6ee');
+ //     $(this).css('color','#00386b');
+ // });
+ // //prevent click function
+ //     $('ul#alphalist > li > a.alpha').click(function(e){
+ //        e.preventDefault();
+ //      });
   });
   </script>
   ";
@@ -547,7 +90,7 @@ if (isset($_GET["subj"])) {
         //$urlsubjappend = "&subj=".$subj;
 
         // hide alpha badges on subject pages
-        echo "<style>h2.badge,span.subjects{display:none;}</style>";
+        echo "<style>h2.badge,div.subjects{display:none;}</style>";
         // set order by used in $query
         $orderby = "DBRanking.Ranking";
         //hide letter badges on clear search
@@ -590,13 +133,16 @@ ORDER BY SubjectList.Format , SubjectList.Subject
     $totalRows = mysqli_num_rows($resultSLA);
     if (mysqli_num_rows($resultSLA)!=0) {
         // need to apply styling for this section
-        $outputSLA .= "<div id='outputSLA'><h2 class='badge badge-info'>Subject";
-        if (mysqli_num_rows($resultSLA)> 1) {
-            $outputSLA .= "s";
-        }
-        $outputSLA .= "</h2><ul class='nav nav-list'>";
+        $outputSLA .= "<div id='outputSLA' class='featureBox'>
+				<h3 id='subjectList' class='featureTitle'>Subject";
+        $outputSLA .= "</h3><hr class='featureHR'/><ul>";
         while ($row = mysqli_fetch_array($resultSLA)) {
+					if (($row['Format'] === "type")&&($typeExists === 0)){
+						$outputSLA .= "</ul><h3 id='typeList' class='featureTitle'>Type</h3><hr class='featureHR'><ul>";
+					}
             $outputSLA .= "<li class='".$row['Format']."'><a href=\"".$currentFile."?subj=".$row['Subject']."\">".$row['Subject']."</a></li>";
+						if ($row['Format'] === "type"){$typeExists++;}
+						if ($row['Format'] === "subject"){$subjectExists++;}
         }
         $outputSLA .= "</ul></div>";
     }
@@ -604,80 +150,35 @@ ORDER BY SubjectList.Format , SubjectList.Subject
     //echo $outputSLA;
 }//close letter set
 // this changes dynamcially based on subject paramater - jquery updates the page title
+echo "
+<div class='row'>
+<div class='col'>
+<div class='filters'>
+  <div id='alpha' class='row'>
+	<div class='col'>";
+  ?>
+  <button class="btn fas fa-info-circle pageInfoPopper" data-toggle="popover" a="" href="#" data-popover-content="#pageInfo" data-original-title="" title="" aria-describedby="popover276455"></button>
+
+  <?php
 echo "<h1>".$h1Prepend." Databases".$displayAlpha."</h1>
-<h2>Filtering Options</h2>
 <script type='text/javascript'>
     $(document).ready(function() {
         document.title = \"".$h1Prepend." Databases".$displayAlpha." | UTC Library\";
     });
 </script>";
-// get a list of current subjects for select box exclude
-$querySubjectList = reuseSubjQuery(0, "");
-
-$resultSL = mysqli_query($conLuptonDB, "set names 'utf8'");
-$resultSL = mysqli_query($conLuptonDB, $querySubjectList) or die($error);
-  echo "<div class='clearfix'>";
-  //show search box only on full atoz
-  if (($subj === "A to Z")&&($alpha === "ALL")) {
-      echo"";
-  }
-      //show subject select box atoz and subject selected
-//if ($alpha === "ALL"){
-echo "<span class='row' id='searchbox'>
-      <label class='hidden sr-only' for='search-highlight' aria-label='Search'>Search in page</label>
-      <input id='search-highlight' class='clearable page-search' autocomplete='off' name='search-highlight' type='text' placeholder='Search by name or description' data-list='.highlight_list'></span><!--
-      <button id='searchbutton' class='btn btn-primary'><i class='icon-search'>
-
-      <span class='hidden'>Search Databases</span></i></button> -->
-      <label for='subject-select' class='hidden'>Subject Select</label>
-      <select id='subject-select'>
-      <option>Limit by Subject</option>";
-  while ($row = mysqli_fetch_array($resultSL)) {
-      echo "<option";
-      if (strpos($row['Subject'], $subj) === 0) {
-          echo " selected='selected' ";
-      }
-      echo" value=\"".$row['Subject']."\">".$row['Subject']."</option>";
-  }
-  echo "</select>";
-//}
-//select by type
-// get a list of current subjects for select box
-$queryTypeList = reuseSubjQuery(1, "");
-
-$resultTL = mysqli_query($conLuptonDB, "set names 'utf8'");
-$resultTL = mysqli_query($conLuptonDB, $queryTypeList) or die($error);
-$totalRows = mysqli_num_rows($resultTL);
-if (!mysqli_num_rows($resultTL)) {//if no results disable select box
-    $resultTLdisabled = "disabled";
-} else {
-    $resultTLdisabled="";
-}
-  //show search box only on full atoz
-  if (($subj === "A to Z")&&($alpha === "ALL")) {
-      echo"";
-  }
-      //show subject select box atoz and subject selected
-//if ($alpha === "ALL"){
-echo"
-      <label for='type-select' class='hidden'>Type Select</label>
-      <select id='type-select' ".$resultTLdisabled.">
-      <option>Limit by Type</option>";
-  while ($row = mysqli_fetch_array($resultTL)) {
-      echo "<option";
-      if (strpos($row['Subject'], $subj) === 0) {
-          echo " selected='selected' ";
-      }
-      echo" value=\"".$row['Subject']."\">".$row['Subject']."</option>";
-  }
-  echo "</select>";
-  if (($alpha === "ALL")&&($subj === "A to Z")&&($vendor === "")&&($contentType === "")) {
-      //echo "<a id='atoz-reset-btn-disabled' class='active btn btn-large'>RESET</a>";
-  } else {
-      echo "<a id='atoz-reset-btn' class='active btn btn-large btn-danger' href='".$currentFile."?alpha=ALL'>RESET</a>";
-  }
-//}
-// END select by type
+?>
+<div id="pageInfo" class="hidden">
+   <div class="popover-heading"><span class="infoHeading">What is this page?</span></div>
+   <div class="popover-body"><p>Databases contain searchable collections of published resources, including articles, ebooks, images, and more! Use this page to select the database that best meets your information needs.</p>
+   <div class="popoverQL"><h2>Related Resources</h2>
+   <ul>
+   <li><a href="https://utc.primo.exlibrisgroup.com/discovery/search?vid=01UTC_INST:01UTC&lang=en" target="_blank">Quick Search</a><p>Search the library's physical resources, and many electronic resources, in a single search.</li>
+   <li><a href="https://www.utc.edu/library/help/tutorials/reseach-basics.php" target="_blank">Research Basics</a><p>Need help getting started? Begin with the basics!</p></li>
+   <li><a href="https://www.utc.edu/library/about/electronic-resource-use.php" target="_blank">Electronic Resource Use Policy</a><p>Guidelines for using the library’s online resources.</li>
+   </div>
+   </div>
+   </div>
+<?php
 //check for alpha in db
 $alphaListFull="";
 // query to generate a to z
@@ -698,14 +199,15 @@ $alphaList = mysqli_query($conLuptonDB, $queryAlpha) or die($error);
 while ($row = mysqli_fetch_array($alphaList)) {
     $alphaListFull .= $row['letter'];
 }
-echo " <div id='alpha' class='fluid-row'>
-<ul id='alphalist' class='nav nav-pills'>";
+echo "
+
+<ul id='alphalist' class='nav nav-fill'>";
 
 //if ($alpha === "num"){
 //echo "<li class='active'>";
 //}
 //else{
-    echo "<li>";
+    //echo "<li>";
 //}
 //echo "<a href='".$currentFile."?alpha=num'>#</a></li>";
 // loop through A to Z highight if selected
@@ -722,8 +224,180 @@ foreach (range('A', 'Z') as $column) {
 }
 echo "
 </ul>
-    </div>";
+</div><!-- close #alpha .col -->
+</div><!-- close #alpha -->";
+// get a list of current subjects for select box exclude
+$querySubjectList = reuseSubjQuery(0, "");
+
+$resultSL = mysqli_query($conLuptonDB, "set names 'utf8'");
+$resultSL = mysqli_query($conLuptonDB, $querySubjectList) or die($error);
+  echo "<div class='row topMargin'>
+	<div class='col-lg-7'>
+";
+  //show search box only on full atoz
+  if (($subj === "A to Z")&&($alpha === "ALL")) {
+      echo"";
+  }
+      //show subject select box atoz and subject selected
+//if ($alpha === "ALL"){
+echo "
+<div class='row topMargin' id='searchbox'>
+	<div class='col'>
+		<div class='form-group'>
+			<label for='search-highlight'>Search</label>
+				<span class='fa fa-search search-icon'></span>
+					<input id='search-highlight' class='form-control clearable' autocomplete='off' name='search-highlight' type='text' placeholder='Databases by name or description' data-list='.highlight_list'/>
+		</div><!-- .form-group -->
+  </div><!-- .col -->
+</div><!-- .row -->
+<div id='limitByGroup' class='row'>
+	<div class='col-md topMargin'>
+      <label for='subjectSelect'>Limit by Subject</label>
+      <select class='form-control' id='subjectSelect'>
+      <option>All</option>";
+  while ($row = mysqli_fetch_array($resultSL)) {
+      echo "<option";
+      if (strpos($row['Subject'], $subj) === 0) {
+          echo " selected='selected' ";
+      }
+      echo" value=\"".$row['Subject']."\">".$row['Subject']."</option>";
+  }
+  echo "</select></div><!-- .com-md .topMargin -->
+	<div class='col-md topMargin'>";
+//}
+//select by type
+// get a list of current subjects for select box
+$queryTypeList = reuseSubjQuery(1, "");
+
+$resultTL = mysqli_query($conLuptonDB, "set names 'utf8'");
+$resultTL = mysqli_query($conLuptonDB, $queryTypeList) or die($error);
+$totalRows = mysqli_num_rows($resultTL);
+if (!mysqli_num_rows($resultTL)) {//if no results disable select box
+    $resultTLdisabled = "disabled";
+} else {
+    $resultTLdisabled="";
+}
+  //show search box only on full atoz
+  if (($subj === "A to Z")&&($alpha === "ALL")) {
+      //echo"";
+  }else{
+    //only scroll after selecting action
+    echo "
+    <script type='text/javascript'>
+        $(document).ready(function() {
+          scrollToBox();
+        });
+    </script>";
+  }
+      //show subject select box atoz and subject selected
+//if ($alpha === "ALL"){
+echo"
+      <label for='typeSelect'>Limit by Type</label>
+      <select class='form-control' id='typeSelect' ".$resultTLdisabled.">
+      <option>All</option>";
+  while ($row = mysqli_fetch_array($resultTL)) {
+      echo "<option";
+      if (strpos($row['Subject'], $subj) === 0) {
+          echo " selected='selected' ";
+      }
+      echo" value=\"".$row['Subject']."\">".$row['Subject']."</option>";
+  }
+  echo "</select></div><!-- .com-md .topMargin -->";
+//}
+// END select by type
+
     echo"</div>";
+    if (($alpha === "ALL")&&($subj === "A to Z")&&($vendor === "")&&($contentType === "")) {
+      //echo "<div class='row topMargin'><div class='col'><a class='fa fa-2x fa-question-circle float-right' href='javascript:void(0);' data-toggle='tooltip' title='' data-original-title='Show me how to use this page'onclick='javascript:introJs().start();'></a></div></div>";
+        //echo "<a id='atoz-reset-btn-disabled' class='active btn btn-large'>RESET</a>";
+    } else {
+        echo "<div class='row topMargin'>
+                <div class='col'>
+                               <a id='atoz-reset-btn' class='active btn btn-large btn-danger' href='".$currentFile."?alpha=ALL'>RESET</a>
+                </div>
+              </div>";
+    }
+    echo"</div><!-- close col-lg-7 -->
+		<div class='col-lg-5 topMargin'>";
+		if (($outputSLA === "")&&($alpha === "ALL")){
+?>
+<div class="featureBox">
+<p><strong>New Here?</strong></p> <p>Take a moment to learn about this page.</p>
+
+<a href="javascript:void(0);" onclick="showIntro();" class="btn btnFeature">
+<span class="fas fa-info-circle"></span>
+    <strong> Start Tour</strong>
+</a>
+</div>
+<!-- hide this for now
+                                            <div class="featureBox">
+                                              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
+                                              <hr class="featureHR">
+-->
+<?php
+}
+	elseif (($outputSLA === "")&&($alpha !== "ALL")){
+    ?>
+		            <div class="featureBox">
+		              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
+		              <hr class="featureHR">
+                  <?php
+			$randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
+							  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
+								     $result = mysqli_query($conLuptonDB, $randquery) or die($error);
+
+								     if (!mysqli_num_rows($result)) {
+								         echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+								     } else {
+								         generatelist($result);
+								     }
+              ?>
+		            </div><!-- close feature box -->
+  <?php
+}else{
+	// show subjects by alpha
+	echo $outputSLA;
+}
+	echo "</div></div></div><!-- close .filters .col & .row -->
+		";
+    // wrap in conditional to check for default page
+    if (($subj === "A to Z")&&($alpha === "ALL")){
+?>
+<div id="promos" class="row">
+<div class="col-lg-8 row-eq-height">
+    <div class="promoCard1">
+    <h2 class="promoTitle">
+<span class="fa fa-star"></span>&nbsp;Multisubject Databases</h2>
+<?php
+$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+     $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
+
+     if (!mysqli_num_rows($resultMulti)) {
+         echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+     } else {
+         generatelist($resultMulti);
+     } ?>
+       </div>
+    </div>
+    <div class="col-lg-4 row-eq-height">
+    <div class="promoCard2">
+    <h2 class="promoTitle">
+<span class="fas fa-bullhorn"></span>&nbsp;New Databases</h2>
+<?php
+$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'NEW' AND DBRanking.TryTheseFirst = 1 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+    $result = mysqli_query($conLuptonDB, $newquery) or die($error);
+
+    if (!mysqli_num_rows($result)) {
+        echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+    } else {
+        generatelist($result);
+    } ?>
+      </div>
+    </div>
+
+    </div>
+<?php
+}//end check to show promo content on default page
 
 // main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,VendorName,
@@ -745,9 +419,11 @@ if (!mysqli_num_rows($result)) {
     echo "No results";
 } else {
     $totalRows = mysqli_num_rows($result);
-    echo "<p id='totalResults'>Total results: " . $totalRows . "</p>";
-    // show subjects by alpha
-    echo $outputSLA;
+    echo "
+    <div class='row align-items-end'>
+    <div class='col-lg-6'>
+    <p id='totalResults'>Total results: " . $totalRows . "</p>
+    </div>";
     $i = 0;
     // loop through results
     while ($row = mysqli_fetch_array($result)) {
@@ -755,97 +431,80 @@ if (!mysqli_num_rows($result)) {
             // if subj show Libguide once
             if ($i == 0) {
                 if ((!empty($row['LibGuidesPage']))&&($subj != "A to Z")) {
-                    echo "<div class='dbItemLG alert-info'>
-    <i class='icon-large icon-compass'><span class='hidden'> ".$subj." Guide</span> </i>
-      <span class='libguidename'><a href='https://guides.lib.utc.edu/".$row['LibGuidesPage']."'>".$subj." Subject Guide</a></span></div>";
+                    $outputLG = $row['LibGuidesPage'];
                 }
                 //if this is a subject list show alpha rank buttons
                 if ($subj != "A to Z") {
                     ?>
-      <div id="alphaRankedSortBtn" class="span12">
-        <button class="span6 active" id="numBnt">Ranked Sort</button>
-        <button class="span6" id="alphBnt">Alphabetical Sort</button>
+    <div class="col-lg-6">
+      <div id="alphaRankedSortBtn" class="row">
+        <div id="alphaRankedSortBtn" class="btn-group" role="group" aria-label="Sorting options">
+        <button type="button" class="btn btn-secondary active" id="numBtn">Ranked Sort</button>
+        <button type="button" class="btn btn-secondary" id="alphBtn">Alphabetical Sort</button>
       </div>
-      <div id='subject_list_items' class='highlight_list'>
-      <script>
-      $( document ).ready(function() {
-        var $divs = $("div.dbItem");
-        $('#numBnt').attr("disabled", "disabled");
+      </div>
+    </div>
 
-  $('#alphBnt').on('click', function () {
-    $('#numBnt').removeAttr('disabled');
-    $(this).attr("disabled", "disabled");
-      var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {
-          //return $(a).find("a").text() > $(b).find("a").text();
-          return $(a).find("a").text() > $(b).find("a").text()  ? 1 : -1;
-      });
-      $("#subject_list_items").html(alphabeticallyOrderedDivs);
-  });
+</div>
+		<div id='subject_list_items' class='highlight_list'>
 
-  $('#numBnt').on('click', function () {
-    $('#alphBnt').removeAttr('disabled');
-    $(this).attr("disabled", "disabled");
-    $("#subject_list_items").load(" #subject_list_items > *");
-
-      //$("#subject_list_items").load("#subject_list_items > *");
-  });
-});
-    </script>
       <?php
                 } else {
-                    echo "<div class='highlight_list'>";
+                    echo "</div><div class='highlight_list'>";
                 }
                 $i++;
             }
             // create styled letter SEPARATOR
             $currentletter = strtoupper(substr($row['Title'], 0, 1));
-            if (($lastletter != $currentletter)&&(preg_match("/[A-Z]|1/i", $currentletter))) {
-                echo '<h2 id="Letter' . $currentletter .  '" class="badge badge-info">' . $currentletter . '</h2>';
-                $lastletter = $currentletter;
+            if (($lastLetter != $currentletter)&&(preg_match("/[A-Z]|1/i", $currentletter))) {
+                echo '<h2 id="Letter' . $currentletter .  '">' . $currentletter . '</h2>';
+                $lastLetter = $currentletter;
             }
             // set condition for new but not subjects
             if (((strpos($row['Subjects'], $subj) !== false)&&($subj != "A to Z"))||($subj==='A to Z')) {
-                echo "<div class='dbItem'>";
+                echo "<div class='dbCard'>";
                 if (($row['NotProxy']) === '1') {
-                    echo "<span class='unlock pull-right' data-toggle='tooltip' data-original-title='Freely Available'><i class='icon-unlock'><span class='hidden'>Freely Available</span></i></span>";
+                    echo "<span class='fa fa-unlock float-right' data-toggle='tooltip' title='Freely Available'></span>";
                 }else{
-                  echo "<span class='lock pull-right' data-toggle='tooltip' data-original-title='Requires Login'><i class='icon-lock'><span class='hidden'>Requires Login</span></i></span>";
+                  echo "<span class='fa fa-lock float-right' data-toggle='tooltip' title='Requires UTC ID'></span>";
                 }
                 if ((($row['TryTheseFirst']) === '1')&&($subj != "A to Z")) {
-                    echo "<span class='badge badge-primary pull-right'>Try First</span>";
+                    echo "<span class='badge badge-primary float-right'>Try First</span>";
                 }
                 if (strpos($row['Subjects'], '<li>New</li>') !== false) {
-                    echo "<span class='badge badge-warning pull-right'> NEW </span>";
+                    echo "<span class='badge badge-warning float-right'> NEW </span>";
                 }
-                echo "<span class='db-title'><a href='";
+                //if (!empty($row['ContentType'])) {
+                  //  echo "<p class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "\n</a>";
+                //}
+                echo "<h3 class='dbTitle'><a href='";
                 if (!empty($row['ShortURL'])) {
                     echo "https://www.utc.edu/" . $row['ShortURL'];
                 } else {
                     echo "/scripts/LGForward.php?db=". $row['Key_ID'];
                 }
-                echo"' target='_blank'>" . $row['Title'] . "</a></span>";
-                if (!empty($row['ContentType'])) {
-                    echo "<span class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "</a></span>: ";
-                }
-                echo "<span class='shortDescription'>" . $row['ShortDescription'] . "</span>";
+                echo"' target='_blank'>" . $row['Title'] . "\n</a></h3>";
+
+                echo "<p>" . $row['ShortDescription'];
                 if (!empty($row['HighlightedInfo'])) {
                     echo "<span class='highlighted-info'> " . $row['HighlightedInfo'] . "</span>";
                 }
                 if ($row['SimUsers'] == 1) {
                     echo "<span class='limitTo'> Limited to " . $row['SimUsers'] . " simultaneous user.</span>";
                 } elseif ($row['SimUsers'] > 1) {
-                    echo "<spah class='limitTo'> Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
+                    echo "<span class='limitTo'> Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
                 }
-                if (!empty($row['VendorName'])) {
-                    echo "<span class='vendor'>Vendor: <a class='alpha' href=\"".$currentFile."?vendor=".$row['VendorName']."\"> ".$row['VendorName']." </a></span>";
-                }
+								echo "</p>";
+                //if (!empty($row['VendorName'])) {
+                  //  echo "<p class='vendor'>Vendor: <a href=\"".$currentFile."?vendor=".$row['VendorName']."\"> ".$row['VendorName']." </a></p>";
+                //}
                 if (!empty($row['Subjects'])) {
-                    echo "<span class='subjects'><ul class='nav nav-pills'><li class='strong'>Subject";
+                    echo "<div class='subjects'><ul class='subjectTags'><li>Subject";
                     if ((strpos($row['Subjects'], '</li><li>') == false)||(preg_match('/^<li>(.*?)(?!<li>)(.*?)<li>New<\/li>$|^<li>New<\/li>(.*?)(?!<li>)(.*?)<\/li>$/', $row['Subjects']))) {//single item or single item + new
                     } else {
                         echo "s";
                     }
-                    echo ": </li>".$row['Subjects']."</ul></span>";
+                    echo ": </li>".$row['Subjects']."</ul></div>";
                 }
                 echo "</div>";//close each item
             }
@@ -855,6 +514,8 @@ if (!mysqli_num_rows($result)) {
 echo "</div><!-- highlight_list -->";
 
 //this is where the content goes for the right menu could also use
+// temp turn off but keep code for DOMEntityReference
+$rightmenu = 0;
  if ($rightmenu==3) {
      ?>
  </div> <!-- close content div -->
@@ -906,28 +567,204 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
 
 <?php
 }
-     //show multi on all pages?>
+     //show multi on all pages
+?>
 </div>
 <?php
 mysqli_close($conLuptonDB);
  }
-include($_SERVER['DOCUMENT_ROOT']."/includes/foot.php");
+include($_SERVER['DOCUMENT_ROOT']."/includes/foot-v2.php");
 echo "
-<script>$(document).ready(function() {
+<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
+<script>
+$('#search-highlight').hideseek({
+		min_chars: 3,
+		highlight: true,
+	nodata: 'No results found'
+});
+$(document).ready(function() {
+  restartTooltip();
   var url = window.location.pathname;
   var filename = url.substring(url.lastIndexOf('/')+1);
   $( '.subjects li' ).each(function() {
     var subject = $( this ).text();
     if (subject =='New'){
       //$(this).html('<span class=\"badge badge-success\">NEW !</span>');
-      //$(this).closest('li').addClass('pull-right');
+      //$(this).closest('li').addClass('float-right');
       $(this).closest('li').hide();
     }else{
       if (subject.indexOf('Subject') <= -1){
     $(this).html('<a href=\"'+ filename + '?subj=' + subject + '\">' + subject + '</a>');
     }
 }
+});";
+echo "\n";
+if ($outputLG != ""){
+	echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul><div class='subjectGuideDesc'>Looking for more? Check out our research guide for books, websites, and other suggested resources curated by UTC Librarians.</div></div>\");";
+}
+if ($typeExists > 1){
+	echo "$('#typeList').append('s');";
+}
+if ($subjectExists > 1){
+	echo "$('#subjectList').append('s');";
+}
+echo"
+/* get content of totalCount */
+var cloneTotalResults = $('#totalResults').text();
+/* on keyup modify total results or reset to orig */
+$('#search-highlight').keyup(function() {
+		if ($(this).val() == '') { // check if value changed
+			$('#totalResults').html(cloneTotalResults);
+        $('#alphaRankedSortBtn').show();
+        $('#promos').slideDown();
+        $('.featureBox').slideDown();
+		}
+		else{
+      $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://www.utc.edu/library\" target=\"_blank\">Quick Search</a>.</p>');
+			var totalResults = $('.dbCard:visible').length;
+				$('#totalResults').html('Total results: ' + totalResults);
+		}
+});
+$('[data-toggle=\"tooltip\"]').tooltip();
+$('h2#Letter1').text('#');
+/* jquery for clearable fields */
+
+// CLEARABLE INPUT
+function tog(v){return v?'addClass':'removeClass';}
+$(document).on('input', '.clearable', function(){
+  $('#alphaRankedSortBtn').hide();
+  $('#promos').slideUp();
+  $('.featureBox').slideUp();
+	$(this).addClass('input-hold');
+	$('.clearable')[tog(this.value)]('x');
+}).on('mousemove', '.x', function( e ){
+	$('.clearable')[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');  $(this).removeClass('input-hold');
+}).on('touchstart click', '.onX', function( ev ){
+  $(this).removeClass('input-hold');
+	ev.preventDefault();
+	$('.clearable').removeClass('x onX').val('').change();
+	$('#totalResults').html(cloneTotalResults);
+resetsearch();
+});
+var divContent = $('div.dbCard');
+$('#numBtn').attr('disabled', 'disabled');
+var sliContent = $('#subject_list_items').html();
+$('#alphBtn').on('click', function () {
+$('#numBtn').removeAttr('disabled');
+$(this).attr('disabled', 'disabled');
+var alphabeticallyOrderedDivs = divContent.sort(function (a, b) {
+  //return $(a).find('a').text() > $(b).find('a').text();
+  return $(a).find('h3.dbTitle > a').text() > $(b).find('h3.dbTitle a').text()  ? 1 : -1;
+});
+$('#subject_list_items').html(alphabeticallyOrderedDivs);
+restartTooltip();
+});
+
+$('#numBtn').on('click', function () {
+$('#alphBtn').removeAttr('disabled');
+$(this).attr('disabled', 'disabled');
+$('#subject_list_items').html(sliContent);
+  restartTooltip();
+});
+});/* close doc ready */
+function resetsearch() {
+    $('#alphaRankedSortBtn').show();
+    $('#search-highlight').val('').trigger('keyup').focus();
+    var press = jQuery.Event('keypress');
+    press.bubbles = true;
+    press.cancelable = true;
+    press.charCode = 8;
+    press.currentTarget = $('#search')[0];
+    press.eventPhase = 2;
+    press.keyCode = 8;
+    press.returnValue = true;
+    press.srcElement = $('#search')[0];
+    press.target = $('#search')[0];
+    press.type = 'keyup';
+    press.view = Window;
+    press.which = 8;
+    $('#search-highlight').trigger(press);
+}
+/* reload page on subject select */
+$( '#subjectSelect' ).change(function() {
+  window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#subjectSelect').val();
+ });
+ /* reload page on type select */
+ $( '#typeSelect' ).change(function() {
+   window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#typeSelect').val();
   });
-});</script>";
+  function restartTooltip(){
+    $('[data-toggle=\"tooltip\"]').tooltip();
+  }
+  $(function(){
+    $('[data-toggle=popover]').popover({
+        html : true,
+        content: function() {
+          var content = $(this).attr('data-popover-content');
+          return $(content).children('.popover-body').html();
+        },
+        title: function() {
+          var title = $(this).attr('data-popover-content');
+          return $(title).children('.popover-heading').html();
+        }
+    });
+});
+Popper.Defaults.modifiers.computeStyle.gpuAcceleration = !(window.devicePixelRatio < 1.5 && /Win/.test(navigator.platform));
+$('body').on('click', function (e) {
+        //did not click a popover toggle, or icon in popover toggle, or popover
+        if ($(e.target).data('toggle') !== 'popover'
+            && (!$(e.target).parents().hasClass('popover'))
+            && $(e.target).parents('[data-toggle=\"popover\"]').length === 0
+            && $(e.target).parents('.popover.in').length === 0) {
+            $('[data-toggle=\"popover\"]').popover('hide');
+        }
+    });
+
+    function showIntro(){
+    $('#libraryh3lp').css('position', 'absolute');
+    var intro = introJs().setOptions({
+      scrollTo: 'tooltip',
+      steps: [
+        {
+          element: document.querySelector('#content h1'),
+          intro: 'Welcome to our new databases page! This page can help you find the UTC Library database that best meets your information needs.'
+        },
+        {
+          element: document.querySelector('#alphalist'),
+          intro: 'Filter using the first letter of the database name, subject area, or resource type.'
+        },
+        {
+          element: document.querySelector('#search-highlight'),
+          intro: 'Search for databases by name or description.'
+        },
+        {
+          element: document.querySelector('#limitByGroup'),
+          intro: 'Filter databases by subject area or resource type.'
+        },
+        {
+          element: document.querySelector('.fa-info-circle'),
+          intro: 'Learn more about databases and related resources.'
+        },
+        {
+          element: document.querySelector('.promoCard1'),
+          intro: 'Muti-subject databases are a great place to start your research.'
+        },
+        {
+          element: document.querySelector('#libraryh3lp'),
+          intro: 'Need help selecting a database or with your research? Ask a Librarian!'
+        }
+      ]
+    }).start();
+
+    intro.onexit( function(){
+      $('#libraryh3lp').css('position', 'fixed');
+    });
+
+}
+function scrollToBox(){
+  $('html, body').animate({
+        scrollTop: $('.filters').offset().top
+    }, 500);
+};
+</script>";
 ?>
-<!-- add any additional footer code here -->
