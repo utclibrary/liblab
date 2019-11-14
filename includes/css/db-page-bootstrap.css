@@ -29,7 +29,13 @@ h6 {
     display: -ms-flexbox;
     display: flex;
 }
+a {
+  color: #0056b3;
+}
 
+a:hover {
+  color: #007bff;
+}
 /*top filter row*/
 .filters {
   background-color: #fff;
@@ -402,13 +408,31 @@ h2.promoTitle {
 ul.s-lg-link-list li a {
   font-weight: bold;
   color: #00386b;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 ul.s-lg-link-list li a:hover {
-  color: #337ab7;
+  color: #1476de;
+  text-decoration: underline;
 }
+.s-lg-link-desc {
+  margin-top: 0px;
+  font-size: .9em;
+}
+.s-lg-link-desc .highlightedInfo {
+  color: #af2323;
+  font-weight: 600;
+  display: block;
+}
+.s-lg-link-desc a {
+    color: #0056b3 !important;
+    font-weight: 600 !important;
+    text-decoration: underline !important;
 
+}
+.s-lg-link-desc a:hover {
+    color: #1476de !important;
+}
 ul.s-lg-link-list {
   padding: .5em 0 0 0;
   margin: 0px;
@@ -422,9 +446,7 @@ ul.s-lg-link-list li {
   display: none;
 }
 
-.s-lg-link-desc {
-  margin-top: 0px;
-}
+
 
 #outputSLA ul {
   padding: .5em 0 0 0;
@@ -584,12 +606,17 @@ li.type a {
 }
 
 .dbTitle a:hover {
-  color: #337ab7;
+  color: #1476de;
 }
 
 .dbCard p {
     font-size: .9em;
     margin-bottom: .5em;
+}
+
+.dbCard p a {
+    text-decoration: underline;
+    font-weight: 600;
 }
 /*New Tag*/
 .badge-warning {
@@ -660,8 +687,9 @@ li.type a {
 }
 
 .highlighted-info {
-  color: #c92727;
-font-weight: 600;
+  color: #af2323;
+  font-weight: 600;
+  display: block;
 }
 
 .vendor {
@@ -1229,6 +1257,7 @@ letter-spacing: .5px;
 #libraryh3lp a {
   text-decoration: none;
   color: white;
+  font-weight: 600;
 }
 
 #libraryh3lp i {
