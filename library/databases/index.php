@@ -617,7 +617,7 @@ $('#search-highlight').keyup(function() {
 			$('#totalResults').html(cloneTotalResults);
         $('#alphaRankedSortBtn').show();
         $('#promos').slideDown();
-        $('.featureBox').slideDown();
+        //$('.featureBox').slideDown();
 		}
 		else{
       $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://www.utc.edu/library\" target=\"_blank\">Quick Search</a>.</p>');
@@ -634,7 +634,7 @@ function tog(v){return v?'addClass':'removeClass';}
 $(document).on('input', '.clearable', function(){
   $('#alphaRankedSortBtn').hide();
   $('#promos').slideUp();
-  $('.featureBox').slideUp();
+  //$('.featureBox').slideUp();
 	$(this).addClass('input-hold');
 	$('.clearable')[tog(this.value)]('x');
 }).on('mousemove', '.x', function( e ){
@@ -753,7 +753,9 @@ $('body').on('click', function (e) {
           element: document.querySelector('#libraryh3lp'),
           intro: 'Need help selecting a database or with your research? Ask a Librarian!'
         }
-      ]
+      ].filter(function (obj) {
+        return $(obj.element).parent().is(':visible');
+      })
     }).start();
 
     intro.onexit( function(){
