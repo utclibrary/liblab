@@ -290,7 +290,7 @@ input#search-highlight.x {
 }
 
 .clearable {
-  background: url(//i.stack.imgur.com/mJotv.gif) right -10px center no-repeat #fff;
+  background: url(../img/mJotv.gif) right -10px center no-repeat #fff;
   border: 1px solid #999;
   padding: 3px 18px 3px 6px;
   border-radius: 3px;
@@ -1371,4 +1371,8 @@ letter-spacing: .5px;
        padding-top: 0px;
        padding-bottom: 0px;
      }
+}
+/* hide letter H2 on subjects pages */
+#subject_list_items h2:not(.no-results) {
+  display: none !important;
 }

@@ -50,7 +50,7 @@ if (isset($_GET["vendor"])) {
 // get subject param if set
 if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
     $subj = htmlentities($_GET["subj"]);
-    $h1Prepend = str_replace('Databases','',$subj);
+    $h1Prepend = str_replace('Databases', '', $subj);
     // ignore limit by subject selection
     if (strpos($subj, 'Limit') !== false) {
         // if no subject change var and query used in $query
@@ -94,7 +94,7 @@ if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
         // set order by used in $query
         $orderby = "DBRanking.Ranking";
         //hide letter badges on clear search
-        echo "<style>.highlight_list h2[id^='Letter']{display:none !important;}</style>";
+        //echo "<style>.highlight_list h2[id^='Letter']{display:none;}</style>";
     }
 } else {
     // if no subject change var and query used in $query
@@ -137,12 +137,16 @@ ORDER BY SubjectList.Format , SubjectList.Subject
 				<h3 id='subjectList' class='featureTitle'>Subject";
         $outputSLA .= "</h3><hr class='featureHR'/><ul>";
         while ($row = mysqli_fetch_array($resultSLA)) {
-					if (($row['Format'] === "type")&&($typeExists === 0)){
-						$outputSLA .= "</ul><h3 id='typeList' class='featureTitle'>Type</h3><hr class='featureHR'><ul>";
-					}
+            if (($row['Format'] === "type")&&($typeExists === 0)) {
+                $outputSLA .= "</ul><h3 id='typeList' class='featureTitle'>Type</h3><hr class='featureHR'><ul>";
+            }
             $outputSLA .= "<li class='".$row['Format']."'><a href=\"".$currentFile."?subj=".$row['Subject']."\">".$row['Subject']."</a></li>";
-						if ($row['Format'] === "type"){$typeExists++;}
-						if ($row['Format'] === "subject"){$subjectExists++;}
+            if ($row['Format'] === "type") {
+                $typeExists++;
+            }
+            if ($row['Format'] === "subject") {
+                $subjectExists++;
+            }
         }
         $outputSLA .= "</ul></div>";
     }
@@ -280,9 +284,9 @@ if (!mysqli_num_rows($resultTL)) {//if no results disable select box
   //show search box only on full atoz
   if (($subj === "A to Z")&&($alpha === "ALL")) {
       //echo"";
-  }else{
-    //only scroll after selecting action
-    echo "
+  } else {
+      //only scroll after selecting action
+      echo "
     <script type='text/javascript'>
         $(document).ready(function() {
           scrollToBox();
@@ -308,7 +312,7 @@ echo"
 
     echo"</div>";
     if (($alpha === "ALL")&&($subj === "A to Z")&&($vendor === "")&&($contentType === "")) {
-      //echo "<div class='row topMargin'><div class='col'><a class='fa fa-2x fa-question-circle float-right' href='javascript:void(0);' data-toggle='tooltip' title='' data-original-title='Show me how to use this page'onclick='javascript:introJs().start();'></a></div></div>";
+        //echo "<div class='row topMargin'><div class='col'><a class='fa fa-2x fa-question-circle float-right' href='javascript:void(0);' data-toggle='tooltip' title='' data-original-title='Show me how to use this page'onclick='javascript:introJs().start();'></a></div></div>";
         //echo "<a id='atoz-reset-btn-disabled' class='active btn btn-large'>RESET</a>";
     } else {
         echo "<div class='row topMargin'>
@@ -319,8 +323,8 @@ echo"
     }
     echo"</div><!-- close col-lg-7 -->
 		<div class='col-lg-5 topMargin'>";
-		if (($outputSLA === "")&&($alpha === "ALL")){
-?>
+        if (($outputSLA === "")&&($alpha === "ALL")) {
+            ?>
 <div class="featureBox">
 <p><strong>New Here?</strong></p> <p>Take a moment to learn about this page.</p>
 
@@ -335,34 +339,32 @@ echo"
                                               <hr class="featureHR">
 -->
 <?php
-}
-	elseif (($outputSLA === "")&&($alpha !== "ALL")){
-    ?>
+        } elseif (($outputSLA === "")&&($alpha !== "ALL")) {
+        ?>
 		            <div class="featureBox">
 		              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
 		              <hr class="featureHR">
                   <?php
-			$randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
+            $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
 							  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
-								     $result = mysqli_query($conLuptonDB, $randquery) or die($error);
+        $result = mysqli_query($conLuptonDB, $randquery) or die($error);
 
-								     if (!mysqli_num_rows($result)) {
-								         echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
-								     } else {
-								         generatelist($result);
-								     }
-              ?>
+        if (!mysqli_num_rows($result)) {
+            echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+        } else {
+            generatelist($result);
+        } ?>
 		            </div><!-- close feature box -->
   <?php
-}else{
-	// show subjects by alpha
-	echo $outputSLA;
-}
-	echo "</div></div></div><!-- close .filters .col & .row -->
+    } else {
+        // show subjects by alpha
+        echo $outputSLA;
+    }
+    echo "</div></div></div><!-- close .filters .col & .row -->
 		";
     // wrap in conditional to check for default page
-    if (($subj === "A to Z")&&($alpha === "ALL")){
-?>
+    if (($subj === "A to Z")&&($alpha === "ALL")) {
+        ?>
 <div id="promos" class="row">
 <div class="col-lg-8 row-eq-height">
     <div class="promoCard1">
@@ -370,13 +372,13 @@ echo"
 <span class="fa fa-star"></span>&nbsp;Multisubject Databases</h2>
 <?php
 $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
-     $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
+        $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
 
-     if (!mysqli_num_rows($resultMulti)) {
-         echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
-     } else {
-         generatelist($resultMulti);
-     } ?>
+        if (!mysqli_num_rows($resultMulti)) {
+            echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+        } else {
+            generatelist($resultMulti);
+        } ?>
        </div>
     </div>
     <div class="col-lg-4 row-eq-height">
@@ -385,19 +387,19 @@ $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbas
 <span class="fas fa-bullhorn"></span>&nbsp;New Databases</h2>
 <?php
 $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'NEW' AND DBRanking.TryTheseFirst = 1 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
-    $result = mysqli_query($conLuptonDB, $newquery) or die($error);
+        $result = mysqli_query($conLuptonDB, $newquery) or die($error);
 
-    if (!mysqli_num_rows($result)) {
-        echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
-    } else {
-        generatelist($result);
-    } ?>
+        if (!mysqli_num_rows($result)) {
+            echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+        } else {
+            generatelist($result);
+        } ?>
       </div>
     </div>
 
     </div>
 <?php
-}//end check to show promo content on default page
+    }//end check to show promo content on default page
 
 // main query to generate lists of dbs
 $query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,VendorName,
@@ -465,8 +467,8 @@ if (!mysqli_num_rows($result)) {
                 echo "<div class='dbCard'>";
                 if (($row['NotProxy']) === '1') {
                     echo "<span class='fa fa-unlock float-right' data-toggle='tooltip' title='Freely Available'></span>";
-                }else{
-                  echo "<span class='fa fa-lock float-right' data-toggle='tooltip' title='Requires UTC ID'></span>";
+                } else {
+                    echo "<span class='fa fa-lock float-right' data-toggle='tooltip' title='Requires UTC ID'></span>";
                 }
                 if ((($row['TryTheseFirst']) === '1')&&($subj != "A to Z")) {
                     echo "<span class='badge badge-primary float-right'>Try First</span>";
@@ -475,7 +477,7 @@ if (!mysqli_num_rows($result)) {
                     echo "<span class='badge badge-warning float-right'> NEW </span>";
                 }
                 //if (!empty($row['ContentType'])) {
-                  //  echo "<p class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "\n</a>";
+                //  echo "<p class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "\n</a>";
                 //}
                 echo "<h3 class='dbTitle'><a href='";
                 if (!empty($row['ShortURL'])) {
@@ -494,9 +496,9 @@ if (!mysqli_num_rows($result)) {
                 } elseif ($row['SimUsers'] > 1) {
                     echo "<span class='limitTo'> Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
                 }
-								echo "</p>";
+                echo "</p>";
                 //if (!empty($row['VendorName'])) {
-                  //  echo "<p class='vendor'>Vendor: <a href=\"".$currentFile."?vendor=".$row['VendorName']."\"> ".$row['VendorName']." </a></p>";
+                //  echo "<p class='vendor'>Vendor: <a href=\"".$currentFile."?vendor=".$row['VendorName']."\"> ".$row['VendorName']." </a></p>";
                 //}
                 if (!empty($row['Subjects'])) {
                     echo "<div class='subjects'><ul class='subjectTags'><li>Subject";
@@ -567,8 +569,7 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
 
 <?php
 }
-     //show multi on all pages
-?>
+     //show multi on all pages ?>
 </div>
 <?php
 mysqli_close($conLuptonDB);
@@ -576,12 +577,8 @@ mysqli_close($conLuptonDB);
 include($_SERVER['DOCUMENT_ROOT']."/includes/foot-v2.php");
 echo "
 <script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
+<script src='../../includes/js/db.js'></script>
 <script>
-$('#search-highlight').hideseek({
-		min_chars: 3,
-		highlight: true,
-	nodata: 'No results found'
-});
 $(document).ready(function() {
   restartTooltip();
   var url = window.location.pathname;
@@ -599,14 +596,14 @@ $(document).ready(function() {
 }
 });";
 echo "\n";
-if ($outputLG != ""){
-	echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul><div class='subjectGuideDesc'>Looking for more? Check out our research guide for books, websites, and other suggested resources curated by UTC Librarians.</div></div>\");";
+if ($outputLG != "") {
+    echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul><div class='subjectGuideDesc'>Looking for more? Check out our research guide for books, websites, and other suggested resources curated by UTC Librarians.</div></div>\");";
 }
-if ($typeExists > 1){
-	echo "$('#typeList').append('s');";
+if ($typeExists > 1) {
+    echo "$('#typeList').append('s');";
 }
-if ($subjectExists > 1){
-	echo "$('#subjectList').append('s');";
+if ($subjectExists > 1) {
+    echo "$('#subjectList').append('s');";
 }
 echo"
 /* get content of totalCount */
@@ -617,7 +614,6 @@ $('#search-highlight').keyup(function() {
 			$('#totalResults').html(cloneTotalResults);
         $('#alphaRankedSortBtn').show();
         $('#promos').slideDown();
-        //$('.featureBox').slideDown();
 		}
 		else{
       $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://www.utc.edu/library\" target=\"_blank\">Quick Search</a>.</p>');
@@ -685,30 +681,6 @@ function resetsearch() {
     press.which = 8;
     $('#search-highlight').trigger(press);
 }
-/* reload page on subject select */
-$( '#subjectSelect' ).change(function() {
-  window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#subjectSelect').val();
- });
- /* reload page on type select */
- $( '#typeSelect' ).change(function() {
-   window.location.href = window.location.href.split('?')[0] + '?alpha=ALL&subj=' + $( '#typeSelect').val();
-  });
-  function restartTooltip(){
-    $('[data-toggle=\"tooltip\"]').tooltip();
-  }
-  $(function(){
-    $('[data-toggle=popover]').popover({
-        html : true,
-        content: function() {
-          var content = $(this).attr('data-popover-content');
-          return $(content).children('.popover-body').html();
-        },
-        title: function() {
-          var title = $(this).attr('data-popover-content');
-          return $(title).children('.popover-heading').html();
-        }
-    });
-});
 Popper.Defaults.modifiers.computeStyle.gpuAcceleration = !(window.devicePixelRatio < 1.5 && /Win/.test(navigator.platform));
 $('body').on('click', function (e) {
         //did not click a popover toggle, or icon in popover toggle, or popover
@@ -719,54 +691,5 @@ $('body').on('click', function (e) {
             $('[data-toggle=\"popover\"]').popover('hide');
         }
     });
-
-    function showIntro(){
-    $('#libraryh3lp').css('position', 'absolute');
-    var intro = introJs().setOptions({
-      scrollTo: 'tooltip',
-      steps: [
-        {
-          element: document.querySelector('#content h1'),
-          intro: 'Welcome to our new databases page! This page can help you find the UTC Library database that best meets your information needs.'
-        },
-        {
-          element: document.querySelector('#alphalist'),
-          intro: 'Filter using the first letter of the database name, subject area, or resource type.'
-        },
-        {
-          element: document.querySelector('#search-highlight'),
-          intro: 'Search for databases by name or description.'
-        },
-        {
-          element: document.querySelector('#limitByGroup'),
-          intro: 'Filter databases by subject area or resource type.'
-        },
-        {
-          element: document.querySelector('.fa-info-circle'),
-          intro: 'Learn more about databases and related resources.'
-        },
-        {
-          element: document.querySelector('.promoCard1'),
-          intro: 'Muti-subject databases are a great place to start your research.'
-        },
-        {
-          element: document.querySelector('#libraryh3lp'),
-          intro: 'Need help selecting a database or with your research? Ask a Librarian!'
-        }
-      ].filter(function (obj) {
-        return $(obj.element).parent().is(':visible');
-      })
-    }).start();
-
-    intro.onexit( function(){
-      $('#libraryh3lp').css('position', 'fixed');
-    });
-
-}
-function scrollToBox(){
-  $('html, body').animate({
-        scrollTop: $('.filters').offset().top
-    }, 500);
-};
 </script>";
 ?>
