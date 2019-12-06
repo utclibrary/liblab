@@ -1,7 +1,6 @@
 <?php
-// updates for v2 bootstrap 4 only
 //error reporting - default N offx
-$errorReporting = "Y";
+$errorReporting = "N";
 //template system to replicate main website look and feel
 $title = "Databases | UTC Library";
 $description = "Databases available at the UTC Library.";
@@ -22,30 +21,13 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/includes/dbconnect.php';
 $lastLetter = "";$currentLetter = "";//used with $currentletter to track and insert alpha for each group in list
 $error = "An error has occurded";//set database error message
 //  set variables in case paramater is not passed
-$typeExists = 0;
-$subjectExists = 0;
+$typeExists = $subjectExists = 0;
 $alpha = "ALL";
-$queryKey = "";
-$queryKeySubj = "";
-$urlsubjappend="";
-$queryKeySubjAtoZ="";
-$outputSLA = "";
-$outputLG = "";
-$h1Prepend = "";
-//try adding by filter by contentType
-$contentType = "";
-$queryContentType = "";
+$queryKey = $queryKeySubj = $outputSLA = $outputLG = $h1Prepend = $contentType = $queryContentType = "";
 if (isset($_GET["type"])) {
     $contentType = htmlentities($_GET["type"]);
     $h1Prepend = $contentType;
     $queryContentType = "AND ContentType = '" .$contentType. "'";
-}//try adding by filter by contentType
-$vendor = "";
-$queryVendor = "";
-if (isset($_GET["vendor"])) {
-    $vendor = htmlentities($_GET["vendor"]);
-    $h1Prepend = $vendor;
-    $queryVendor = "AND VendorName = '" .$vendor. "'";
 }
 // get subject param if set
 if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
@@ -63,32 +45,13 @@ if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
     $('ul#alphalist > li').each(function(){
       $(this).addClass('emptyAlpha');
     });
- //     //remove hand cursor from alpha
- //     $('ul#alphalist > li > a.alpha').css('cursor', 'default');
- //     //override hover functions
- //     $('a.alpha').hover(function() {
- //     $(this).css('background-color', '#dde6ee');
- //     $(this).css('color','#00386b');
- // }, function() {
- //     $(this).css('background-color', '#dde6ee');
- //     $(this).css('color','#00386b');
- // });
- // //prevent click function
- //     $('ul#alphalist > li > a.alpha').click(function(e){
- //        e.preventDefault();
- //      });
   });
   </script>
   ";
         // sanitize
         $subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
         // set query variables for subjects used in main $query
-        $queryKeySubj="AND (SubjectList.Subject LIKE '".$subject."' OR SubjectList.Subject = 'New')";
-        //this is used in alpha query to show letters available in this subject
-        $queryKeySubjAtoZ="AND SubjectList.Subject LIKE '".$subject."'";
-        // create append for alpha clicks within subject
-        //$urlsubjappend = "&subj=".$subj;
-
+        $queryKeySubj = "AND SubjectList.Subject LIKE '".$subject."'";
         // hide alpha badges on subject pages
         echo "<style>h2.badge,div.subjects{display:none;}</style>";
         // set order by used in $query
@@ -189,13 +152,11 @@ $alphaListFull="";
 $queryAlpha = "SELECT DISTINCT
 LEFT(Title, 1) as letter
 FROM LuptonDB.Dbases
-LEFT JOIN LuptonDB.Vendor
-ON Dbases.Vendor_ID = Vendor.Vendor_ID
 LEFT JOIN LuptonDB.DBRanking
 ON Dbases.Key_ID = DBRanking.Key_ID
 LEFT JOIN LuptonDB.SubjectList
 ON DBRanking.Subject_ID = SubjectList.Subject_ID
-WHERE Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKeySubjAtoZ.$queryContentType.$queryVendor."
+WHERE Dbases.Key_ID <> 529 AND Dbases.Masked = 0 ".$queryKeySubj.$queryContentType."
 ORDER BY letter";
 //echo "<pre>".$queryAlpha."</pre>";
 $alphaList = mysqli_query($conLuptonDB, "set names 'utf8'");
@@ -207,14 +168,6 @@ echo "
 
 <ul id='alphalist' class='nav nav-fill'>";
 
-//if ($alpha === "num"){
-//echo "<li class='active'>";
-//}
-//else{
-    //echo "<li>";
-//}
-//echo "<a href='".$currentFile."?alpha=num'>#</a></li>";
-// loop through A to Z highight if selected
 foreach (range('A', 'Z') as $column) {
     if ($column == $alpha) {
         echo "<li class='active'>";
@@ -224,7 +177,7 @@ foreach (range('A', 'Z') as $column) {
         // if letter not in query change class to grey it out
         echo "<li class='emptyAlpha'>";
     }
-    echo "<a class='alpha' href=\"".$currentFile."?alpha=".$column.$urlsubjappend."\"> ".$column." </a></li>";
+    echo "<a class='alpha' href=\"".$currentFile."?alpha=".$column."\"> ".$column." </a></li>";
 }
 echo "
 </ul>
@@ -243,7 +196,6 @@ $resultSL = mysqli_query($conLuptonDB, $querySubjectList) or die($error);
       echo"";
   }
       //show subject select box atoz and subject selected
-//if ($alpha === "ALL"){
 echo "
 <div class='row topMargin' id='searchbox'>
 	<div class='col'>
@@ -268,7 +220,7 @@ echo "
   }
   echo "</select></div><!-- .com-md .topMargin -->
 	<div class='col-md topMargin'>";
-//}
+
 //select by type
 // get a list of current subjects for select box
 $queryTypeList = reuseSubjQuery(1, "");
@@ -281,10 +233,9 @@ if (!mysqli_num_rows($resultTL)) {//if no results disable select box
 } else {
     $resultTLdisabled="";
 }
+
   //show search box only on full atoz
-  if (($subj === "A to Z")&&($alpha === "ALL")) {
-      //echo"";
-  } else {
+  if ((($subj !== "A to Z")&&($alpha === "ALL"))OR($alpha !== "ALL")) {
       //only scroll after selecting action
       echo "
     <script type='text/javascript'>
@@ -293,8 +244,6 @@ if (!mysqli_num_rows($resultTL)) {//if no results disable select box
         });
     </script>";
   }
-      //show subject select box atoz and subject selected
-//if ($alpha === "ALL"){
 echo"
       <label for='typeSelect'>Limit by Type</label>
       <select class='form-control' id='typeSelect' ".$resultTLdisabled.">
@@ -307,13 +256,9 @@ echo"
       echo" value=\"".$row['Subject']."\">".$row['Subject']."</option>";
   }
   echo "</select></div><!-- .com-md .topMargin -->";
-//}
 // END select by type
-
     echo"</div>";
-    if (($alpha === "ALL")&&($subj === "A to Z")&&($vendor === "")&&($contentType === "")) {
-        //echo "<div class='row topMargin'><div class='col'><a class='fa fa-2x fa-question-circle float-right' href='javascript:void(0);' data-toggle='tooltip' title='' data-original-title='Show me how to use this page'onclick='javascript:introJs().start();'></a></div></div>";
-        //echo "<a id='atoz-reset-btn-disabled' class='active btn btn-large'>RESET</a>";
+    if (($alpha === "ALL")&&($subj === "A to Z")&&($contentType === "")) {
     } else {
         echo "<div class='row topMargin'>
                 <div class='col'>
@@ -333,33 +278,28 @@ echo"
     <strong> Start Tour</strong>
 </a>
 </div>
-<!-- hide this for now
-                                            <div class="featureBox">
-                                              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
-                                              <hr class="featureHR">
--->
 <?php
         } elseif (($outputSLA === "")&&($alpha !== "ALL")) {
-        ?>
+            ?>
 		            <div class="featureBox">
 		              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
 		              <hr class="featureHR">
                   <?php
             $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
 							  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
-        $result = mysqli_query($conLuptonDB, $randquery) or die($error);
+            $result = mysqli_query($conLuptonDB, $randquery) or die($error);
 
-        if (!mysqli_num_rows($result)) {
-            echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
-        } else {
-            generatelist($result);
-        } ?>
+            if (!mysqli_num_rows($result)) {
+                echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+            } else {
+                generatelist($result);
+            } ?>
 		            </div><!-- close feature box -->
   <?php
-    } else {
-        // show subjects by alpha
-        echo $outputSLA;
-    }
+        } else {
+            // show subjects by alpha
+            echo $outputSLA;
+        }
     echo "</div></div></div><!-- close .filters .col & .row -->
 		";
     // wrap in conditional to check for default page
@@ -373,7 +313,6 @@ echo"
 <?php
 $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
         $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
-
         if (!mysqli_num_rows($resultMulti)) {
             echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
         } else {
@@ -388,7 +327,6 @@ $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbas
 <?php
 $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'NEW' AND DBRanking.TryTheseFirst = 1 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
         $result = mysqli_query($conLuptonDB, $newquery) or die($error);
-
         if (!mysqli_num_rows($result)) {
             echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
         } else {
@@ -396,22 +334,17 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
         } ?>
       </div>
     </div>
-
     </div>
 <?php
     }//end check to show promo content on default page
-
 // main query to generate lists of dbs
-$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,VendorName,
-GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
+$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
           FROM LuptonDB.Dbases
-          LEFT JOIN LuptonDB.Vendor
-          ON Dbases.Vendor_ID = Vendor.Vendor_ID
           LEFT JOIN LuptonDB.DBRanking
-          ON Dbases.Key_ID = DBRanking.Key_ID
+          ON DBRanking.Key_ID = Dbases.Key_ID
           LEFT JOIN LuptonDB.SubjectList
           ON DBRanking.Subject_ID = SubjectList.Subject_ID
-					WHERE Dbases.Key_ID <> 529 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ".$queryKey.$queryKeySubj.$queryContentType.$queryVendor."
+					WHERE Dbases.Key_ID <> 529 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ".$queryKey.$queryKeySubj.$queryContentType."
           GROUP BY Title
           ORDER by ".$orderby;
          //echo "<pre>".$query."</pre>";
@@ -449,7 +382,6 @@ if (!mysqli_num_rows($result)) {
 
 </div>
 		<div id='subject_list_items' class='highlight_list'>
-
       <?php
                 } else {
                     echo "</div><div class='highlight_list'>";
@@ -497,9 +429,6 @@ if (!mysqli_num_rows($result)) {
                     echo "<span class='limitTo'> Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
                 }
                 echo "</p>";
-                //if (!empty($row['VendorName'])) {
-                //  echo "<p class='vendor'>Vendor: <a href=\"".$currentFile."?vendor=".$row['VendorName']."\"> ".$row['VendorName']." </a></p>";
-                //}
                 if (!empty($row['Subjects'])) {
                     echo "<div class='subjects'><ul class='subjectTags'><li>Subject";
                     if ((strpos($row['Subjects'], '</li><li>') == false)||(preg_match('/^<li>(.*?)(?!<li>)(.*?)<li>New<\/li>$|^<li>New<\/li>(.*?)(?!<li>)(.*?)<\/li>$/', $row['Subjects']))) {//single item or single item + new
@@ -514,87 +443,12 @@ if (!mysqli_num_rows($result)) {
     }
 }
 echo "</div><!-- highlight_list -->";
-
-//this is where the content goes for the right menu could also use
-// temp turn off but keep code for DOMEntityReference
-$rightmenu = 0;
- if ($rightmenu==3) {
-     ?>
- </div> <!-- close content div -->
-<div id="multiSubject" class="span3">
-<div class="sidebar well">
-<h2 class="welltopperGold">
-<i class="icon-search"><span class="hidden"> Multi-subject</span> </i>Multi-subject</h2>
-<?php
-$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
-     $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
-
-     if (!mysqli_num_rows($resultMulti)) {
-         echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
-     } else {
-         generatelist($resultMulti);
-     } ?>
-</div>
-<?php
-// only show new on home page
-if (($alpha=== "ALL")&&($subj === "A to Z")) {
-    ?>
-    <div id="checkItOut" class="sidebar well">
-     <h2 class="welltopperGray">
- <i class="icon-star"><span class="hidden"> Check it out</span> </i>Check Out</h2>
- <?php
- $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
- WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
-    $result = mysqli_query($conLuptonDB, $randquery) or die($error);
-
-    if (!mysqli_num_rows($result)) {
-        echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
-    } else {
-        generatelist($result);
-    } ?>
-</div>
-<div id="newDBs" class="sidebar well">
-<h2 class="welltopperBlue">
-<i class="icon-bullhorn"><span class="hidden"> New</span> </i>New</h2>
-<?php
-$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'NEW' AND DBRanking.TryTheseFirst = 1 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
-    $result = mysqli_query($conLuptonDB, $newquery) or die($error);
-
-    if (!mysqli_num_rows($result)) {
-        echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
-    } else {
-        generatelist($result);
-    } ?>
-</div>
-
-<?php
-}
-     //show multi on all pages ?>
-</div>
-<?php
-mysqli_close($conLuptonDB);
- }
 include($_SERVER['DOCUMENT_ROOT']."/includes/foot-v2.php");
 echo "
 <script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
 <script src='../../includes/js/db.js'></script>
 <script>
-$(document).ready(function() {
-  restartTooltip();
-  var url = window.location.pathname;
-  var filename = url.substring(url.lastIndexOf('/')+1);
-  $( '.subjects li' ).each(function() {
-    var subject = $( this ).text();
-    if (subject =='New'){
-      //$(this).html('<span class=\"badge badge-success\">NEW !</span>');
-      //$(this).closest('li').addClass('float-right');
-      $(this).closest('li').hide();
-    }else{
-      if (subject.indexOf('Subject') <= -1){
-    $(this).html('<a href=\"'+ filename + '?subj=' + subject + '\">' + subject + '</a>');
-    }
-}
-});";
+$(document).ready(function() {";
 echo "\n";
 if ($outputLG != "") {
     echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul><div class='subjectGuideDesc'>Looking for more? Check out our research guide for books, websites, and other suggested resources curated by UTC Librarians.</div></div>\");";
@@ -606,90 +460,6 @@ if ($subjectExists > 1) {
     echo "$('#subjectList').append('s');";
 }
 echo"
-/* get content of totalCount */
-var cloneTotalResults = $('#totalResults').text();
-/* on keyup modify total results or reset to orig */
-$('#search-highlight').keyup(function() {
-		if ($(this).val() == '') { // check if value changed
-			$('#totalResults').html(cloneTotalResults);
-        $('#alphaRankedSortBtn').show();
-        $('#promos').slideDown();
-		}
-		else{
-      $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://www.utc.edu/library\" target=\"_blank\">Quick Search</a>.</p>');
-			var totalResults = $('.dbCard:visible').length;
-				$('#totalResults').html('Total results: ' + totalResults);
-		}
-});
-$('[data-toggle=\"tooltip\"]').tooltip();
-$('h2#Letter1').text('#');
-/* jquery for clearable fields */
-
-// CLEARABLE INPUT
-function tog(v){return v?'addClass':'removeClass';}
-$(document).on('input', '.clearable', function(){
-  $('#alphaRankedSortBtn').hide();
-  $('#promos').slideUp();
-  //$('.featureBox').slideUp();
-	$(this).addClass('input-hold');
-	$('.clearable')[tog(this.value)]('x');
-}).on('mousemove', '.x', function( e ){
-	$('.clearable')[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');  $(this).removeClass('input-hold');
-}).on('touchstart click', '.onX', function( ev ){
-  $(this).removeClass('input-hold');
-	ev.preventDefault();
-	$('.clearable').removeClass('x onX').val('').change();
-	$('#totalResults').html(cloneTotalResults);
-resetsearch();
-});
-var divContent = $('div.dbCard');
-$('#numBtn').attr('disabled', 'disabled');
-var sliContent = $('#subject_list_items').html();
-$('#alphBtn').on('click', function () {
-$('#numBtn').removeAttr('disabled');
-$(this).attr('disabled', 'disabled');
-var alphabeticallyOrderedDivs = divContent.sort(function (a, b) {
-  //return $(a).find('a').text() > $(b).find('a').text();
-  return $(a).find('h3.dbTitle > a').text() > $(b).find('h3.dbTitle a').text()  ? 1 : -1;
-});
-$('#subject_list_items').html(alphabeticallyOrderedDivs);
-restartTooltip();
-});
-
-$('#numBtn').on('click', function () {
-$('#alphBtn').removeAttr('disabled');
-$(this).attr('disabled', 'disabled');
-$('#subject_list_items').html(sliContent);
-  restartTooltip();
-});
 });/* close doc ready */
-function resetsearch() {
-    $('#alphaRankedSortBtn').show();
-    $('#search-highlight').val('').trigger('keyup').focus();
-    var press = jQuery.Event('keypress');
-    press.bubbles = true;
-    press.cancelable = true;
-    press.charCode = 8;
-    press.currentTarget = $('#search')[0];
-    press.eventPhase = 2;
-    press.keyCode = 8;
-    press.returnValue = true;
-    press.srcElement = $('#search')[0];
-    press.target = $('#search')[0];
-    press.type = 'keyup';
-    press.view = Window;
-    press.which = 8;
-    $('#search-highlight').trigger(press);
-}
-Popper.Defaults.modifiers.computeStyle.gpuAcceleration = !(window.devicePixelRatio < 1.5 && /Win/.test(navigator.platform));
-$('body').on('click', function (e) {
-        //did not click a popover toggle, or icon in popover toggle, or popover
-        if ($(e.target).data('toggle') !== 'popover'
-            && (!$(e.target).parents().hasClass('popover'))
-            && $(e.target).parents('[data-toggle=\"popover\"]').length === 0
-            && $(e.target).parents('.popover.in').length === 0) {
-            $('[data-toggle=\"popover\"]').popover('hide');
-        }
-    });
 </script>";
 ?>

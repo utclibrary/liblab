@@ -1,5 +1,78 @@
-console.log('db.js loaded');
+$(document).ready(function() {
+  restartTooltip();
+  var url = window.location.pathname;
+  var filename = url.substring(url.lastIndexOf('/') + 1);
+  $('.subjects li').each(function() {
+    var subject = $(this).text();
+    if (subject == 'New') {
+      //$(this).html('<span class=\"badge badge-success\">NEW !</span>');
+      //$(this).closest('li').addClass('float-right');
+      $(this).closest('li').hide();
+    } else {
+      if (subject.indexOf('Subject') <= -1) {
+        $(this).html('<a href=\"' + filename + '?subj=' + subject + '\">' + subject + '</a>');
+      }
+    }
+  });
+  /* get content of totalCount */
+  var cloneTotalResults = $('#totalResults').text();
+  /* on keyup modify total results or reset to orig */
+  $('#search-highlight').keyup(function() {
+    if ($(this).val() == '') { // check if value changed
+      $('#totalResults').html(cloneTotalResults);
+      $('#alphaRankedSortBtn').show();
+      $('#promos').slideDown();
+    } else {
+      $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://www.utc.edu/library\" target=\"_blank\">Quick Search</a>.</p>');
+      var totalResults = $('.dbCard:visible').length;
+      $('#totalResults').html('Total results: ' + totalResults);
+    }
+  });
+  $('[data-toggle=\"tooltip\"]').tooltip();
+  $('h2#Letter1').text('#');
+  /* jquery for clearable fields */
 
+  // CLEARABLE INPUT
+  function tog(v) {
+    return v ? 'addClass' : 'removeClass';
+  }
+  $(document).on('input', '.clearable', function() {
+    $('#alphaRankedSortBtn').hide();
+    $('#promos').slideUp();
+    //$('.featureBox').slideUp();
+    $(this).addClass('input-hold');
+    $('.clearable')[tog(this.value)]('x');
+  }).on('mousemove', '.x', function(e) {
+    $('.clearable')[tog(this.offsetWidth - 18 < e.clientX - this.getBoundingClientRect().left)]('onX');
+    $(this).removeClass('input-hold');
+  }).on('touchstart click', '.onX', { passive: true }, function(ev) {
+    $(this).removeClass('input-hold');
+    ev.preventDefault();
+    $('.clearable').removeClass('x onX').val('').change();
+    $('#totalResults').html(cloneTotalResults);
+    resetsearch();
+  });
+  var divContent = $('div.dbCard');
+  $('#numBtn').attr('disabled', 'disabled');
+  var sliContent = $('#subject_list_items').html();
+  $('#alphBtn').on('click', function() {
+    $('#numBtn').removeAttr('disabled');
+    $(this).attr('disabled', 'disabled');
+    var alphabeticallyOrderedDivs = divContent.sort(function(a, b) {
+      //return $(a).find('a').text() > $(b).find('a').text();
+      return $(a).find('h3.dbTitle > a').text() > $(b).find('h3.dbTitle a').text() ? 1 : -1;
+    });
+    $('#subject_list_items').html(alphabeticallyOrderedDivs);
+    restartTooltip();
+  });
+  $('#numBtn').on('click', function() {
+    $('#alphBtn').removeAttr('disabled');
+    $(this).attr('disabled', 'disabled');
+    $('#subject_list_items').html(sliContent);
+    restartTooltip();
+  });
+
+}); /* close doc ready */
 $('#search-highlight').hideseek({
   min_chars: 3,
   highlight: true,
@@ -78,4 +151,33 @@ $(function() {
       return $(title).children('.popover-heading').html();
     }
   });
+});
+
+function resetsearch() {
+  $('#alphaRankedSortBtn').show();
+  $('#search-highlight').val('').trigger('keyup').focus();
+  var press = jQuery.Event('keypress');
+  press.bubbles = true;
+  press.cancelable = true;
+  press.charCode = 8;
+  press.currentTarget = $('#search')[0];
+  press.eventPhase = 2;
+  press.keyCode = 8;
+  press.returnValue = true;
+  press.srcElement = $('#search')[0];
+  press.target = $('#search')[0];
+  press.type = 'keyup';
+  press.view = Window;
+  press.which = 8;
+  $('#search-highlight').trigger(press);
+}
+Popper.Defaults.modifiers.computeStyle.gpuAcceleration = !(window.devicePixelRatio < 1.5 && /Win/.test(navigator.platform));
+$('body').on('click', function(e) {
+  //did not click a popover toggle, or icon in popover toggle, or popover
+  if ($(e.target).data('toggle') !== 'popover' &&
+    (!$(e.target).parents().hasClass('popover')) &&
+    $(e.target).parents('[data-toggle=\"popover\"]').length === 0 &&
+    $(e.target).parents('.popover.in').length === 0) {
+    $('[data-toggle=\"popover\"]').popover('hide');
+  }
 });
