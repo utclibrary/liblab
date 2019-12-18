@@ -1,3 +1,4 @@
+console.log("loaded");
 $(document).ready(function() {
   restartTooltip();
   var url = window.location.pathname;
@@ -5,8 +6,6 @@ $(document).ready(function() {
   $('.subjects li').each(function() {
     var subject = $(this).text();
     if (subject == 'New') {
-      //$(this).html('<span class=\"badge badge-success\">NEW !</span>');
-      //$(this).closest('li').addClass('float-right');
       $(this).closest('li').hide();
     } else {
       if (subject.indexOf('Subject') <= -1) {
@@ -16,6 +15,8 @@ $(document).ready(function() {
   });
   /* get content of totalCount */
   var cloneTotalResults = $('#totalResults').text();
+  /* get content from list */
+  var highlightListContent = $('.highlight_list').html();
   /* on keyup modify total results or reset to orig */
   $('#search-highlight').keyup(function() {
     if ($(this).val() == '') { // check if value changed
@@ -23,15 +24,14 @@ $(document).ready(function() {
       $('#alphaRankedSortBtn').show();
       $('#promos').slideDown();
     } else {
-      $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://www.utc.edu/library\" target=\"_blank\">Quick Search</a>.</p>');
+      var term = $(this).val();
+      $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://utc.primo.exlibrisgroup.com/discovery/search?query=any,contains,' + term + '&tab=Everything&search_scope=MyInst_and_CI&vid=01UTC_INST:01UTC&offset=0\" target=\"_blank\">Quick Search (for \"' + term + '\")</a>.</p>');
       var totalResults = $('.dbCard:visible').length;
       $('#totalResults').html('Total results: ' + totalResults);
     }
   });
   $('[data-toggle=\"tooltip\"]').tooltip();
-  $('h2#Letter1').text('#');
   /* jquery for clearable fields */
-
   // CLEARABLE INPUT
   function tog(v) {
     return v ? 'addClass' : 'removeClass';
@@ -39,7 +39,7 @@ $(document).ready(function() {
   $(document).on('input', '.clearable', function() {
     $('#alphaRankedSortBtn').hide();
     $('#promos').slideUp();
-    //$('.featureBox').slideUp();
+    $('.highlight_list').html(highlightListContent);
     $(this).addClass('input-hold');
     $('.clearable')[tog(this.value)]('x');
   }).on('mousemove', '.x', function(e) {
@@ -50,6 +50,7 @@ $(document).ready(function() {
     ev.preventDefault();
     $('.clearable').removeClass('x onX').val('').change();
     $('#totalResults').html(cloneTotalResults);
+    $('.highlight_list').html(highlightListContent); $('h2#Letter1').text('#');
     resetsearch();
   });
   var divContent = $('div.dbCard');
@@ -59,7 +60,6 @@ $(document).ready(function() {
     $('#numBtn').removeAttr('disabled');
     $(this).attr('disabled', 'disabled');
     var alphabeticallyOrderedDivs = divContent.sort(function(a, b) {
-      //return $(a).find('a').text() > $(b).find('a').text();
       return $(a).find('h3.dbTitle > a').text() > $(b).find('h3.dbTitle a').text() ? 1 : -1;
     });
     $('#subject_list_items').html(alphabeticallyOrderedDivs);
