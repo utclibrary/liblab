@@ -1,18 +1,6 @@
 <?php
 //error reporting - default N offx
 $errorReporting = "N";
-//template system to replicate main website look and feel
-$title = "Databases | UTC Library";
-$description = "Databases available at the UTC Library.";
-$keywords = "databases";
-//in case you need to add anything in the head or footer
-$addhead = "<link rel='stylesheet' type='text/css' href='/includes/css/introjs.css' media='all'>";
-$addfoot = "<script type='text/javascript' src='/includes/js/intro.js'></script>";
-//show or hide help button
-$help = "show";
-// include new head and php functions for db display - reused for lg lists
-include($_SERVER['DOCUMENT_ROOT']."/includes/head-v2.php");
-include($_SERVER['DOCUMENT_ROOT']."/includes/functions.inc");
 // Get current file name and directory to use in links
 $currentFile = $_SERVER['PHP_SELF'];
 // connect to database
@@ -20,10 +8,9 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/includes/dbconnect.php';
 // declare variables
 $lastLetter = "";$currentLetter = "";//used with $currentletter to track and insert alpha for each group in list
 $error = "An error has occurded";//set database error message
-//  set variables in case paramater is not passed
-$typeExists = $subjectExists = 0;
-$alpha = "ALL";
-$queryKey = $queryKeySubj = $outputSLA = $outputLG = $h1Prepend = $contentType = $queryContentType = "";
+//  set variables
+$typeExists = $subjectExists = 0; $alpha = "ALL";
+$queryKey = $queryKeySubj = $outputSLA = $outputLG = $h1Prepend = $contentType = $queryContentType = $queryKeyAlpha = $displayAlpha = $lgURL = $lgDescription = "";
 if (isset($_GET["type"])) {
     $contentType = htmlentities($_GET["type"]);
     $h1Prepend = $contentType;
@@ -39,15 +26,6 @@ if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
         $subj = "A to Z";
         $orderby = "Dbases.Title";
     } else {
-        echo"
-  <script>
-  $(document).ready(function() {
-    $('ul#alphalist > li').each(function(){
-      $(this).addClass('emptyAlpha');
-    });
-  });
-  </script>
-  ";
         // sanitize
         $subject = preg_replace('/[^a-zA-Z0-9]+/', '%', $subj);
         // set query variables for subjects used in main $query
@@ -65,8 +43,6 @@ if (isset($_GET["subj"])&&($_GET["subj"] !== "All")) {
     $orderby = "Dbases.Title";
 }
 // get alpha if set
-$queryKeyAlpha = "";
-$displayAlpha = "";
 if (isset($_GET["alpha"])) {
     $alpha = $_GET["alpha"];
     $displayAlpha = " - ".$alpha;
@@ -95,7 +71,6 @@ ORDER BY SubjectList.Format , SubjectList.Subject
     $resultSLA = mysqli_query($conLuptonDB, $querySubjectListAlpha) or die($error);
     $totalRows = mysqli_num_rows($resultSLA);
     if (mysqli_num_rows($resultSLA)!=0) {
-        // need to apply styling for this section
         $outputSLA .= "<div id='outputSLA' class='featureBox'>
 				<h3 id='subjectList' class='featureTitle'>Subject";
         $outputSLA .= "</h3><hr class='featureHR'/><ul>";
@@ -113,9 +88,20 @@ ORDER BY SubjectList.Format , SubjectList.Subject
         }
         $outputSLA .= "</ul></div>";
     }
-
     //echo $outputSLA;
 }//close letter set
+//template system to replicate main website look and feel
+$title = $h1Prepend." Databases".$displayAlpha." | UTC Library";
+$description = $h1Prepend." Databases".$displayAlpha." available at the UTC Library.";
+$keywords = "databases, ".$h1Prepend;
+//in case you need to add anything in the head or footer
+$addhead = "<link rel='stylesheet' type='text/css' href='/includes/css/introjs.css' media='all'>";
+$addfoot = "<script type='text/javascript' src='/includes/js/intro.js'></script>";
+//show or hide help button
+$help = "show";
+// include new head and php functions for db display - reused for lg lists
+include($_SERVER['DOCUMENT_ROOT']."/includes/head-v2.php");
+include($_SERVER['DOCUMENT_ROOT']."/includes/functions.inc");
 // this changes dynamcially based on subject paramater - jquery updates the page title
 echo "
 <div class='row'>
@@ -127,12 +113,7 @@ echo "
   <button class="btn fas fa-info-circle pageInfoPopper" data-toggle="popover" a="" href="#" data-popover-content="#pageInfo" data-original-title="" title="" aria-describedby="popover276455"></button>
 
   <?php
-echo "<h1>".$h1Prepend." Databases".$displayAlpha."</h1>
-<script type='text/javascript'>
-    $(document).ready(function() {
-        document.title = \"".$h1Prepend." Databases".$displayAlpha." | UTC Library\";
-    });
-</script>";
+echo "<h1>".$h1Prepend." Databases".$displayAlpha."</h1>";
 ?>
 <div id="pageInfo" class="hidden">
    <div class="popover-heading"><span class="infoHeading">What is this page?</span></div>
@@ -169,13 +150,18 @@ echo "
 <ul id='alphalist' class='nav nav-fill'>";
 
 foreach (range('A', 'Z') as $column) {
-    if ($column == $alpha) {
-        echo "<li class='active'>";
-    } elseif (strpos($alphaListFull, $column) !== false) {
-        echo "<li>";
+  // check to see if subject or type selected
+    if ($orderby !== "DBRanking.Ranking") {
+        if ($column == $alpha) {
+            echo "<li class='active'>";
+        } elseif (strpos($alphaListFull, $column) !== false) {
+            echo "<li>";
+        } else {
+            // if letter not in query change class to grey it out
+            echo "<li class='emptyAlpha'>";
+        }
     } else {
-        // if letter not in query change class to grey it out
-        echo "<li class='emptyAlpha'>";
+        echo "<li class='emptyAlpha'>";// if subject or type selected grey out all alpha buttons
     }
     echo "<a class='alpha' href=\"".$currentFile."?alpha=".$column."\"> ".$column." </a></li>";
 }
@@ -235,7 +221,7 @@ if (!mysqli_num_rows($resultTL)) {//if no results disable select box
 }
 
   //show search box only on full atoz
-  if ((($subj !== "A to Z")&&($alpha === "ALL"))OR($alpha !== "ALL")) {
+  if ((($subj !== "A to Z")&&($alpha === "ALL"))or($alpha !== "ALL")) {
       //only scroll after selecting action
       echo "
     <script type='text/javascript'>
@@ -325,10 +311,10 @@ $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbas
     <h2 class="promoTitle">
 <span class="fas fa-bullhorn"></span>&nbsp;New Databases</h2>
 <?php
-$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'NEW' AND DBRanking.TryTheseFirst = 1 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases WHERE Dbases.New = 1 ORDER BY Dbases.Title";
         $result = mysqli_query($conLuptonDB, $newquery) or die($error);
         if (!mysqli_num_rows($result)) {
-            echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
+            echo "There are no databases meeting the parameters</p>";
         } else {
             generatelist($result);
         } ?>
@@ -338,7 +324,7 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
 <?php
     }//end check to show promo content on default page
 // main query to generate lists of dbs
-$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
+$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.TutorialURL, Dbases.SimUsers, Dbases.ShortURL, Dbases.New, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
           FROM LuptonDB.Dbases
           LEFT JOIN LuptonDB.DBRanking
           ON DBRanking.Key_ID = Dbases.Key_ID
@@ -390,7 +376,10 @@ if (!mysqli_num_rows($result)) {
             }
             // create styled letter SEPARATOR
             $currentletter = strtoupper(substr($row['Title'], 0, 1));
-            if (($lastLetter != $currentletter)&&(preg_match("/[A-Z]|1/i", $currentletter))) {
+            if ($currentletter === "1") {
+                $currentletter = "#";
+            }
+            if (($lastLetter != $currentletter)&&(preg_match("/[A-Z]|#/i", $currentletter))) {
                 echo '<h2 id="Letter' . $currentletter .  '">' . $currentletter . '</h2>';
                 $lastLetter = $currentletter;
             }
@@ -405,7 +394,7 @@ if (!mysqli_num_rows($result)) {
                 if ((($row['TryTheseFirst']) === '1')&&($subj != "A to Z")) {
                     echo "<span class='badge badge-primary float-right'>Try First</span>";
                 }
-                if (strpos($row['Subjects'], '<li>New</li>') !== false) {
+                if ($row['New'] === '1') {
                     echo "<span class='badge badge-warning float-right'> NEW </span>";
                 }
                 //if (!empty($row['ContentType'])) {
@@ -428,6 +417,22 @@ if (!mysqli_num_rows($result)) {
                 } elseif ($row['SimUsers'] > 1) {
                     echo "<span class='limitTo'> Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
                 }
+                /* START add TutorialURL link
+                if (!empty($row['TutorialURL'])) {
+                   echo "<span class='tutorialLink'><span class='fa ";
+                   if (strpos($row['TutorialURL'], '.pdf') !== false) {
+                       echo "fa-file-pdf";
+                       $tutorialType = "Tip Sheet";
+                   } elseif (strpos($row['TutorialURL'], '.xls') !== false) {
+                       echo "fa-file-excel";
+                       $tutorialType = "Spreadsheet";
+                   } else {
+                       echo "fa-file-code";
+                       $tutorialType = "Page";
+                   }
+                   echo "'></span> <a href=\"".$row['TutorialURL']."\" target=\"_blank\"> ".$row['Title']." ".$tutorialType."</a></span>";
+               }
+               END add TutorialURL link */
                 echo "</p>";
                 if (!empty($row['Subjects'])) {
                     echo "<div class='subjects'><ul class='subjectTags'><li>Subject";
@@ -443,15 +448,23 @@ if (!mysqli_num_rows($result)) {
     }
 }
 echo "</div><!-- highlight_list -->";
+// build LibGuide URL for API function calls
+$lgURL = "https:\/\/guides.lib.utc.edu\/".$outputLG;
+// get LibGuide description or set generic description
+//$lgDescription = getLGDescription($lgApiContent, $lgURL);
+//if ($lgDescription === ""){
+    $lgDescription = "Looking for more? Check out our research guide for books, websites, and other suggested resources curated by UTC Librarians.";
+  //}
 include($_SERVER['DOCUMENT_ROOT']."/includes/foot-v2.php");
 echo "
-<script src='//www.utc.edu/library/_resources/js/jquery.hideseek.min.js'></script>
-<script src='../../includes/js/db.js'></script>
+<script src='/includes/js/hideseek.mod.js'></script>
+<script src='/includes/js/db.js'></script>
 <script>
 $(document).ready(function() {";
 echo "\n";
-if ($outputLG != "") {
-    echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul><div class='subjectGuideDesc'>Looking for more? Check out our research guide for books, websites, and other suggested resources curated by UTC Librarians.</div></div>\");";
+// Show LG box if available
+if ((checkLGExists($lgApiContent, $lgURL) !== false)&&($outputLG != "")){
+    echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul><div class='subjectGuideDesc'>".$lgDescription."</div></div>\");";
 }
 if ($typeExists > 1) {
     echo "$('#typeList').append('s');";
