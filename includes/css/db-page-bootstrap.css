@@ -1376,3 +1376,6 @@ letter-spacing: .5px;
 #subject_list_items h2:not(.no-results) {
   display: none !important;
 }
+#content .highlight_list .dbCard mark.highlight{
+  padding: 0;
+}
