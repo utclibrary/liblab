@@ -430,7 +430,7 @@ if (!mysqli_num_rows($result)) {
                 } elseif ($row['SimUsers'] > 1) {
                     echo "<span class='limitTo'> Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
                 }
-                /* START add TutorialURL link
+                /* START add TutorialURL link */
                 if (!empty($row['TutorialURL'])) {
                    echo "<span class='tutorialLink'><span class='fa ";
                    if (strpos($row['TutorialURL'], '.pdf') !== false) {
@@ -445,7 +445,7 @@ if (!mysqli_num_rows($result)) {
                    }
                    echo "'></span> <a href=\"".$row['TutorialURL']."\" target=\"_blank\"> ".$row['Title']." ".$tutorialType."</a></span>";
                }
-               END add TutorialURL link */
+               /* END add TutorialURL link */
                 echo "</p>";
                 if (!empty($row['Subjects'])) {
                     echo "<div class='subjects'><ul class='subjectTags'><li>Subject";
