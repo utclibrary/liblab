@@ -16,7 +16,7 @@ foreach ($datevars as $var) {
 	}
 }
 include('variables.php');
-include('/var/www/html/includes/head.php');
+include ($_SERVER['DOCUMENT_ROOT'].'/includes/head-v2.php');
 include("instructions.php");
 
 
@@ -126,11 +126,18 @@ foreach ($instructions as $step) {
 print "
 <div class='span12'>
 Based on the original <a href='http://www.lib.umn.edu/help/calculator/' target='_blank'>Assignment Calculator</a> from the
-<a href='http://www.lib.umn.edu' target='_blank'>University of Minnesota Libraries</a>.
-<a class='btn pull-right' href='/library/ac'>Restart</a>
+<a href='http://www.lib.umn.edu' target='_blank'>University of Minnesota Libraries</a>.";
+$url = $_SERVER['REQUEST_URI']; //returns the current URL
+$parts = explode('/',$url);
+for ($i = 0; $i < count($parts) - 1; $i++) {
+ $dir .= $parts[$i] . "/";
+}
+
+echo "
+<a href='".$dir."' type='submit'>Restart</a>
 </div>
 </div>
 ";
 
-include ('/var/www/html/includes/foot.php');
+include ($_SERVER['DOCUMENT_ROOT'].'/includes/foot-v2.php');
 ?>
