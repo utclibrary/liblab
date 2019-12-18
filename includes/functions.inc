@@ -1,5 +1,6 @@
 <?php
-function generatelist($result){
+function generatelist($result)
+{
     echo "<ul class='s-lg-link-list'>";
     while ($row = mysqli_fetch_array($result)) {
         echo "<li><a href='";
@@ -41,4 +42,24 @@ function reuseSubjQuery($num, $queryKey)
   ORDER BY SubjectList.Subject
   ";
 }
-?>
+//set persistent API variable
+$lgApiContent = file_get_contents("http://lgapi-us.libapps.com/1.1/guides?site_id=197&key=79bdc1495b75e4857998a4bf192051a6&sort_by=name&status=1");
+// check to see if LibGuide exists
+function checkLGExists($api, $url){
+  return strpos($api, $url);
+}
+//get LibGuide description if it exists
+// function getLGDescription($api, $url){
+//   $parsed = get_string_between($api, 'description', '"friendly_url":"'.$url );
+//   $part = substr($parsed, strrpos($parsed, "{"));
+//   $description = get_string_between($part, "description\":\"", "\",\"redirect_url\"");
+//   return $description;
+// }
+// function get_string_between($string, $start, $end){
+//     $string = ' ' . $string;
+//     $ini = strpos($string, $start);
+//     if ($ini == 0) return '';
+//     $ini += strlen($start);
+//     $len = strpos($string, $end, $ini) - $ini;
+//     return substr($string, $ini, $len);
+// }
