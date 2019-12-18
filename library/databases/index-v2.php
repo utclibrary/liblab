@@ -432,18 +432,7 @@ if (!mysqli_num_rows($result)) {
                 }
                 /* START add TutorialURL link */
                 if (!empty($row['TutorialURL'])) {
-                   echo "<span class='tutorialLink'><span class='fa ";
-                   if (strpos($row['TutorialURL'], '.pdf') !== false) {
-                       echo "fa-file-pdf";
-                       $tutorialType = "Tip Sheet";
-                   } elseif (strpos($row['TutorialURL'], '.xls') !== false) {
-                       echo "fa-file-excel";
-                       $tutorialType = "Spreadsheet";
-                   } else {
-                       echo "fa-file-code";
-                       $tutorialType = "Page";
-                   }
-                   echo "'></span> <a href=\"".$row['TutorialURL']."\" target=\"_blank\"> ".$row['Title']." ".$tutorialType."</a></span>";
+                   echo "<span class='tutorialLink'><span class='fa fa-question-circle'></span> <a href=\"".$row['TutorialURL']."\" target=\"_blank\"> ".$row['Title']." Tip Sheet</a></span>";
                }
                /* END add TutorialURL link */
                 echo "</p>";

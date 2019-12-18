@@ -691,7 +691,14 @@ li.type a {
   font-weight: 600;
   display: block;
 }
-
+.tutorialLink {
+display: block;
+padding: 5px 0px;
+}
+.tutorialLink .fa {
+    color: #e0aa0f;
+    font-size: 15px;
+}
 .vendor {
   color: #454644;
   background: none;
