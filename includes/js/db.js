@@ -25,7 +25,7 @@ $(document).ready(function() {
       $('#promos').slideDown();
     } else {
       var term = $(this).val();
-      $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://utc.primo.exlibrisgroup.com/discovery/search?query=any,contains,' + term + '&tab=Everything&search_scope=MyInst_and_CI&vid=01UTC_INST:01UTC&offset=0\" target=\"_blank\">Quick Search (for \"' + term + '\")</a>.</p>');
+      $('h2.no-results').html('<p>We did not find any databases with that description or name. Please try again.</p> <p>If you would like to search by topic, use the library <a href=\"https://utc.primo.exlibrisgroup.com/discovery/search?query=any,contains,' + term + '&tab=Everything&search_scope=MyInst_and_CI&vid=01UTC_INST:01UTC&offset=0\" target=\"_blank\">Quick Search for \"' + term + '\"</a>.</p>');
       var totalResults = $('.dbCard:visible').length;
       $('#totalResults').html('Total results: ' + totalResults);
     }
