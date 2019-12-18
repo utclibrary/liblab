@@ -16,7 +16,7 @@ foreach ($datevars as $var) {
 	}
 }
 include('variables.php');
-include ($_SERVER['DOCUMENT_ROOT'].'/includes/head-v2.php');
+include ($_SERVER['DOCUMENT_ROOT'].'/includes/head.php');
 include("instructions.php");
 
 
@@ -139,5 +139,5 @@ echo "
 </div>
 ";
 
-include ($_SERVER['DOCUMENT_ROOT'].'/includes/foot-v2.php');
+include ($_SERVER['DOCUMENT_ROOT'].'/includes/foot.php');
 ?>

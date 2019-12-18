@@ -1,12 +1,11 @@
 <?php
 //check to see if error reporting is OFF N or Y ON
-if ($errorReporting == "N"){
-	// Turn off all error reporting
-error_reporting(0);
-}
-else{
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+if ($errorReporting === "Y"){
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
+}else{
+  error_reporting(0);
 }
 ?>
 <!doctype html><!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-gb"> <![endif]-->
@@ -21,13 +20,18 @@ ini_set('display_errors', 1);
       <meta name="Description" content="<?php echo $description; ?>">
 
       <meta name="Keywords" content="<?php echo $keywords; ?>">
-
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes"><!-- Prompt IE 6/7/8 users to install Chrome Frame.
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<!--
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+-->
+      <!-- Prompt IE 6/7/8 users to install Chrome Frame.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 9]><div class="chromeframe alert alert-error alert-floating"></div>
   <div class="alert alert-info alert-floating" data-original-title="alert alert-info alert-floating"> <button type="button" class="close" data-dismiss="alert">×</button> <strong>Welcome to the website of the University of Tennessee at Chattanooga.</strong> <p>Your web browser is outdated. For the best experience on this site,&nbsp; <a href="http://browsehappy.com/">upgrade to a modern browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>.</p> </div><![endif]-->
   <!-- compiling css via codekit from kickstrap.less & its imports -->
+<!-- remove kickstrap
   <link rel="stylesheet" type="text/css" href="/includes/css/kickstrap.css" media="all">
+-->
   <!-- Push HTML5 elements -->
   <!--[if lt IE 9]>
   <script src="https://www.utc.edu/_resources/Kickstrap/apps/html5shiv/dist/html5shiv.js"></script>
@@ -38,6 +42,13 @@ ini_set('display_errors', 1);
 <!--
 <link rel="stylesheet" type="text/css" href="https://www.utc.edu/includes/print.css">
 -->
+<!-- new css links for BS4 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css" integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css" integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" href="/includes/css/db-page-bootstrap.css" media="all">
+
+
 <script>document.cookie='resolution='+Math.max(screen.width,screen.height)+("devicePixelRatio" in window ? ","+devicePixelRatio : ",1")+'; path=/';</script>
 <script>(function(){"use strict";var c=[],f={},a,e,d,b;if(!window.jQuery){a=function(g){c.push(g)};f.ready=function(g){a(g)};e=window.jQuery=window.$=function(g){if(typeof g=="function"){a(g)}return f};window.checkJQ=function(){if(!d()){b=setTimeout(checkJQ,100)}};b=setTimeout(checkJQ,100);d=function(){if(window.jQuery!==e){clearTimeout(b);var g=c.shift();while(g){jQuery(g);g=c.shift()}b=f=a=e=d=window.checkJQ=null;return true}return false}}})();</script>
 <meta name=”twitter:site” content=”@UTChattanooga”>
@@ -70,142 +81,118 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <div id="dev-environment" class="alert alert-info" role="alert" style="padding: .25em;text-align: center;margin-bottom: 0px;">
             | <strong>STAGING</strong> environment | </div>
-      <div id="skip"><a class="btn btn-success btn-large btn-block" tabindex="1" href="#content">Skip to Main Content</a></div>
+            <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
       <div id="sf-wrapper">
          <!-- stickyfooter wrapper -->
          <!-- Top Menus & Logotype
 ================================================== -->
          <!-- Main Top Navigation, Scrolls with window
     ================================================== -->
-         <div id="mainTopNav" class="navbar navbar-static-top navbar-inverse frontpage" role="navigation">
-            <div class="navbar-inner"><a class="btn btn-navbar" data-toggle="collapse" data-target="#mainTopNav .nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a href="#" class="brand" data-toggle="collapse" data-target="#mainTopNav .nav-collapse">UTC.edu</a><div class="nav-collapse collapse">
-<ul class="nav">
-<li><a id="constituency-nav-students" href="//www.utc.edu/about/student-resources.php">Students</a></li>
-<li><a id="constituency-nav-facultystaff" href="//www.utc.edu/about/faculty-staff-resources.php">Faculty&nbsp;&amp;&nbsp;Staff</a></li>
-<li><a id="constituency-nav-alumni" href="//www.utc.edu/about/alumni-friends.php">Alumni</a></li>
-<li><a id="constituency-nav-parents" href="//www.utc.edu/admissions/parents.php">Parents</a></li>
-</ul>
-                  <!-- Search form
-                ================================================== -->
-<!-- GSA Search Box Begins -->
-<form class="form-search navbar-search" action="//www.utc.edu/search.php" method="post">
-	<div class="input-append">
-		<label for="q" class="hidden">Search:</label><input name="q" id="q" type="text" class="input span2 search-query" placeholder="Search&hellip;"><button type="submit" value="Go Search" aria-label="Go Search" class="btn btn-inverse"><i class="icon-search"><!-- icon --></i></button>
-	</div>
-</form>
-                  <!-- Extreme right top menu items, priority
-                ================================================== -->
-<ul class="nav pull-right">
-<li><a id="top-nav-schedule" href="https://ssb.utc.edu/cbanpr/zzckschd.p_disp_dyn_sched/" target="ssb">Class Schedule&nbsp;<i class="icon-small icon-external-link"><!-- External Link --></i></a></li>
-<li><a id="top-nav-my" href="//www.utc.edu/my/index.php" target="myMocsNet">My MocsNet&nbsp;<i class="icon-small icon-external-link"><!-- External Link --></i></a></li>
-<li><a id="top-nav-utconline" href="//www.utc.edu/learn/">UTC Learn&nbsp;<i class="icon-globe icon-large"><!-- globe --></i></a></li>
-</ul>
-<!-- Middle right top menu items, hidden mid/small
-================================================== -->
-<ul class="nav pull-right superfluous">
-<li aria-label="UTC Home Page"><a id="top-nav-home" title="UTC Home Page" alt="UTC Home Page" href="//www.utc.edu/"><i class="icon-home icon-large"><span class="hidden">UTC Home</span></i></a></li>
-<li><a id="top-nav-apply" href="//www.utc.edu/apply/">Apply</a></li>
-</ul>
-               </div>
-            </div>
-         </div>
-         <!-- Logotype, .header-image gets inline style for background image, uploaded by user
-    ================================================== -->
-         <div class="utc-logo row">
-            <div class="utc-logo-inner">
-<?php //$random = rand(1,6); echo $random; ?>
-			                  <div class="container header-image" style="background-image:url('/library/images/mastheads/rotate.php');">
-                  <div id="header-text" class="pull-left">
-                     <h1><a href="//www.utc.edu/">
-					 <img src="/includes/img/utc-lettertype-logo-small.png" alt="UTC wordmark"></a></h1>
-                     <h2><a href="//www.utc.edu/library/">UTC Library</a></h2>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- Secondary Navigation
-    ================================================== -->
-         <div id="secondaryTopNav" role="navigation" class="navbar frontpage department">
-            <div class="navbar-inner">
-               <div class="squeezer container"><a class="btn btn-navbar" data-toggle="collapse" data-target="#secondaryTopNav .nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a href="#" class="brand" data-toggle="collapse" data-target="#secondaryTopNav .nav-collapse">Menu</a><div class="nav-collapse collapse">
-                     <ul class="nav">
-                       <li><a href="//www.utc.edu/library/index.php">Library Home</a></li>
-                       <li><a id="lib-menu-collections" href="//www.utc.edu/library/collections/">Collections</a></li>
-                       <li><a id="lib-menu-help" href="//www.utc.edu/library/help/" >Research Help</a></li>
-                       <li><a id="lib-menu-services" href="//www.utc.edu/library/services/">Services</a></li>
-                       <li><a id="lib-menu-about" href="//www.utc.edu/library/about/">About</a></li>
-                     </ul>
-<?php
-include($_SERVER['DOCUMENT_ROOT']."/scripts/hours.php");
-?>
-                  </div>
-               </div>
-            </div>
-         </div>
-<div class="container">
-<?php
-//check if section ~ left/nav menu is enabled
-if ($navmenu=="Y") {
-if ($rightmenu==3){$reduceby=3;}else{$reduceby=0;}//need to adjust content area to account for side menus
-?>
-<a href="#menu" class="side-menu-link btn btn-mini btn-inverse">Section Menu <i class="icon-reorder"></i></a>
-<!-- Breadcrumbs================================================== -->
-<ul class="breadcrumb" data-original-title="breadcrumb"></ul>
-<div id="wrap" class="row-fluid wrap">
-<!-- section php
-this script will automate the creation of a side menu navigation
-all files in the folder will show as file name (ex: other_stuff.php will show as 'Other Stuff')
-A manual file can also be used to hard-code the side menu
--->
-<?php
-$directory = getcwd();//get current working directory
-$DirectoryName = getCurrentDirectory();//calls function to grab the current folder name
-// create an array of all files in folder
-$scanned_directory = array_diff(scandir($directory), array('..', '.'));
+    <nav class="navbar navbar-expand-lg navbarUtc">
+      <a class="navbar-brand" href="#">UTC.edu</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarUTC" aria-controls="navbarUTC" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-?>
-<div class="span3 sidemenu sidenav sidenav-collapse oc" role="navigation">
-<!-- Department Menu ================================================== -->
-<ul id="sidenav01" class="accordion nav nav-department nav-tabs nav-stacked in">
-	<li><a href="<?php echo $directory;?>"><i class="icon-home"></i>&nbsp;<strong><?php echo makeaname($DirectoryName); ?></strong></a></li>
-<?php
-foreach ($scanned_directory as &$value) {
-	 if($value === "index.php") continue;//ignore this file
-    echo "<li><a href='".$value."'>".makeaname($value)."</a></li>";
-}
-?>
-<li class="ou-no-subnav profile"><a href="//www.utc.edu/library/profiles/">Directory</a></li>
-</ul>
-<!--/nav-list menu-->
-<extranavs>
-</extranavs>
-</div>
-<!--/span3 column-->
-<div id="content" class="span<?php print (9-$reduceby);?> content">
-<?php
-} else {
-	if ($rightmenu==3){$reduceby=3;}else{$reduceby=0;}
-?>
-<!-- Breadcrumbs================================================== -->
-<ul class="breadcrumb" data-original-title="breadcrumb"></ul>
-<div id="wrap" class="row-fluid wrap">
-<extranavs>
-</extranavs>
+      <div class="collapse navbar-collapse" id="navbarUTC">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/about/student-resources.php">Students</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/about/faculty-staff-resources.php">Faculty&nbsp;&amp;&nbsp;Staff</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/about/alumni-friends.php">Alumni</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/admissions/parents.php">Parents</a>
+          </li>
+        </ul>
+        <form class="form-inline ouSearch my-lg-0" action="https://www.utc.edu/search.php" method="post">
+          <div class="input-group" role="search" aria-label="Search Form">
+            <label for="q" class="hidden sr-only" aria-label="Search">Search:</label>
+            <input name="q" id="q" type="text" class="form-control input search-query" placeholder="Search&hellip;" aria-label="Search Input">
+            <div class="input-group-append">
+              <button class="btn btnUtcSearch" type="submit" value="Go Search" aria-label="Go Search"><span class="fas fa-search">
+                  <!-- icon --></span><span class="sr-only">&nbsp;Search</span></button>
+            </div>
+          </div>
+        </form>
+        <ul class="navbar-nav ml-auto flex-column-reverse flex-lg-row">
+          <li class="nav-item utcHome">
+            <a class="nav-link" href="https://www.utc.edu/"><span class="fas fa-home"><span class="sr-only">UTC Home</span></span></a>
+          </li>
+          <li class="nav-item">
+            <a id="top-nav-apply" class="nav-link" href="https://www.utc.edu/apply/">Apply</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/records/registration-information/class-schedule.php"><span class="menu-hide">Class </span>Schedule&nbsp;<span class="fas fa-external-link-alt fa-xs" aria-hidden="true">
+                <!-- External Link --></span><span class="sr-only">Link opens in new window</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/my/index.php target=" _blank"" target="_blank"><span class="menu-hide">My </span>MocsNet&nbsp;<span class="fas fa-external-link-alt fa-xs"></span><span class="sr-only">Link opens in new
+                window</span><!-- External Link --></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/learn/"><span class="menu-hide">UTC </span>Learn&nbsp;<span class="fas fa-globe-americas" aria-hidden="true">
+                <!-- globe --></span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col blueHeader">
 
-<!--/span3 column-->
-<div id="content" class="span<?php print (12-$reduceby);?> content" style="padding-right: 30px;">
-<?php
-}
-//get current directory name
-function getCurrentDirectory() {
-$path = dirname($_SERVER['PHP_SELF']);
-$position = strrpos($path,'/') + 1;
-return substr($path,$position);
-}
-//covert underscores to spaces, remove .php extension and change to initial caps
-function makeaname ($nametochange) {
-	$nounderscores = str_replace('_', ' ', $nametochange);
-	$FinalVer = $nounderscores = str_replace('.php', '', $nounderscores);
-	return ucwords($FinalVer);
-}
-?>
+          <a href="https://utc.edu/">
+            <img src="/includes/img/web-wordmark-retina.png" alt="UTC wordmark">
+          </a>
+          <h1><a href="https://www.utc.edu/library/">UTC Library</a></h1>
+        </div>
+      </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbarLib">
+      <a class="navbar-brand" href="#">Menu</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav navbarLibMain">
+          <li class="nav-item ml-lg-4">
+            <a class="nav-link" href="https://www.utc.edu/library">Library Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/library/find-resources.php">Find Resources</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/library/help">Research Help</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/library/services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.utc.edu/library/about">About</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item order-lg-1">
+            <a class="nav-link account" href="https://www.utc.edu/library/services/accounts.php" data-toggle="tooltip" data-placement="right" title="Library Accounts">
+              <span class="fas fa-user-circle"></span>
+              <span class="d-lg-none">&nbsp;Library Accounts</span>
+            </a>
+          </li>
+          <li id="libHours" class="nav-item order-lg-0">
+            <a class="nav-link" href="https://www.utc.edu/library/about/hours.php"><span class="fas fa-clock"></span>&nbsp;Today's Hours:
+              <?php
+            include($_SERVER['DOCUMENT_ROOT']."/scripts/hours-v2.php");
+            ?>
+          </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+<div id="content" class="container">

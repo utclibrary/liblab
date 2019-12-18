@@ -1,6 +1,6 @@
 <?php
 include('variables.php');
-include($_SERVER['DOCUMENT_ROOT'].'/includes/head-v2.php');
+include($_SERVER['DOCUMENT_ROOT'].'/includes/head.php');
 include("instructions.php");
 ?>
 
@@ -34,5 +34,5 @@ if (isset($_GET['err']) && $_GET['err'] == 1) {
 <center><input type="submit" value="Calculate"></center>
 </form>
  <?php
-include ($_SERVER['DOCUMENT_ROOT'].'/includes/foot-v2.php');
+include ($_SERVER['DOCUMENT_ROOT'].'/includes/foot.php');
 ?>

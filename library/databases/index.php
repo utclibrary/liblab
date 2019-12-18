@@ -100,7 +100,7 @@ $addfoot = "<script type='text/javascript' src='/includes/js/intro.js'></script>
 //show or hide help button
 $help = "show";
 // include new head and php functions for db display - reused for lg lists
-include($_SERVER['DOCUMENT_ROOT']."/includes/head-v2.php");
+include($_SERVER['DOCUMENT_ROOT']."/includes/head.php");
 include($_SERVER['DOCUMENT_ROOT']."/includes/functions.inc");
 // this changes dynamcially based on subject paramater - jquery updates the page title
 echo "
@@ -150,7 +150,7 @@ echo "
 <ul id='alphalist' class='nav nav-fill'>";
 
 foreach (range('A', 'Z') as $column) {
-  // check to see if subject or type selected
+    // check to see if subject or type selected
     if ($orderby !== "DBRanking.Ranking") {
         if ($column == $alpha) {
             echo "<li class='active'>";
@@ -455,7 +455,7 @@ $lgURL = "https:\/\/guides.lib.utc.edu\/".$outputLG;
 //if ($lgDescription === ""){
     $lgDescription = "Looking for more? Check out our research guide for books, websites, and other suggested resources curated by UTC Librarians.";
   //}
-include($_SERVER['DOCUMENT_ROOT']."/includes/foot-v2.php");
+include($_SERVER['DOCUMENT_ROOT']."/includes/foot.php");
 echo "
 <script src='/includes/js/hideseek.mod.js'></script>
 <script src='/includes/js/db.js'></script>
@@ -463,7 +463,7 @@ echo "
 $(document).ready(function() {";
 echo "\n";
 // Show LG box if available
-if ((checkLGExists($lgApiContent, $lgURL) !== false)&&($outputLG != "")){
+if ((checkLGExists($lgApiContent, $lgURL) !== false)&&($outputLG != "")) {
     echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul><div class='subjectGuideDesc'>".$lgDescription."</div></div>\");";
 }
 if ($typeExists > 1) {
