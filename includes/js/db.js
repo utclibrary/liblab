@@ -41,7 +41,7 @@ $(document).ready(function() {
     $('#promos').slideUp();
     $('.highlight_list').html(highlightListContent);
     $(this).addClass('input-hold');
-    $('.clearable')[tog(this.value)]('x');
+    $('.clearable')[tog(this.value)]('x');  restartTooltip();
   }).on('mousemove', '.x', function(e) {
     $('.clearable')[tog(this.offsetWidth - 18 < e.clientX - this.getBoundingClientRect().left)]('onX');
     $(this).removeClass('input-hold');
@@ -154,6 +154,7 @@ $(function() {
 });
 
 function resetsearch() {
+  restartTooltip();
   $('#alphaRankedSortBtn').show();
   $('#search-highlight').val('').trigger('keyup').focus();
   var press = jQuery.Event('keypress');
