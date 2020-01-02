@@ -24,6 +24,11 @@ function generatelist($result)
                 echo "<span class='highlightedInfo'>  Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
             }
         }
+        /* START add TutorialURL link */
+        if (!empty($row['TutorialURL'])) {
+           echo "<span class='tutorialLink'><span class='fa fa-question-circle'></span> <a href=\"".$row['TutorialURL']."\" target=\"_blank\"> ".$row['Title']." Tip Sheet</a></span>";
+       }
+       /* END add TutorialURL link */
         echo "</div></li>";
     }
     echo "</ul>";
@@ -46,7 +51,7 @@ function reuseSubjQuery($num, $queryKey)
 $lgApiContent = file_get_contents("http://lgapi-us.libapps.com/1.1/guides?site_id=197&key=79bdc1495b75e4857998a4bf192051a6&sort_by=name&status=1");
 // check to see if LibGuide exists
 function checkLGExists($api, $url){
-  return strpos($api, $url);
+  return stripos($api, $url);
 }
 //get LibGuide description if it exists
 // function getLGDescription($api, $url){
