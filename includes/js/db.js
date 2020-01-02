@@ -155,6 +155,8 @@ $(function() {
 
 function resetsearch() {
   restartTooltip();
+  $('#alphBtn').removeAttr('disabled');
+  $('#numBtn').attr('disabled', 'disabled');
   $('#alphaRankedSortBtn').show();
   $('#search-highlight').val('').trigger('keyup').focus();
   var press = jQuery.Event('keypress');
