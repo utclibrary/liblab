@@ -10,6 +10,12 @@ function generatelist($result)
             echo "/scripts/LGForward.php?db=" . $row['Key_ID']  ;
         }
         echo"' target='_blank'>" . $row['Title'] . "</a>";
+        if ($row['New'] === '1') {
+            echo "<span class='badge badge-warning float-right'> NEW </span>";
+        }
+        if ($row['Trial'] === '1') {
+            echo "<span class='badge badge-info float-right'> TRIAL </span>";
+        }
         if (!empty($row['ContentType'])) {
             echo "<div class='s-lg-link-desc'><span class='contentType'><strong>" . $row['ContentType'] . ": </strong></span>";
         }

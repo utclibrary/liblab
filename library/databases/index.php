@@ -47,11 +47,12 @@ if (isset($_GET["alpha"])) {
     $alpha = $_GET["alpha"];
     $displayAlpha = " - ".$alpha;
 }
-// check to see if alpha is num, empty or letter to change query used in $query*(s)
-if ($alpha === "num") {
-    $queryKey = " AND Dbases.Title REGEXP '^[0-9]'";
-    $queryKeyAlpha = "&alpha=num";
-} elseif ($alpha === "ALL") {
+// check to see if alpha is empty or letter to change query used in $query*(s)
+ // if ($alpha === "num") {
+//      $queryKey = " AND Dbases.Title REGEXP '^[0-9]'";
+//      $queryKeyAlpha = "&alpha=num";
+ // } else
+if ($alpha === "ALL") {
     $queryKey = "";
     $displayAlpha = "";
 } else {//letter selected
@@ -60,11 +61,11 @@ if ($alpha === "num") {
     // added to generate subject list on alpha click
     // query subjects by alpha
     $querySubjectListAlpha = " SELECT DISTINCT SubjectList.Subject,
-IF (SubjectList.NotSubjectList = 0,'true','false') AS NotSubjectList,
-IF (SubjectList.Format = 0,'subject','type')AS Format
-FROM LuptonDB.SubjectList
-WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Subject_ID <> 59 AND SubjectList.Subject LIKE '".$alpha."%'
-ORDER BY SubjectList.Format , SubjectList.Subject
+        IF (SubjectList.NotSubjectList = 0,'true','false') AS NotSubjectList,
+        IF (SubjectList.Format = 0,'subject','type')AS Format
+        FROM LuptonDB.SubjectList
+        WHERE SubjectList.NotSubjectList = 0 AND SubjectList.Subject_ID <> 59 AND SubjectList.Subject LIKE '".$alpha."%'
+        ORDER BY SubjectList.Format , SubjectList.Subject
   ";
     //generate subject list when alpha selected
     $resultSLA = mysqli_query($conLuptonDB, "set names 'utf8'");
@@ -102,7 +103,7 @@ $help = "show";
 // include new head and php functions for db display - reused for lg lists
 include($_SERVER['DOCUMENT_ROOT']."/includes/head.php");
 include($_SERVER['DOCUMENT_ROOT']."/includes/functions.inc");
-// this changes dynamcially based on subject paramater - jquery updates the page title
+// this changes dynamcially based on subject paramater
 echo "
 <div class='row'>
 <div class='col'>
@@ -116,7 +117,9 @@ echo "
 echo "<h1>".$h1Prepend." Databases".$displayAlpha."</h1>";
 ?>
 <div id="pageInfo" class="hidden">
-   <div class="popover-heading"><span class="infoHeading">What is this page?</span></div>
+   <div class="popover-heading">
+     <span class="infoHeading">What is this page?</span>
+   </div>
    <div class="popover-body"><p>Databases contain searchable collections of published resources, including articles, ebooks, images, and more! Use this page to select the database that best meets your information needs.</p>
    <div class="popoverQL"><h2>Related Resources</h2>
    <ul>
@@ -271,7 +274,7 @@ echo"
 		              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
 		              <hr class="featureHR">
                   <?php
-            $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
+            $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.Trial, Dbases.New FROM Dbases
 							  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
             $result = mysqli_query($conLuptonDB, $randquery) or die($error);
 
@@ -297,7 +300,7 @@ echo"
     <h2 class="promoTitle">
 <span class="fa fa-star"></span>&nbsp;Multisubject Databases</h2>
 <?php
-$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.New, Dbases.Trial FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
         $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
         if (!mysqli_num_rows($resultMulti)) {
             echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
@@ -324,7 +327,7 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
 <?php
     }//end check to show promo content on default page
 // main query to generate lists of dbs
-$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.TutorialURL, Dbases.SimUsers, Dbases.ShortURL, Dbases.New, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
+$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.TutorialURL, Dbases.SimUsers, Dbases.ShortURL, Dbases.DropDate, Dbases.New, Dbases.Trial, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
           FROM LuptonDB.Dbases
           LEFT JOIN LuptonDB.DBRanking
           ON DBRanking.Key_ID = Dbases.Key_ID
@@ -397,6 +400,10 @@ if (!mysqli_num_rows($result)) {
                 if ($row['New'] === '1') {
                     echo "<span class='badge badge-warning float-right'> NEW </span>";
                 }
+                if ($row['Trial'] === '1') {
+                    echo "<span class='badge badge-info float-right'> TRIAL </span>";
+                }
+                //echo $row['DropDate'];
                 //if (!empty($row['ContentType'])) {
                 //  echo "<p class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "\n</a>";
                 //}
@@ -419,18 +426,7 @@ if (!mysqli_num_rows($result)) {
                 }
                 /* START add TutorialURL link
                 if (!empty($row['TutorialURL'])) {
-                   echo "<span class='tutorialLink'><span class='fa ";
-                   if (strpos($row['TutorialURL'], '.pdf') !== false) {
-                       echo "fa-file-pdf";
-                       $tutorialType = "Tip Sheet";
-                   } elseif (strpos($row['TutorialURL'], '.xls') !== false) {
-                       echo "fa-file-excel";
-                       $tutorialType = "Spreadsheet";
-                   } else {
-                       echo "fa-file-code";
-                       $tutorialType = "Page";
-                   }
-                   echo "'></span> <a href=\"".$row['TutorialURL']."\" target=\"_blank\"> ".$row['Title']." ".$tutorialType."</a></span>";
+                   echo "<span class='tutorialLink'><span class='fa fa-question-circle'></span> <a href=\"".$row['TutorialURL']."\" target=\"_blank\"> ".$row['Title']." Tip Sheet</a></span>";
                }
                END add TutorialURL link */
                 echo "</p>";
@@ -450,6 +446,10 @@ if (!mysqli_num_rows($result)) {
 echo "</div><!-- highlight_list -->";
 // build LibGuide URL for API function calls
 $lgURL = "https:\/\/guides.lib.utc.edu\/".$outputLG;
+if (strpos($lgURL, "/openaccess/") !== false) {// fix for oa sub pages
+    $lgURL = preg_replace("/openaccess\/.*/", "openaccess", $lgURL);
+}
+
 // get LibGuide description or set generic description
 //$lgDescription = getLGDescription($lgApiContent, $lgURL);
 //if ($lgDescription === ""){
