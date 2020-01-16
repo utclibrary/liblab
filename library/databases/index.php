@@ -274,7 +274,7 @@ echo"
 		              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
 		              <hr class="featureHR">
                   <?php
-            $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.Trial, Dbases.New FROM Dbases
+            $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.New FROM Dbases
 							  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
             $result = mysqli_query($conLuptonDB, $randquery) or die($error);
 
@@ -300,7 +300,7 @@ echo"
     <h2 class="promoTitle">
 <span class="fa fa-star"></span>&nbsp;Multisubject Databases</h2>
 <?php
-$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.New, Dbases.Trial FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.New FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
         $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
         if (!mysqli_num_rows($resultMulti)) {
             echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
@@ -327,7 +327,7 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
 <?php
     }//end check to show promo content on default page
 // main query to generate lists of dbs
-$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.TutorialURL, Dbases.SimUsers, Dbases.ShortURL, Dbases.DropDate, Dbases.New, Dbases.Trial, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
+$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.TutorialURL, Dbases.SimUsers, Dbases.ShortURL, Dbases.DropDate, Dbases.New, DBRanking.TryTheseFirst, SubjectList.NotSubjectList, SubjectList.LibGuidesPage,GROUP_CONCAT( DISTINCT '<li>' , IF (SubjectList.NotSubjectList=0, SubjectList.Subject, null) , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
           FROM LuptonDB.Dbases
           LEFT JOIN LuptonDB.DBRanking
           ON DBRanking.Key_ID = Dbases.Key_ID
@@ -336,7 +336,7 @@ $query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescr
 					WHERE Dbases.Key_ID <> 529 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ".$queryKey.$queryKeySubj.$queryContentType."
           GROUP BY Title
           ORDER by ".$orderby;
-         //echo "<pre>".$query."</pre>";
+         echo "<pre>".$query."</pre>";
 $result = mysqli_query($conLuptonDB, "set names 'utf8'");
 $result = mysqli_query($conLuptonDB, $query) or die($error);
 if (!mysqli_num_rows($result)) {
