@@ -65,7 +65,7 @@ echo "ERROR. Please contact libtech@utc.edu. ";
 }
 else
 {
-	$query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
+	$query = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.TutorialURL FROM Dbases
 		INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID
 		INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID
 		WHERE $where
