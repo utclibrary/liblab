@@ -336,7 +336,7 @@ $query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescr
 					WHERE Dbases.Key_ID <> 529 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ".$queryKey.$queryKeySubj.$queryContentType."
           GROUP BY Title
           ORDER by ".$orderby;
-         echo "<pre>".$query."</pre>";
+         //echo "<pre>".$query."</pre>";
 $result = mysqli_query($conLuptonDB, "set names 'utf8'");
 $result = mysqli_query($conLuptonDB, $query) or die($error);
 if (!mysqli_num_rows($result)) {
