@@ -5,12 +5,12 @@ $(document).ready(function() {
   var filename = url.substring(url.lastIndexOf('/') + 1);
   $('.subjects li').each(function() {
     var subject = $(this).text();
-    if (subject == 'New') {
-      $(this).closest('li').hide();
-    } else {
+//    if (subject == 'New') {
+//      $(this).closest('li').hide();
+//    } else {
       if (subject.indexOf('Subject') <= -1) {
         $(this).html('<a href=\"' + filename + '?subj=' + subject + '\">' + subject + '</a>');
-      }
+//      }
     }
   });
   /* get content of totalCount */
