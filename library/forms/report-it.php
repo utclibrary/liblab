@@ -67,33 +67,41 @@ date_default_timezone_set('America/New_York');
 $todaystamp = time();
 $today = date('l, n/j/y, g:ia',$todaystamp);
 $categories = array
-	(
-		0 => array(
-			'category' => 'Alma/Primo',
-			'email' => 'libtech@utc.edu, Charlie-Remy@utc.edu, Katie-Gohn@utc.edu'
-		),
-		1 => array(
-			'category' => 'Building',
-			'email' => 'libadmin@utc.edu, libtech@utc.edu'
-		),
-		2 => array(
-			'category' => 'Classroom Tech',
-			'email' => 'libtech@utc.edu, libinstruction@utc.edu'
-		),
-		3 => array(
-			'category' => 'E-Resources',
-			'email' => 'libtech@utc.edu, Charlie-Remy@utc.edu, Katie-Gohn@utc.edu'
-		),
-		4 => array(
-			'category' => 'Library IT',
-			'email' => 'libtech@utc.edu'
-		),
-		5 => array(
-			'category' => 'Website',
-			'email' => 'libtech@utc.edu'
-		)
-	);
-$neededBy = array("Now", "1 to 2 Days", "This Week", "Next Week", "This Month", "This Semester");
+    (
+        0 => array(
+            'category' => 'Alma/Primo',
+            'email' => 'lib-it@utc.edu'
+        ),
+        1 => array(
+            'category' => 'Analytics & Stats',
+            'email' => 'lib-it@utc.edu'
+        ),
+        2 => array(
+            'category' => 'Building',
+            'email' => 'lib-it@utc.edu'
+        ),
+        3 => array(
+            'category' => 'eResources',
+            'email' => 'lib-it@utc.edu'
+        ),
+        4 => array(
+            'category' => 'Hardware',
+            'email' => 'lib-it@utc.edu'
+        ),
+        5 => array(
+            'category' => 'Software',
+            'email' => 'lib-it@utc.edu'
+        ),
+        6 => array(
+            'category' => 'Web',
+            'email' => 'lib-it@utc.edu'
+        ),
+        7 => array(
+            'category' => 'Other',
+            'email' => 'lib-it@utc.edu'
+        )
+    );
+$neededBy = array("ASAP", "This Week", "This Month", "This Semester", "TBD");
 // set error code variable
 $error = null;
 // connect to database
@@ -121,7 +129,7 @@ if(is_array($_POST) && $_POST)
 					$categoryEmail = $categories[$i]['email'];
 			}
 			$headers = "FROM:". $userEmail;
-			$recipients = $categoryEmail . ", " . $userEmail;
+			$recipients = $categoryEmail;
 			$subject = "Report IT (" . $_POST['category'] . "): " . $_POST['problem'];
 			$body = "Date: " . $today . "\n\n" .
 				"Submitted by: ". $userName ."\n\n" .
@@ -144,7 +152,7 @@ if(is_array($_POST) && $_POST)
 if ((isset($error) && isset($_POST["user"])) || !isset($_POST["user"]))
 {
 ?>
-	<h1>UTC Library Report IT</h1>
+	<h1>UTC Library IT</h1>
 	<p>Is your computer acting screwy?  Is a customer reporting linking problems in Academic OneFILE? Use this form to submit a problem report. Once you click submit, the appropriate UTC Library IT team member will be notified.  Remember, the more detail you provide, the easier it is to resolve the problem.</p>
 	<div class="form offset2 span8">
 		<form method="post" action="#report-it-form" id="report-it-form">
