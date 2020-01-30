@@ -274,7 +274,7 @@ echo"
 		              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
 		              <hr class="featureHR">
                   <?php
-            $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.New FROM Dbases
+            $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.TutorialURL FROM Dbases
 							  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
             $result = mysqli_query($conLuptonDB, $randquery) or die($error);
 
@@ -300,7 +300,7 @@ echo"
     <h2 class="promoTitle">
 <span class="fa fa-star"></span>&nbsp;Multisubject Databases</h2>
 <?php
-$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.New FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.TutorialURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
         $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
         if (!mysqli_num_rows($resultMulti)) {
             echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
@@ -314,7 +314,7 @@ $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbas
     <h2 class="promoTitle">
 <span class="fas fa-bullhorn"></span>&nbsp;New Databases</h2>
 <?php
-$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases WHERE Dbases.New = 1 ORDER BY Dbases.Title";
+$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.TutorialURL FROM Dbases WHERE Dbases.New = 1 ORDER BY Dbases.Title";
         $result = mysqli_query($conLuptonDB, $newquery) or die($error);
         if (!mysqli_num_rows($result)) {
             echo "There are no databases meeting the parameters</p>";
@@ -327,7 +327,7 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
 <?php
     }//end check to show promo content on default page
 // main query to generate lists of dbs
-$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.TutorialURL, Dbases.SimUsers, Dbases.ShortURL, Dbases.DropDate, Dbases.New, DBRanking.TryTheseFirst, SubjectList.NotSubjectList, SubjectList.LibGuidesPage,GROUP_CONCAT( DISTINCT '<li>' , IF (SubjectList.NotSubjectList=0, SubjectList.Subject, null) , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
+$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.TutorialURL, Dbases.SimUsers, Dbases.ShortURL, Dbases.TutorialURL, Dbases.New, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,GROUP_CONCAT( DISTINCT '<li>' , IF (SubjectList.NotSubjectList=0, SubjectList.Subject, null) , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
           FROM LuptonDB.Dbases
           LEFT JOIN LuptonDB.DBRanking
           ON DBRanking.Key_ID = Dbases.Key_ID
@@ -400,10 +400,6 @@ if (!mysqli_num_rows($result)) {
                 if ($row['New'] === '1') {
                     echo "<span class='badge badge-warning float-right'> NEW </span>";
                 }
-                if ($row['Trial'] === '1') {
-                    echo "<span class='badge badge-info float-right'> TRIAL </span>";
-                }
-                //echo $row['DropDate'];
                 //if (!empty($row['ContentType'])) {
                 //  echo "<p class='contentType'> <a href=\"".$currentFile."?type=".$row['ContentType']."\">". $row['ContentType'] . "\n</a>";
                 //}
@@ -424,11 +420,11 @@ if (!mysqli_num_rows($result)) {
                 } elseif ($row['SimUsers'] > 1) {
                     echo "<span class='limitTo'> Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
                 }
-                /* START add TutorialURL link
+                /* START add TutorialURL link */
                 if (!empty($row['TutorialURL'])) {
                    echo "<span class='tutorialLink'><span class='fa fa-question-circle'></span> <a href=\"".$row['TutorialURL']."\" target=\"_blank\"> ".$row['Title']." Tip Sheet</a></span>";
                }
-               END add TutorialURL link */
+               /* END add TutorialURL link */
                 echo "</p>";
                 if (!empty($row['Subjects'])) {
                     echo "<div class='subjects'><ul class='subjectTags'><li>Subject";
