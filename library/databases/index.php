@@ -281,7 +281,7 @@ echo"
             if (!mysqli_num_rows($result)) {
                 echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
             } else {
-                generatelist($result);
+                generatelist($result, '');
             } ?>
 		            </div><!-- close feature box -->
   <?php
@@ -305,7 +305,7 @@ $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbas
         if (!mysqli_num_rows($resultMulti)) {
             echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
         } else {
-            generatelist($resultMulti);
+            generatelist($resultMulti,'');
         } ?>
        </div>
     </div>
@@ -319,7 +319,7 @@ $newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases
         if (!mysqli_num_rows($result)) {
             echo "There are no databases meeting the parameters</p>";
         } else {
-            generatelist($result);
+            generatelist($result,'');
         } ?>
       </div>
     </div>
