@@ -83,7 +83,7 @@ $result = mysqli_query($conLuptonDB , $query) or die($error);
 if (!mysqli_num_rows($result))
 	echo "There are no databases meeting the parameters:<br/>sub=$subject<br/>set=$set<br/>ebks=$ebks<br/>";
 else{
-   generatelist($result);
+   generatelist($result, 'https://liblab.utc.edu');
 }
 mysqli_close($conLuptonDB);
 ?>

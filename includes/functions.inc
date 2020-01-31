@@ -1,5 +1,5 @@
 <?php
-function generatelist($result)
+function generatelist($result, $url)
 {
     echo "<ul class='s-lg-link-list'>";
     while ($row = mysqli_fetch_array($result)) {
@@ -7,7 +7,7 @@ function generatelist($result)
         if (!empty($row['ShortURL'])) {
             echo "https://www.utc.edu/" . $row['ShortURL'];
         } else {
-            echo "/scripts/LGForward.php?db=" . $row['Key_ID']  ;
+            echo $url."/scripts/LGForward.php?db=" . $row['Key_ID']  ;
         }
         echo"' target='_blank'>" . $row['Title'] . "</a>";
         if ($row['New'] === '1') {
