@@ -301,7 +301,7 @@ input#search-highlight.x {
 .featureBox {
   background-color: whitesmoke;
   width: 100%;
-  height: 100%;
+  /*height: 100%;*/
   padding: 15px;
 }
 
@@ -1042,7 +1042,9 @@ a:hover.btnUtcSearch {
 }
 
 @media (min-width: 992px) {
-
+  .featureBox {
+    min-height: 200px;
+  }
   .navbarUtc .navbar-brand,
   .navbarLib .navbar-brand {
     display: none;
