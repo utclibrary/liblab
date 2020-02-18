@@ -72,7 +72,7 @@ if ($alpha === "ALL") {
     $resultSLA = mysqli_query($conLuptonDB, $querySubjectListAlpha) or die($error);
     $totalRows = mysqli_num_rows($resultSLA);
     if (mysqli_num_rows($resultSLA)!=0) {
-        $outputSLA .= "<div id='outputSLA' class='featureBox'>
+        $outputSLA .= "<div id='outputSLA' class='lgCard'>
 				<h3 id='subjectList' class='featureTitle'>Subject";
         $outputSLA .= "</h3><hr class='featureHR'/><ul>";
         while ($row = mysqli_fetch_array($resultSLA)) {
