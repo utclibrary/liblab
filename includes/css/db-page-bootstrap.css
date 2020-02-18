@@ -1043,7 +1043,7 @@ a:hover.btnUtcSearch {
 
 @media (min-width: 992px) {
   .featureBox {
-    min-height: 200px;
+    min-height: auto;
   }
   .navbarUtc .navbar-brand,
   .navbarLib .navbar-brand {
