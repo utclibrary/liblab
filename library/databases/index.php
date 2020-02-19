@@ -72,7 +72,7 @@ if ($alpha === "ALL") {
     $resultSLA = mysqli_query($conLuptonDB, $querySubjectListAlpha) or die($error);
     $totalRows = mysqli_num_rows($resultSLA);
     if (mysqli_num_rows($resultSLA)!=0) {
-        $outputSLA .= "<div id='outputSLA' class='featureBox'>
+        $outputSLA .= "<div id='outputSLA' class='lgCard'>
 				<h3 id='subjectList' class='featureTitle'>Subject";
         $outputSLA .= "</h3><hr class='featureHR'/><ul>";
         while ($row = mysqli_fetch_array($resultSLA)) {
@@ -256,10 +256,10 @@ echo"
               </div>";
     }
     echo"</div><!-- close col-lg-7 -->
-		<div class='col-lg-5 topMargin'>";
+		<div class='col-lg-5 topMargin featureBox'>";
         if (($outputSLA === "")&&($alpha === "ALL")) {
             ?>
-<div class="featureBox">
+<div class="lgCard">
 <p><strong>New Here?</strong></p> <p>Take a moment to learn about this page.</p>
 
 <a href="javascript:void(0);" onclick="showIntro();" class="btn btnFeature">
@@ -270,7 +270,7 @@ echo"
 <?php
         } elseif (($outputSLA === "")&&($alpha !== "ALL")) {
             ?>
-		            <div class="featureBox">
+		            <div class="lgCard">
 		              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
 		              <hr class="featureHR">
                   <?php
@@ -460,7 +460,7 @@ $(document).ready(function() {";
 echo "\n";
 // Show LG box if available
 if ((checkLGExists($lgApiContent, $lgURL) !== false)&&($outputLG != "")) {
-    echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul><div class='subjectGuideDesc'>".$lgDescription."</div></div>\");";
+    echo "$('.featureBox > .lgCard').replaceWith(\"<div class='lgCard'><h3 class='featureTitle libG'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul><div class='subjectGuideDesc'>".$lgDescription."</div></div>\");";
 }
 if ($typeExists > 1) {
     echo "$('#typeList').append('s');";

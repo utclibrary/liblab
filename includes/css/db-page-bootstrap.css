@@ -301,8 +301,7 @@ input#search-highlight.x {
 .featureBox {
   background-color: whitesmoke;
   width: 100%;
-  /*height: 100%;*/
-  padding: 15px;
+  padding: 15px 20px;
 }
 
 .featureTitle {font-size: 20px;
@@ -872,14 +871,15 @@ footer a {
   font-family: "Font Awesome 5 Free";
   font-weight: 400;
   content: "\f02b";
-}*/
-.lgCard h3:before {
+}
+*/
+
+.lgCard h3.libG:before {
   padding-right: 5px;
   font-family: "Font Awesome 5 Free";
   font-weight: 400;
   content: "\f14e";
 }
-
 #atoz-reset-btn:before {
   color: #fff;
   padding-right: 5px;
@@ -1042,9 +1042,7 @@ a:hover.btnUtcSearch {
 }
 
 @media (min-width: 992px) {
-  .featureBox {
-    min-height: 200px;
-  }
+
   .navbarUtc .navbar-brand,
   .navbarLib .navbar-brand {
     display: none;
