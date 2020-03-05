@@ -10,7 +10,7 @@ $lastLetter = "";$currentLetter = "";//used with $currentletter to track and ins
 $error = "An error has occurded";//set database error message
 //  set variables
 $typeExists = $subjectExists = 0; $alpha = "ALL";
-$queryKey = $queryKeySubj = $outputSLA = $outputLG = $h1Prepend = $contentType = $queryContentType = $queryKeyAlpha = $displayAlpha = $lgURL = $lgDescription = "";
+$queryKey = $queryKeySubj = $outputSLA = $outputLG = $h1Prepend = $contentType = $queryContentType = $queryKeyAlpha = $displayAlpha = $lgURL = $lgDescription = $availableTags = "";
 if (isset($_GET["type"])) {
     $contentType = htmlentities($_GET["type"]);
     $h1Prepend = $contentType;
@@ -72,7 +72,7 @@ if ($alpha === "ALL") {
     $resultSLA = mysqli_query($conLuptonDB, $querySubjectListAlpha) or die($error);
     $totalRows = mysqli_num_rows($resultSLA);
     if (mysqli_num_rows($resultSLA)!=0) {
-        $outputSLA .= "<div id='outputSLA' class='lgCard'>
+        $outputSLA .= "<div id='outputSLA' class='featureBox'>
 				<h3 id='subjectList' class='featureTitle'>Subject";
         $outputSLA .= "</h3><hr class='featureHR'/><ul>";
         while ($row = mysqli_fetch_array($resultSLA)) {
@@ -96,8 +96,12 @@ $title = $h1Prepend." Databases".$displayAlpha." | UTC Library";
 $description = $h1Prepend." Databases".$displayAlpha." available at the UTC Library.";
 $keywords = "databases, ".$h1Prepend;
 //in case you need to add anything in the head or footer
-$addhead = "<link rel='stylesheet' type='text/css' href='/includes/css/introjs.css' media='all'>";
-$addfoot = "<script type='text/javascript' src='/includes/js/intro.js'></script>";
+//in case you need to add anything in the head or footer
+$addhead = "<link rel='stylesheet' type='text/css' href='/includes/css/introjs.css' media='all'>
+<link rel='stylesheet' href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'>";
+$addfoot = "<script type='text/javascript' src='/includes/js/intro.js'></script>
+<script src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
+";
 //show or hide help button
 $help = "show";
 // include new head and php functions for db display - reused for lg lists
@@ -256,10 +260,10 @@ echo"
               </div>";
     }
     echo"</div><!-- close col-lg-7 -->
-		<div class='col-lg-5 topMargin featureBox'>";
+		<div class='col-lg-5 topMargin'>";
         if (($outputSLA === "")&&($alpha === "ALL")) {
             ?>
-<div class="lgCard">
+<div class="featureBox">
 <p><strong>New Here?</strong></p> <p>Take a moment to learn about this page.</p>
 
 <a href="javascript:void(0);" onclick="showIntro();" class="btn btnFeature">
@@ -270,18 +274,18 @@ echo"
 <?php
         } elseif (($outputSLA === "")&&($alpha !== "ALL")) {
             ?>
-		            <div class="lgCard">
+		            <div class="featureBox">
 		              <h3 class="featureTitle"><span class="fa fa-star"></span>&nbsp;Featured Database</h3>
 		              <hr class="featureHR">
                   <?php
-            $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.TutorialURL FROM Dbases
+            $randquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases
 							  WHERE Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 AND Dbases.Key_ID <> 529 ORDER BY RAND() LIMIT 1";
             $result = mysqli_query($conLuptonDB, $randquery) or die($error);
 
             if (!mysqli_num_rows($result)) {
                 echo "There are no databases meeting the parameters:<p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
             } else {
-                generatelist($result, '');
+                generatelist($result);
             } ?>
 		            </div><!-- close feature box -->
   <?php
@@ -300,43 +304,34 @@ echo"
     <h2 class="promoTitle">
 <span class="fa fa-star"></span>&nbsp;Multisubject Databases</h2>
 <?php
-$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.TutorialURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
+$multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases INNER JOIN DBRanking ON DBRanking.Key_ID = Dbases.Key_ID INNER JOIN SubjectList ON DBRanking.Subject_ID = SubjectList.Subject_ID WHERE SubjectList.SubjectCode = 'MULTI' AND DBRanking.TryTheseFirst = 0 AND Dbases.CANCELLED = 0 AND Dbases.MASKED = 0 ORDER BY DBRanking.Ranking";
         $resultMulti = mysqli_query($conLuptonDB, $multiquery) or die($error);
         if (!mysqli_num_rows($resultMulti)) {
             echo "There are no databases meeting the parameters: <p>sub=$subject</p><p>set=$set</p><p>ebks=$ebks</p>";
         } else {
-            generatelist($resultMulti,'');
+            generatelist($resultMulti);
         } ?>
        </div>
     </div>
-    <!-- BEGIN PROMO BOX -->
     <div class="col-lg-4 row-eq-height">
     <div class="promoCard2">
     <h2 class="promoTitle">
-<span class="fas fa-bullhorn"></span>&nbsp;Law Database Trial</h2>
+<span class="fas fa-bullhorn"></span>&nbsp;New Databases</h2>
 <?php
-//$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.TutorialURL FROM Dbases WHERE Dbases.New = 1 ORDER BY Dbases.Title";
-//        $result = mysqli_query($conLuptonDB, $newquery) or die($error);
-//        if (!mysqli_num_rows($result)) {
-//            echo "There are no databases meeting the parameters</p>";
-//        } else {
-//            generatelist($result,'');
-//        } ?>
-<p align="center"><img alt="" src="//libapps.s3.amazonaws.com/accounts/142681/images/icon-1968237_640.png" align="center;" style="width: 50%;" /></p>
-
-<p align="center">The UTC Library is trialing two law databases, <strong>Westlaw </strong>and<strong> HeinOnline,&nbsp;</strong>that may replace Nexis Uni as the primary source for legal resources.</p>
-
-<p align="center">Please take a moment to explore these resources and provide your feedback!</p>
-<span><a href="https://guides.lib.utc.edu/c.php?g=1007086" onclick="" class="btn-lnk" target="_blank"><div class="btn btn-block btn-primary btn-wrap btn-lnk">Try Out the Trial Databases</div></a> 
-				</span>
+$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL FROM Dbases WHERE Dbases.New = 1 ORDER BY Dbases.Title";
+        $result = mysqli_query($conLuptonDB, $newquery) or die($error);
+        if (!mysqli_num_rows($result)) {
+            echo "There are no databases meeting the parameters</p>";
+        } else {
+            generatelist($result);
+        } ?>
       </div>
     </div>
-    <!-- END PROMO BOX -->
     </div>
 <?php
     }//end check to show promo content on default page
 // main query to generate lists of dbs
-$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.TutorialURL, Dbases.SimUsers, Dbases.ShortURL, Dbases.TutorialURL, Dbases.New, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,GROUP_CONCAT( DISTINCT '<li>' , IF (SubjectList.NotSubjectList=0, SubjectList.Subject, null) , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
+$query = "SELECT Dbases.Title, Dbases.NotProxy, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.TutorialURL, Dbases.SimUsers, Dbases.ShortURL, Dbases.New, DBRanking.TryTheseFirst, SubjectList.LibGuidesPage,GROUP_CONCAT( DISTINCT '<li>' , SubjectList.Subject , '</li>' ORDER BY SubjectList.Subject SEPARATOR '') AS Subjects
           FROM LuptonDB.Dbases
           LEFT JOIN LuptonDB.DBRanking
           ON DBRanking.Key_ID = Dbases.Key_ID
@@ -419,7 +414,8 @@ if (!mysqli_num_rows($result)) {
                     echo "/scripts/LGForward.php?db=". $row['Key_ID'];
                 }
                 echo"' target='_blank'>" . $row['Title'] . "\n</a></h3>";
-
+                //build typeahead availableTags lists
+                $availableTags .= "\"".addslashes($row['Title'])."\",\n";
                 echo "<p>" . $row['ShortDescription'];
                 if (!empty($row['HighlightedInfo'])) {
                     echo "<span class='highlighted-info'> " . $row['HighlightedInfo'] . "</span>";
@@ -429,11 +425,11 @@ if (!mysqli_num_rows($result)) {
                 } elseif ($row['SimUsers'] > 1) {
                     echo "<span class='limitTo'> Limited to " . $row['SimUsers'] . " simultaneous users.</span>";
                 }
-                /* START add TutorialURL link */
+                /* START add TutorialURL link
                 if (!empty($row['TutorialURL'])) {
                    echo "<span class='tutorialLink'><span class='fa fa-question-circle'></span> <a href=\"".$row['TutorialURL']."\" target=\"_blank\"> ".$row['Title']." Tip Sheet</a></span>";
                }
-               /* END add TutorialURL link */
+               END add TutorialURL link */
                 echo "</p>";
                 if (!empty($row['Subjects'])) {
                     echo "<div class='subjects'><ul class='subjectTags'><li>Subject";
@@ -469,7 +465,7 @@ $(document).ready(function() {";
 echo "\n";
 // Show LG box if available
 if ((checkLGExists($lgApiContent, $lgURL) !== false)&&($outputLG != "")) {
-    echo "$('.featureBox > .lgCard').replaceWith(\"<div class='lgCard'><h3 class='featureTitle libG'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul><div class='subjectGuideDesc'>".$lgDescription."</div></div>\");";
+    echo "$('.featureBox').replaceWith(\"<div class='featureBox lgCard'><h3 class='featureTitle'>Research Guide</h3><hr class='featureHR'><ul class='s-lg-link-list'><li><a href='https://guides.lib.utc.edu/".$outputLG."' target='_blank'>".$subj."</a></li></ul><div class='subjectGuideDesc'>".$lgDescription."</div></div>\");";
 }
 if ($typeExists > 1) {
     echo "$('#typeList').append('s');";
@@ -479,5 +475,19 @@ if ($subjectExists > 1) {
 }
 echo"
 });/* close doc ready */
+$( function() {
+  var availableTags = [".rtrim($availableTags, ','),"];
+  $('#search-highlight').autocomplete({
+    source: function(request, response) {
+        var results = $.ui.autocomplete.filter(availableTags, request.term);
+        response(results.slice(0, 10));
+    },
+    //source: availableTags,
+    minLength: 3,
+    select: function(event, ui) {
+      $('#search-highlight').val(ui.item.value).trigger('keyup').focus();
+    }
+});
+});
 </script>";
 ?>
