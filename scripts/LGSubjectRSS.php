@@ -128,7 +128,7 @@ echo "<channel>\n";
         if (!empty($row['ContentType'])) {
             echo "<span class='contentType'>" . $row['ContentType'] . "</span>";
         }
-        echo "<p>" . $row['ShortDescription'] . "</p>";
+        echo "<p>" . $row['ShortDescription'] ;
         if (!empty($row['HighlightedInfo'])) {
             echo "<span class='highlightedInfo'>" . $row['HighlightedInfo'] . "</span>";
         }
@@ -143,7 +143,7 @@ echo "<channel>\n";
         if (!empty($row['TutorialURL'])) {
            echo "<span class='tutorialLink'><a href='" . $row['TutorialURL'] . "'>" . $row['Title']. " Tip Sheet</a></span>";
         }
-       echo "]]></description>\n";
+       echo "</p>]]></description>\n";
        /* END add TutorialURL link */
         echo "</item>\n";
         $count = $count + 1;
