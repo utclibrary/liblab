@@ -193,6 +193,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </ul>
       </div>
     </nav>
-
-
+    <div id="alert" style="display: block;">
+      <div id="utc-alert" style="margin: 18px;" class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>	
+        <h2>Suspension of face-to-face instruction effective March 16</h2>
+        <p><small>Posted on Thu, Mar 12, 2020 at 09:30:07 am</small></p>
+        <p>UTC has suspended face-to-face instruction effective March 16, and the week of March 16 will be used to migrate face-to-face courses online.</p>
+        <p><a class="btn btn-danger" href="https://blog.utc.edu/coronavirus/">More information…</a></p>
+      </div>
+    </div>
 <div id="content" class="container">
