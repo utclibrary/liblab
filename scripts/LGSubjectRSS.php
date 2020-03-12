@@ -130,7 +130,7 @@ echo "<channel>\n";
         }
         echo "<p>" . $row['ShortDescription'] . "</p>";
         if (!empty($row['HighlightedInfo'])) {
-            echo "<p class='highlightedInfo'>" . $row['HighlightedInfo'] . "</p>";
+            echo "<span class='highlightedInfo'>" . $row['HighlightedInfo'] . "</span>";
         }
         if (!empty($row['SimUsers'])) {
 			echo "<span class='simUsers'>" . $row['SimUsers'] . " user";
@@ -141,7 +141,7 @@ echo "<channel>\n";
         }
         /* START add TutorialURL link */
         if (!empty($row['TutorialURL'])) {
-           echo "<span class='tutorialLink'>" . $row['TutorialURL'] . "</span>";
+           echo "<span class='tutorialLink'><a href='" . $row['TutorialURL'] . "'>" . $row['Title']. " Tip Sheet</a></span>";
         }
        echo "]]></description>\n";
        /* END add TutorialURL link */
