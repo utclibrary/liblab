@@ -193,13 +193,62 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </ul>
       </div>
     </nav>
+
+    <?php
+// alerts function
+ $url = "http://www.getrave.com/rss/utc/channel1";
+ if(isset($_POST['submit'])){
+   if($_POST['feedurl'] != ''){
+     $url = $_POST['feedurl'];
+   }
+ }
+
+ $invalidurl = false;
+ if(@simplexml_load_file($url)){
+  $feeds = simplexml_load_file($url);
+ }else{
+  $invalidurl = true;
+  echo "<h2>Invalid RSS feed URL.</h2>";
+ }
+
+
+ $i=0;
+ if(!empty($feeds)){
+
+  $site = $feeds->channel->title;
+  $sitelink = $feeds->channel->link;
+
+  //echo "<h1>".$site."</h1>";
+  foreach ($feeds->channel->item as $item) {
+
+   $title = $item->title;
+   $link = $item->link;
+   $description = $item->description;
+   $postDate = $item->pubDate;
+   $pubDate = date('D, d M Y',strtotime($postDate));
+
+
+   if($i>=5) break;
+  ?>
     <div id="alert" style="display: block;">
-      <div id="utc-alert" style="margin: 18px;" class="alert alert-danger">
-        <button type="button" class="close" data-dismiss="alert">×</button>	
-        <h2>Suspension of face-to-face instruction effective March 16</h2>
-        <p><small>Posted on Thu, Mar 12, 2020 at 09:30:07 am</small></p>
-        <p>UTC has suspended face-to-face instruction effective March 16, and the week of March 16 will be used to migrate face-to-face courses online.</p>
-        <p><a class="btn btn-danger" href="https://blog.utc.edu/coronavirus/">More information…</a></p>
-      </div>
-    </div>
+    <div id="utc-alert" style="margin: 18px;" class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <h2><?php echo $title; ?></h2>
+        <p><small>Posted on <?php echo $pubDate; ?></small></p>
+        <p>
+       <?php echo implode(' ', array_slice(explode(' ', $description), 0, 20)) . "..."; ?> 
+      </p>
+       <p><a class="btn btn-danger" href="<?php echo $link; ?>">More information…</a></p>
+     </div>
+   </div>
+
+   <?php
+    $i++;
+   }
+ }else{
+   if(!$invalidurl){
+     echo "<div id='alert'></div>";
+   }
+ }
+ ?>
 <div id="content" class="container">

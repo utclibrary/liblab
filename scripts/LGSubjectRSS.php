@@ -102,7 +102,7 @@ function generateRSS($result, $url, $link)
     //echo "<ul class='s-lg-link-list'>";
     header('Content-type: application/xml');
     echo "<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'>\n";
-echo "<channel>\n";
+    echo "<channel>\n";
 
     while ($row = mysqli_fetch_array($result)) {
       if ($count < 1){
