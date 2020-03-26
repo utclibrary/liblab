@@ -1,35 +1,40 @@
 <?php
 //check to see if error reporting is OFF N or Y ON
-if ($errorReporting === "Y"){
+if ($errorReporting === "Y") {
   ini_set('display_errors', 1);
   ini_set('display_startup_errors', 1);
   error_reporting(E_ALL);
-}else{
+} else {
   error_reporting(0);
 }
 ?>
-<!doctype html><!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-gb"> <![endif]-->
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en-gb"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en-gb"> <![endif]-->
 <!--[if IE 8]>    <html class="lt-ie9" lang="en-gb"> <![endif]-->
-<!--[if gt IE 8]><!--><html lang="en"><!--<![endif]-->
-   <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta charset="utf-8"><!--[if IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edgeindex,chrome=IE8"><![endif]-->
-      <title><?php echo $title; ?></title>
+<!--[if gt IE 8]><!-->
+<html lang="en">
+<!--<![endif]-->
 
-      <meta name="Description" content="<?php echo $description; ?>">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <!--[if IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edgeindex,chrome=IE8"><![endif]-->
+  <title><?php echo $title; ?></title>
 
-      <meta name="Keywords" content="<?php echo $keywords; ?>">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<!--
+  <meta name="Description" content="<?php echo $description; ?>">
+
+  <meta name="Keywords" content="<?php echo $keywords; ?>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <!--
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
 -->
-      <!-- Prompt IE 6/7/8 users to install Chrome Frame.
+  <!-- Prompt IE 6/7/8 users to install Chrome Frame.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 9]><div class="chromeframe alert alert-error alert-floating"></div>
   <div class="alert alert-info alert-floating" data-original-title="alert alert-info alert-floating"> <button type="button" class="close" data-dismiss="alert">×</button> <strong>Welcome to the website of the University of Tennessee at Chattanooga.</strong> <p>Your web browser is outdated. For the best experience on this site,&nbsp; <a href="http://browsehappy.com/">upgrade to a modern browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>.</p> </div><![endif]-->
   <!-- compiling css via codekit from kickstrap.less & its imports -->
-<!-- remove kickstrap
+  <!-- remove kickstrap
   <link rel="stylesheet" type="text/css" href="/includes/css/kickstrap.css" media="all">
 -->
   <!-- Push HTML5 elements -->
@@ -37,56 +42,110 @@ if ($errorReporting === "Y"){
   <script src="https://www.utc.edu/_resources/Kickstrap/apps/html5shiv/dist/html5shiv.js"></script>
   <style>a.side-menu-link{display:none}</style>
   <![endif]-->
-<link rel="shortcut icon" href="/favicon.ico?v=2a" type="image/x-icon" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2a" />
-<!--
+  <link rel="shortcut icon" href="/favicon.ico?v=2a" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2a" />
+  <!--
 <link rel="stylesheet" type="text/css" href="https://www.utc.edu/includes/print.css">
 -->
-<!-- new css links for BS4 -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css" integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css" integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" href="/includes/css/db-page-bootstrap.css" media="all">
+  <!-- new css links for BS4 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css" integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css" integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" href="/includes/css/db-page-bootstrap.css" media="all">
 
 
-<script>document.cookie='resolution='+Math.max(screen.width,screen.height)+("devicePixelRatio" in window ? ","+devicePixelRatio : ",1")+'; path=/';</script>
-<script>(function(){"use strict";var c=[],f={},a,e,d,b;if(!window.jQuery){a=function(g){c.push(g)};f.ready=function(g){a(g)};e=window.jQuery=window.$=function(g){if(typeof g=="function"){a(g)}return f};window.checkJQ=function(){if(!d()){b=setTimeout(checkJQ,100)}};b=setTimeout(checkJQ,100);d=function(){if(window.jQuery!==e){clearTimeout(b);var g=c.shift();while(g){jQuery(g);g=c.shift()}b=f=a=e=d=window.checkJQ=null;return true}return false}}})();</script>
-<meta name=”twitter:site” content=”@UTChattanooga”>
-<script type="text/javascript">
-            var page_id="//www.utc.edu/library/about/mission.php";
-        </script>
-		<style>
-/* fix for random black background on sub menu */
-.navbar .nav li.dropdown.active > .dropdown-toggle{
-  background-color: transparent;
-}
-#dev-environment{
-	display:none;
-}
-		</style>
-		<?php echo $addhead; ?>
-		</head>
-   <!-- Body classes
+  <script>
+    document.cookie = 'resolution=' + Math.max(screen.width, screen.height) + ("devicePixelRatio" in window ? "," + devicePixelRatio : ",1") + '; path=/';
+  </script>
+  <script>
+    (function() {
+      "use strict";
+      var c = [],
+        f = {},
+        a, e, d, b;
+      if (!window.jQuery) {
+        a = function(g) {
+          c.push(g)
+        };
+        f.ready = function(g) {
+          a(g)
+        };
+        e = window.jQuery = window.$ = function(g) {
+          if (typeof g == "function") {
+            a(g)
+          }
+          return f
+        };
+        window.checkJQ = function() {
+          if (!d()) {
+            b = setTimeout(checkJQ, 100)
+          }
+        };
+        b = setTimeout(checkJQ, 100);
+        d = function() {
+          if (window.jQuery !== e) {
+            clearTimeout(b);
+            var g = c.shift();
+            while (g) {
+              jQuery(g);
+              g = c.shift()
+            }
+            b = f = a = e = d = window.checkJQ = null;
+            return true
+          }
+          return false
+        }
+      }
+    })();
+  </script>
+  <meta name=”twitter:site” content=”@UTChattanooga”>
+  <script type="text/javascript">
+    var page_id = "//www.utc.edu/library/about/mission.php";
+  </script>
+  <style>
+    /* fix for random black background on sub menu */
+    .navbar .nav li.dropdown.active>.dropdown-toggle {
+      background-color: transparent;
+    }
+
+    #dev-environment {
+      display: none;
+    }
+  </style>
+  <?php echo $addhead; ?>
+</head>
+<!-- Body classes
 ================================================== -->
-   <body class="utcms department simple">
-<!-- Data Layer for Google Tag Manager -->
-<!-- Google Tag Manager -->
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TRJN3JP"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TRJN3JP');</script>
-<!-- End Google Tag Manager -->
-<div id="dev-environment" class="alert alert-info" role="alert" style="padding: .25em;text-align: center;margin-bottom: 0px;">
-            | <strong>STAGING</strong> environment | </div>
-            <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
-      <div id="sf-wrapper">
-         <!-- stickyfooter wrapper -->
-         <!-- Top Menus & Logotype
+
+<body class="utcms department simple">
+  <!-- Data Layer for Google Tag Manager -->
+  <!-- Google Tag Manager -->
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TRJN3JP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <script>
+    (function(w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-TRJN3JP');
+  </script>
+  <!-- End Google Tag Manager -->
+  <div id="dev-environment" class="alert alert-info" role="alert" style="padding: .25em;text-align: center;margin-bottom: 0px;">
+    | <strong>STAGING</strong> environment | </div>
+  <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+  <div id="sf-wrapper">
+    <!-- stickyfooter wrapper -->
+    <!-- Top Menus & Logotype
 ================================================== -->
-         <!-- Main Top Navigation, Scrolls with window
+    <!-- Main Top Navigation, Scrolls with window
     ================================================== -->
     <nav class="navbar navbar-expand-lg navbarUtc">
       <a class="navbar-brand" href="#">UTC.edu</a>
@@ -186,69 +245,60 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <li id="libHours" class="nav-item order-lg-0">
             <a class="nav-link" href="https://www.utc.edu/library/about/hours.php"><span class="fas fa-clock"></span>&nbsp;Today's Hours:
               <?php
-            include($_SERVER['DOCUMENT_ROOT']."/scripts/hours-v2.php");
-            ?>
-          </a>
+              include($_SERVER['DOCUMENT_ROOT'] . "/scripts/hours-v2.php");
+              ?>
+            </a>
           </li>
         </ul>
       </div>
     </nav>
 
     <?php
-// alerts function
- $url = "http://www.getrave.com/rss/utc/channel1";
- if(isset($_POST['submit'])){
-   if($_POST['feedurl'] != ''){
-     $url = $_POST['feedurl'];
-   }
- }
+    // alerts function
+    $url = "http://www.getrave.com/rss/utc/channel1";
+    if (isset($_POST['submit'])) {
+      if ($_POST['feedurl'] != '') {
+        $url = $_POST['feedurl'];
+      }
+    }
 
- $invalidurl = false;
- if(@simplexml_load_file($url)){
-  $feeds = simplexml_load_file($url);
- }else{
-  $invalidurl = true;
-  echo "<h2>Invalid RSS feed URL.</h2>";
- }
-
-
- $i=0;
- if(!empty($feeds)){
-
-  $site = $feeds->channel->title;
-  $sitelink = $feeds->channel->link;
-
-  //echo "<h1>".$site."</h1>";
-  foreach ($feeds->channel->item as $item) {
-
-   $title = $item->title;
-   $link = $item->link;
-   $description = $item->description;
-   $postDate = $item->pubDate;
-   $pubDate = date('D, d M Y',strtotime($postDate));
-
-
-   if($i>=5) break;
-  ?>
-    <div id="alert" style="display: block;">
-    <div id="utc-alert" style="margin: 18px;" class="alert alert-danger">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <h2><?php echo $title; ?></h2>
-        <p><small>Posted on <?php echo $pubDate; ?></small></p>
-        <p>
-       <?php echo implode(' ', array_slice(explode(' ', $description), 0, 20)) . "..."; ?> 
-      </p>
-       <p><a class="btn btn-danger" href="<?php echo $link; ?>">More information…</a></p>
-     </div>
-   </div>
-
-   <?php
-    $i++;
-   }
- }else{
-   if(!$invalidurl){
-     echo "<div id='alert'></div>";
-   }
- }
- ?>
-<div id="content" class="container">
+    $invalidurl = false;
+    if (@simplexml_load_file($url)) {
+      $feeds = simplexml_load_file($url);
+    } else {
+      $invalidurl = true;
+      echo "<h2>Invalid RSS feed URL.</h2>";
+    }
+    if (!empty($feeds)) {
+      $site = $feeds->channel->title;
+      $sitelink = $feeds->channel->link;
+      foreach ($feeds->channel->item as $item) {
+        $title = $item->title;
+        $link = $item->link;
+        $description = $item->description;
+        $postDate = $item->pubDate;
+        $pubDate = date('D, M d Y g:i A', strtotime($postDate));
+        if ($title != "No emergencies at this time"){
+    ?>
+        <div id="alert" style="display: block;">
+          <div id="utc-alert" style="margin: 18px;" class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <h2><?php echo $title; ?></h2>
+            <p><small>Posted on <?php echo $pubDate; ?></small></p>
+            <p>
+              <?php echo implode(' ', array_slice(explode(' ', $description), 0, 20)) . "..."; ?>
+            </p>
+            <p><a class="btn btn-danger" href="<?php echo $link; ?>">More information…</a></p>
+          </div>
+        </div>
+    <?php
+      }
+    break;
+      }
+    } else {
+      if (!$invalidurl) {
+        echo "<div id='alert'></div>";
+      }
+    }
+    ?>
+    <div id="content" class="container">
