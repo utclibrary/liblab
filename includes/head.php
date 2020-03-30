@@ -278,7 +278,7 @@ if ($errorReporting === "Y") {
         $description = $item->description;
         $postDate = $item->pubDate;
         $pubDate = date('D, M d Y g:i A', strtotime($postDate));
-        if ($title != "No emergencies at this time"){
+        if ($title != "No emergencies at this time!"){
     ?>
         <div id="alert" style="display: block;">
           <div id="utc-alert" style="margin: 18px;" class="alert alert-danger">
@@ -301,4 +301,12 @@ if ($errorReporting === "Y") {
       }
     }
     ?>
+    <!-- BEGIN temp COVID-19 Library Alert -->
+    <div id="alert">
+    <div id="utc-alert" style="margin: 18px;" class="alert alert-danger">
+      <button type='button' class='close' data-dismiss='alert'>×</button>
+      <h3 class='margin-left'>COVID-19 Library Operations Update</h3>
+      <p class='margin-left'  style="margin: 0;">Check out the <a href='https://utc.edu/library/library-continuity/index.php'><strong>latest on currently available library services</strong></a>.</p>
+    </div></div>
+    <!-- END temp COVID-19 Library Alert -->
     <div id="content" class="container">
