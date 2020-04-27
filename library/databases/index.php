@@ -313,8 +313,8 @@ $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbas
     <div class="col-lg-4 row-eq-height">
     <div class="promoCard2">
     <h2 class="promoTitle">
-<span class="fas fa-bullhorn"></span>&nbsp;Law Database Trial</h2>
-<?php
+    <span class="fas fa-bullhorn"></span>&nbsp;Free Publisher Resources</h2>
+    <?php
 //$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.TutorialURL FROM Dbases WHERE Dbases.New = 1 ORDER BY Dbases.Title";
 //        $result = mysqli_query($conLuptonDB, $newquery) or die($error);
 //        if (!mysqli_num_rows($result)) {
@@ -322,15 +322,19 @@ $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbas
 //        } else {
 //            generatelist($result,'');
 //        } ?>
-<p align="center"><img alt="" src="//libapps.s3.amazonaws.com/accounts/142681/images/icon-1968237_640.png" align="center;" style="width: 50%;" /></p>
+<p align="center"><img alt="" src="//www.utc.edu/library/images/homepage/feature-free-resources.jpg
+" align="center;" style="width: 100%; border-radius: 10px"></p>
+<h3 style="font-size: 24px; text-align: center;">Free Publisher Resources Available for a Limited Time</h3>
 
-<p align="center">The UTC Library is trialing two law databases, <strong>Westlaw </strong>and<strong> HeinOnline,&nbsp;</strong>that may replace Nexis Uni as the primary source for legal resources.</p>
+ 
 
-<p align="center">Please take a moment to explore these resources and provide your feedback!</p>
-<span><a href="https://guides.lib.utc.edu/c.php?g=1007086" onclick="" class="btn-lnk" target="_blank"><div class="btn btn-block btn-primary btn-wrap btn-lnk">Try Out the Trial Databases</div></a> 
-				</span>
+<p align="center"> Numerous content providers are generously providing the UTC community with free access to databases, e-journals, eBooks, streaming videos and more for the next month or more, depending on the provider.</p>
+<p align="center"> Please note access end dates in red text in each resource’s description. 
+</p>
+<span><a href="https://guides.lib.utc.edu/free-pub-resources
+" onclick="" class="btn-lnk" target="_blank"><div class="btn btn-block btn-primary btn-wrap btn-lnk">View Free Resources</div></a> 
+                </span>
       </div>
-    </div>
     <!-- END PROMO BOX -->
     </div>
 <?php
