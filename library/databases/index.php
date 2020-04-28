@@ -313,8 +313,8 @@ $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbas
     <div class="col-lg-4 row-eq-height">
     <div class="promoCard2">
     <h2 class="promoTitle">
-    <span class="fas fa-bullhorn"></span>&nbsp;Free Publisher Resources</h2>
-    <?php
+<span class="fas fa-bullhorn"></span>&nbsp;Free Publisher Resources</h2>
+<?php
 //$newquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbases.ContentType, Dbases.HighlightedInfo, Dbases.SimUsers, Dbases.ShortURL, Dbases.TutorialURL FROM Dbases WHERE Dbases.New = 1 ORDER BY Dbases.Title";
 //        $result = mysqli_query($conLuptonDB, $newquery) or die($error);
 //        if (!mysqli_num_rows($result)) {
@@ -335,6 +335,7 @@ $multiquery = "SELECT Dbases.Title, Dbases.Key_ID, Dbases.ShortDescription, Dbas
 " onclick="" class="btn-lnk" target="_blank"><div class="btn btn-block btn-primary btn-wrap btn-lnk">View Free Resources</div></a> 
                 </span>
       </div>
+    </div>
     <!-- END PROMO BOX -->
     </div>
 <?php
